@@ -30,4 +30,4 @@ build/Release
 node_modules
 
 # Server config file
-lib/config.js
+lib/env/local.js
