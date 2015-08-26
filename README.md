@@ -41,8 +41,8 @@ sudo npm install -g bower
 npm install
 cp lib/config.example.js lib/config.js
 ```
-####change server config file
-find the config.js file in /lib, and change to match your local requirements
+Find the new config.js file in /lib
+change configs to match your system requirements
 
 ### Roadmap
 
