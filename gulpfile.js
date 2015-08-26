@@ -9,7 +9,7 @@ var nodemon = require('gulp-nodemon');
 
 gulp.task('default', ['nodemon']);
 
-gulp.task('test', ['jshint','karma']);
+gulp.task('test', ['jshint','karma', 'jasmine']);
 
 gulp.task('jasmine', function () {
   return gulp.src('./modules/**/tests/server/**/*.js')
