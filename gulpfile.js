@@ -13,7 +13,9 @@ gulp.task('test', ['jshint','karma']);
 
 gulp.task('jasmine', function () {
   return gulp.src('./modules/**/tests/server/**/*.js')
-    .pipe(jasmine());
+    .pipe(jasmine({
+      verbose: true
+    }));
 });
 
 gulp.task('jshint', function () {
