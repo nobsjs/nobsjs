@@ -29,6 +29,8 @@
   "dependencies": {
     "c.log": "0.0.3",
     "express": "^4.13.3",
+    "glob": "^5.0.14",
+    "lodash": "^3.10.1",
     "swig": "^1.4.2"
   }
 }
