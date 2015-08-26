@@ -1,8 +1,9 @@
 'use strict';
 
 var app = require('./lib/express');
-var clog = require('./lib/clog');
+var clog = require('c.log');
+var config = require('./lib/config');
 
-app.listen(4000, function(){
-  clog.green('Listening on port 4000');
+app.listen(config.port, function (){
+  clog.green('Listening on port ' + config.port);
 });
