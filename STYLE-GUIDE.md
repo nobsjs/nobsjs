@@ -140,6 +140,12 @@ When writing any block of code that is logically subordinate to the line immedia
     ```
 
 
+### Use Strict
+* Every file should have `'use strict';` as the very first line of every file.
+
+### New Lines
+* Every file should end with a new line character.
+
 ### Semicolons
 
 * Don't forget semicolons at the end of lines
