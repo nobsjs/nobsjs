@@ -1,6 +1,11 @@
 'use strict';
 
-var tropicalbs = angular.module('tropicalbs', ['ui.router']);
+// defines main app and inject dependencies
+var tropicalbs = angular.module('tropicalbs', [
+    'ui.router',
+    'tropicalbs.home',
+    // 'ngMock'
+    ]);
 
 tropicalbs.config(function ($stateProvider, $urlRouterProvider) {
     
@@ -11,7 +16,8 @@ tropicalbs.config(function ($stateProvider, $urlRouterProvider) {
         // HOME STATES AND NESTED VIEWS ========================================
         .state('home', {
             url: '/home',
-            templateUrl: '../../../../modules/core/client/views/core.client.home.html'
+            templateUrl: '../../../../modules/core/client/views/core.client.home.html',
+            controller: 'HomeCtrl'
         })
         
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
