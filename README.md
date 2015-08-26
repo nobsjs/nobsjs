@@ -39,8 +39,10 @@ From within the root directory:
 ```sh
 sudo npm install -g bower
 npm install
-bower install
+cp lib/config.example.js lib/config.js
 ```
+Find the new config.js file in /lib
+change configs to match your system requirements
 
 ### Roadmap
 
