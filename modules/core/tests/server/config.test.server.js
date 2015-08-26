@@ -4,7 +4,7 @@ var path = require('path');
 
 describe('Config lib', function () {
 
-  var config = require(path.resolve('./lib/config.example.js'));
+  var config = require(path.resolve('./lib/config.js'));
   it('should be an object', function () {
     expect(typeof config).toEqual('object');
   });

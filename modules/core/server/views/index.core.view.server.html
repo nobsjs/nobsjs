@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TROPICAL SUBMARINE FOR THE WIN</title>
-  <script src="../../../../public/lib/angular/angular.min.js"></script>
-  <script src="../../../../public/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="../../../../modules/core/client/app/app.js"></script>
+  <title>{{ title }}</title>
+
+  {% for cssFile in files.lib.css %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+  {% for cssFile in files.css %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+
+  
+
 </head>
 <body ng-app="tropicalbs">
 	<div ui-view></div>
+
+  {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+  {% for jsFile in files.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+
 </body>
 </html>

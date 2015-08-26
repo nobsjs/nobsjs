@@ -7,12 +7,14 @@ var jshint = require('gulp-jshint');
 var karmaServer = require('karma').Server;
 var nodemon = require('gulp-nodemon');
 
+var config = require('./lib/config');
+
 gulp.task('default', ['nodemon']);
 
 gulp.task('test', ['jshint','karma', 'jasmine']);
 
 gulp.task('jasmine', function () {
-  return gulp.src('./modules/**/tests/server/**/*.js')
+  return gulp.src(config.files.server.tests)
     .pipe(jasmine({
       includeStackTrace: true
     }));
