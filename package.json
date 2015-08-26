@@ -22,9 +22,11 @@
     "gulp-jshint": "^1.11.2",
     "gulp-nodemon": "^2.0.4",
     "jasmine": "^2.3.2",
-    "karma": "^0.13.9"
+    "karma": "^0.13.9",
+    "supertest": "^1.1.0"
   },
   "dependencies": {
-    "chalk": "^1.1.1"
+    "c.log": "0.0.3",
+    "express": "^4.13.3"
   }
 }

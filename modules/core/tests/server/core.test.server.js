@@ -1,12 +1,22 @@
 'use strict';
 
+var path = require('path');
+var request = require('supertest');
 
-describe('"Hello World"', function() {
+describe('basic request', function () {
 
-  it('should respond to a root request with "Hello World"', function() {
+  var app = require(path.resolve('./lib/express.js'));
+
+  it('should respond to a request to "/" with 200 status', function () {
     
-    expect(true).toEqual(true);
-
+    request(app)
+      .get('/')
+      .expect(200)
+      .end(function(err){
+        if (err) {
+          throw err;
+        }
+      });  
   });
-  
+
 });
