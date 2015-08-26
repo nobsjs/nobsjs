@@ -2,8 +2,10 @@
 // Karma configuration
 // Generated on Wed Aug 26 2015 12:05:08 GMT-0700 (PDT)
 
-module.exports = function(config) {
-  config.set({
+var config = require('./lib/config.js');
+
+module.exports = function(karmaConfig) {
+  karmaConfig.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -15,12 +17,7 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-      'public/lib/angular/angular.min.js',
-      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
-      'modules/**/client/**/*.js',
-      'modules/**/tests/client/**/*.js'
-    ],
+    files: config.files.karma,
 
 
     // list of files to exclude
@@ -50,7 +47,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: karmaConfig.LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes

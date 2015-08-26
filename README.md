@@ -39,10 +39,12 @@ From within the root directory:
 ```sh
 sudo npm install -g bower
 npm install
-cp lib/config.example.js lib/config.js
 ```
-Find the new config.js file in /lib
-change configs to match your system requirements
+If you need to modify some of the configs:
+1.) Copy the default config file `cp lib/env/default.js lib/env/local.js`
+2.) Remove any components you want don't want to set & change the options you need changed.
+  * Anything in local will override the default
+  * Anything not defined in local will default to the default config
 
 ### Roadmap
 
