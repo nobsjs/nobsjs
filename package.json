@@ -32,6 +32,7 @@
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.9.34",
+    "bower": "^1.5.2",
     "c.log": "0.0.3",
     "express": "^4.13.3",
     "glob": "^5.0.14",
