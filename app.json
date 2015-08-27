@@ -1,0 +1,8 @@
+{
+  "name": "tropicalbs",
+  "scripts": {},
+  "env": {},
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
