@@ -6,12 +6,29 @@ var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
 var karmaServer = require('karma').Server;
 var nodemon = require('gulp-nodemon');
+var runSequence = require('run-sequence');
 
-var config = require('./lib/config');
+var config = {};
 
 gulp.task('default', ['nodemon']);
 
-gulp.task('test', ['jshint','karma', 'jasmine']);
+gulp.task('test', function (done) {
+  runSequence('env:test', 'loadConfig', 'jshint','karma', 'jasmine', done);
+});
+gulp.task('test:client', function (done) {
+  runSequence('env:test', 'loadConfig', 'jshint', 'karma', done);
+});
+gulp.task('test:server', function (done) {
+  runSequence('env:test', 'loadConfig', 'jshint', 'jasmine', done);
+});
+
+gulp.task('loadConfig', function () {
+  config = require('./lib/config');
+});
+
+gulp.task('env:test', function () {
+  process.env.NODE_ENV = 'test';
+});
 
 gulp.task('jasmine', function () {
   return gulp.src(config.files.server.tests)
