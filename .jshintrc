@@ -30,6 +30,9 @@
         "afterEach": true,
         "jasmine": true,
         "xit": true,
-        "fail": true
-     }
+        "fail": true,
+        "beforeAll": true,
+        "afterAll": true
+     },
+     "predef": ["-Promise"]
 }

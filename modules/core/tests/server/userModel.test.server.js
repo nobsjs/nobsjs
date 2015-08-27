@@ -5,19 +5,46 @@ var sequelize = require(path.resolve('./lib/sequelize.js'));
 
 var User = require(path.resolve('./modules/core/server/models/user.models.server.js'));
 
-sequelize.sync();
 
 describe('User functionality', function () {
 
+  beforeAll(function(done){
+    
+    sequelize.sync()
+      .then(function () {
+        return User.create({
+          username: 'Test',
+          password: 'testPassword'
+        });
+      })
+      .then(function(){
+        done();
+      });
+  });
+
+  afterAll(function(done){
+    User.destroy({
+      where: {
+        id: {
+          $gt: 0
+        }
+      }
+    }).then(function (rows) {
+      // console.log('Destroyed ', rows, ' entries');
+      return sequelize.drop();
+    }).then(function(){
+      done();
+    });
+  });
+  
 
   it('should create a user', function (done) {
     User.create({
-      username: 'Test',
+      username: 'TestCreate',
       password: 'testpassword'
     })
     .then(function(user) {
       expect(typeof user.password).toEqual('string');
-      console.log('password', user.password);
       done();
     })
     .catch(function (err) {
@@ -26,12 +53,13 @@ describe('User functionality', function () {
   });
 
   it('Compare password should return true for matching PW', function (done) {
-    User.create({
-      username: 'Test2',
-      password: 'testpassword'
+    User.find({
+      where: {
+        username: 'Test',
+      }
     })
     .then(function(user){
-      user.comparePassword('testpassword').then(function(isMatch){
+      user.comparePassword('testPassword').then(function(isMatch){
         expect(isMatch).toEqual(true);
         done();
       });
@@ -42,10 +70,11 @@ describe('User functionality', function () {
 
   });
   
-  it('Compare password should return false for matching PW', function (done) {
-      User.create({
-        username: 'Test2',
-        password: 'testpassword'
+  it('Compare password should return false for non-matching PW', function (done) {
+      User.find({
+        where: {
+          username: 'Test',
+        }
       })
       .then(function(user){
         user.comparePassword('tesasdftpassword').then(function(isMatch){

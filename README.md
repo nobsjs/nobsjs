@@ -1,12 +1,14 @@
-# Project Name
+# TropicalBS
 
-> Pithy project description
+Modular content management and business administration platform for small businesses and organizations.
+Core product enables management of public content, customers, scheduling, and billing.
+Incremental modules will allow TropicalBS to be customized for specific use cases, such as dance/karate/yoga studios, recreational sports leagues, etc.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Trevor Hanus
+  - __Scrum Master__: Cody Daig
+  - __Development Team Members__: Marco Viappiani, Rob Rodrigez
 
 ## Table of Contents
 
@@ -24,11 +26,8 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 0.12.x
+- Postgresql 9.1.x (or other SQL database - configured locally)
 
 ## Development
 
