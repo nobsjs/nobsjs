@@ -5,6 +5,7 @@
   "homepage": "https://github.com/tropicalsubmarine/tropicalbs",
   "dependencies": {
     "angular": "~1.4.4",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "angular-mocks": "~1.4.4"
   }
 }

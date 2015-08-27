@@ -10,10 +10,10 @@
 
 </head>
 <body ng-app="tropicalbs">
-	<div ui-view></div>
 
   {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
   {% for jsFile in files.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
+  <div ui-view></div>
 </body>
 </html>

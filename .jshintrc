@@ -22,6 +22,7 @@
         "describe": true,
         "it": true,
         "angular": true,
+        "inject": true,
         "expect": true,
         "before": true,
         "after": true,
