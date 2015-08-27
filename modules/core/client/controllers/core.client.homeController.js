@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('tropicalbs.home',[])
-	.controller('HomeCtrl', function($scope) {
-		$scope.content = 'here is some content';
+	.controller('HomeController', function($scope) {
+		$scope.content = 'this is some controller generated content';
 	});
-
