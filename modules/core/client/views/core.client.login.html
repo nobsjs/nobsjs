@@ -1,0 +1,27 @@
+
+<div layout="row" layout-align="center center">
+  <div flex='33' layout-padding layout-margin>
+    <div ng-controller="UsersController" layout="column">
+      <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools" layout-fill>
+          Log in
+        </h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <form name="login">
+          <md-content md-theme="docs-dark" layout-padding layout="column">
+            <md-input-container>
+              <label>Email</label>
+              <input ng-model="user.email" type="email">
+            </md-input-container>
+            <md-input-container>
+              <label>Password</label>
+              <input ng-model="user.password" type="password">
+            </md-input-container>
+          </md-content>
+          <md-button class="md-raised md-primary">Log In</md-button>
+        </form>
+      </md-content>
+    </div>
+  </div>
+</div>
