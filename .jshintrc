@@ -27,6 +27,7 @@
         "after": true,
         "beforeEach": true,
         "afterEach": true,
-        "jasmine": true
+        "jasmine": true,
+        "xit": true
      }
 }
