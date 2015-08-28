@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('tropicalbs.blog',[])
+angular.module('tropicalbs')
 	.controller('BlogController', function($scope) {
 	});

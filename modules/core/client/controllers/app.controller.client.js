@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('tropicalbs.app',[])
+angular.module('tropicalbs')
 	.controller('AppController', function($scope) {
 	});
