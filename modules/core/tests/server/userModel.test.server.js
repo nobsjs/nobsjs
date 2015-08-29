@@ -13,7 +13,7 @@ describe('User functionality', function () {
     sequelize.sync({force: true})
       .then(function () {
         return User.create({
-          username: 'Test',
+          email: 'Test@test.com',
           password: 'testPassword'
         });
       })
@@ -43,7 +43,7 @@ describe('User functionality', function () {
 
   it('should create a user', function (done) {
     User.create({
-      username: 'TestCreate',
+      email: 'TestCreate@test.com',
       password: 'testpassword'
     })
     .then(function (user) {
@@ -55,10 +55,24 @@ describe('User functionality', function () {
     });   
   });
 
+  it('should fail if email is invalid', function (done) {
+    User.create({
+      email: 'THIS IS NOT AN EMAIL',
+      password: 'testpassword'
+    })
+    .then(function (user) {
+      done();
+    })
+    .catch(function (err) {
+      expect(err.name).toBe('SequelizeValidationError');
+      done();
+    });  
+  });
+
   it('Compare password should return true for matching PW', function (done) {
     User.find({
       where: {
-        username: 'Test',
+        email: 'Test@test.com',
       }
     })
     .then(function (user){
@@ -76,7 +90,7 @@ describe('User functionality', function () {
   it('Compare password should return false for non-matching PW', function (done) {
       User.find({
         where: {
-          username: 'Test',
+          email: 'Test@test.com',
         }
       })
       .then(function (user){
