@@ -18,35 +18,88 @@ describe('Config lib', function () {
     expect(typeof config.port).toEqual('number');
   });
 
+  it('should have an enviorment string', function () {
+    expect(typeof config.env).toEqual('string');
+  });
+
+  it('should have a secret string', function () {
+    expect(typeof config.secret).toEqual('string');
+  });
+
   describe('database', function () {
 
-    xit('should have a database object', function () {
+    it('should have a database object', function () {
       expect(typeof config.database).toEqual('object');
     });
 
-    xit('should have a database.database string', function () {
+    it('should have a database.database string', function () {
       expect(typeof config.database.database).toEqual('string');
     });
 
-    xit('should have a database.host string', function () {
+    it('should have a database.host string', function () {
       expect(typeof config.database.host).toEqual('string');
     });
 
-    xit('should have a database.username string', function () {
+    it('should have a database.username string', function () {
       expect(typeof config.database.username).toEqual('string');
     });
 
-    xit('should have a database.password string', function () {
+    it('should have a database.password string', function () {
       expect(typeof config.database.password).toEqual('string');
     });
 
-    xit('should have a database.dialect string', function () {
+    it('should have a database.dialect string', function () {
       expect(typeof config.database.dialect).toEqual('string');
     });
 
-    xit('should have a valid database.dialect', function () {
+    it('should have a valid database.dialect', function () {
       var validDialects = ['mysql', 'postgres'];
       expect(validDialects.indexOf(config.database.dialect)).not.toEqual(-1);
+    });
+
+  });
+
+  describe('databaseTest', function () {
+
+    it('should have a database object', function () {
+      expect(typeof config.databaseTest).toEqual('object');
+    });
+
+    it('should have a databaseTest.database string', function () {
+      expect(typeof config.databaseTest.database).toEqual('string');
+    });
+
+    it('should have a databaseTest.host string', function () {
+      expect(typeof config.databaseTest.host).toEqual('string');
+    });
+
+    it('should have a databaseTest.username string', function () {
+      expect(typeof config.databaseTest.username).toEqual('string');
+    });
+
+    it('should have a databaseTest.password string', function () {
+      expect(typeof config.databaseTest.password).toEqual('string');
+    });
+
+    it('should have a databaseTest.dialect string', function () {
+      expect(typeof config.databaseTest.dialect).toEqual('string');
+    });
+
+    it('should have a valid databaseTest.dialect', function () {
+      var validDialects = ['mysql', 'postgres'];
+      expect(validDialects.indexOf(config.databaseTest.dialect)).not.toEqual(-1);
+    });
+
+  });
+
+  describe('db', function () {
+
+    it('should have a db object', function () {
+      expect(typeof config.db).toEqual('object');
+    });
+
+    it('should equal the databaseTest object', function () {
+      expect(config.db).toEqual(config.databaseTest);
     });
 
   });
@@ -81,7 +134,7 @@ describe('Config lib', function () {
       expect(typeof config.assets.server).toEqual('object');
     });
 
-    xit('should have a server.models array', function () {
+    it('should have a server.models array', function () {
       expect(Array.isArray(config.assets.server.models)).toEqual(true);
     });
 
@@ -91,6 +144,18 @@ describe('Config lib', function () {
 
     it('should have a server.tests array', function () {
       expect(Array.isArray(config.assets.server.tests)).toEqual(true);
+    });
+
+  });
+
+  describe('log', function () {
+    
+    it('should have a log object', function () {
+      expect(typeof config.log).toEqual('object');
+    });
+
+    it('should have a log.db boolean', function () {
+      expect(typeof config.log.db).toEqual('boolean');
     });
 
   });
@@ -147,6 +212,18 @@ describe('Config lib', function () {
 
     it('should have a karma array', function () {
       expect(Array.isArray(config.files.karma)).toEqual(true);
+    });
+
+  });
+
+  describe('locals', function () {
+
+    it('should have locals object', function () {
+      expect(typeof config.locals).toEqual('object');
+    });
+
+    it('should have a locals.title string', function () {
+      expect(typeof config.locals.title).toEqual('string');
     });
 
   });
