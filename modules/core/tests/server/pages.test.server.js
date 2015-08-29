@@ -8,10 +8,8 @@ var Page = require(path.resolve('./modules/core/server/models/page.model.server.
 
 describe('Pages', function () {
 
-  var app = require(path.resolve('./lib/express.js'));
 
   beforeAll(function (done){
-    
     sequelize.sync({force: true})
       .then(function () {
         return Page.create({
@@ -25,14 +23,17 @@ describe('Pages', function () {
       });
   });
 
-  it('should respond to a request to "/api/core/pages" with 200 status', function () {
-    
+  var app = require(path.resolve('./lib/express.js'));
+
+  it('should respond to a request to "/api/core/pages" with 200 status', function (done) {
     request(app)
       .get('/api/core/pages')
       .expect(200)
-      .end(function(err){
+      .end(function (err, res){
         if (err) {
-          throw err;
+          done.fail(err);
+        } else {
+          done();
         }
       });  
   });
