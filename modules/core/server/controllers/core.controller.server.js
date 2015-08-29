@@ -10,7 +10,7 @@ exports.renderIndex = function(req, res) {
 };
 
 exports.logIn = function(req, res) {
-  var email = req.body.email;
+  var email = req.body.email.toLowerCase();
   var password = req.body.password;
 
   User.findOne({
@@ -39,7 +39,7 @@ exports.logIn = function(req, res) {
 };
 
 exports.signUp = function (req, res) {
-  var email = req.body.email;
+  var email = req.body.email.toLowerCase();
   var password = req.body.password;
   User.findOne({
     where: {
