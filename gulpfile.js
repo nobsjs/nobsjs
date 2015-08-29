@@ -60,3 +60,21 @@ gulp.task('nodemon', function () {
       console.log('restarted!');
     });
 });
+
+// THIS SECTION IS A WORK AROUND FOR GULP HANGING AT THE END OF TESTS
+
+var isWatching = false;
+/*
+//REFERENCE THIS CODE IF WE BEGIN USING ANY WATCHES
+gulp.task('watch', [....], function() {
+  isWatching = true;
+ .... ...
+});
+*/
+gulp.on('stop', function() {
+    if (!isWatching) {
+        process.nextTick(function() {
+            process.exit(0);
+        });
+    }
+});
