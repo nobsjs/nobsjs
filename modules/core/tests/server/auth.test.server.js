@@ -213,3 +213,10 @@ describe('signup', function () {
       });
   });
 });
+
+describe('checkAuth', function () {
+
+
+
+
+});

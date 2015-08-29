@@ -66,10 +66,7 @@ exports.signUp = function (req, res) {
 };
 
 exports.checkAuth = function (req, res, next) {
-  // checking to see if the user is authenticated
-  // grab the token in the header is any
-  // then decode the token, which we end up being the user object
-  // check to see if that user exists in the database
+  // this route has 'decode' as middleware. If the token was successfully decoded, req will have a 'user' property
   var token = req.headers['x-access-token'];
   if (!token) {
     next(new Error('No token'));
