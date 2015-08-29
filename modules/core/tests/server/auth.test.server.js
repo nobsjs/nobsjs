@@ -128,13 +128,8 @@ describe('signup', function () {
       }
     })
     .then(function () { //callback argument would be # of rows deleted
-      // console.log('Destroyed ', rows, ' entries (signup)');
       done();
     });
-    // .then(function(){
-    //   done();
-    // });
-    
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -216,7 +211,60 @@ describe('signup', function () {
 
 describe('checkAuth', function () {
 
+  var app = require(path.resolve('./lib/express.js'));
 
+  beforeAll(function (done) {
+    sequelize.sync({force: true})
+      .then(function () {
+        done();
+      });
+  });
 
+  afterEach(function (done) {
+    User.destroy({
+      where: {
+        id: {
+          $gt: 0
+        }
+      }
+    })
+    .then(function () { //callback argument would be # of rows deleted
+      done();
+    });
+  });
+
+  it('should respond with 403 if no token is present', function(done){
+    request(app)
+      .post('/api/core/users/checkauth')
+      .expect(403)
+      .end(function (err) {
+        if (err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
+  it('should respond with 200 if user is valid', function(done){
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .end(function (err, res) { //call back arguments would be err, res
+        var token = res.body.token;
+        request(app)
+          .post('/api/core/users/checkauth')
+          .send({})
+          .set('x-access-token', token)
+          .expect(200)
+          .end(function (err) {
+            if (err) {
+              done.fail(err);
+            } else {
+              done();
+            }
+          });
+      });
+  });
 
 });

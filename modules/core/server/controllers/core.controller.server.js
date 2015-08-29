@@ -69,13 +69,14 @@ exports.checkAuth = function (req, res, next) {
   // this route has 'decode' as middleware. If the token was successfully decoded, req will have a 'user' property
   var token = req.headers['x-access-token'];
   if (!token) {
-    next(new Error('No token'));
+    res.status(403).send('no token provided');
+    // next(new Error('No token'));
   } else {
     var user = jwt.decode(token, config.secret);
     User.findOne({email: user.email})
       .then(function (foundUser) {
         if (foundUser) {
-          res.send(200);
+          res.sendStatus(200);
         } else {
           res.status(401).send('User does not exist');
         }
