@@ -2,7 +2,7 @@
 
 angular.module('tropicalbs')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('home', {
         // assigned as a child of the nav state
@@ -11,13 +11,13 @@ angular.module('tropicalbs')
         views: {
           // loads nested view
           'nav-child-content': {
-            templateUrl: '../../../../modules/core/client/views/core.client.home.html',
+            templateUrl: '../../../../modules/core/client/views/home.view.client.html',
             controller: 'HomeController'
           }
         },
           // function activated when entering the controller. console.log for testing
-         // onEnter: function() { console.log("enter home.html"); }
-      })
+         // onEnter: function() { console.log('enter home.html'); }
+      });
   })
 
 	.controller('HomeController', function($scope) {

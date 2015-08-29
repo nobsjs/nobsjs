@@ -2,7 +2,7 @@
 
 angular.module('tropicalbs')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('blog', {
         parent: 'nav',
@@ -13,7 +13,7 @@ angular.module('tropicalbs')
             controller: 'BlogController'
           }
         }
-      })
+      });
   })
 
   .controller('BlogController', function($scope) {
