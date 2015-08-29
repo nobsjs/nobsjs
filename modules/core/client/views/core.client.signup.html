@@ -1,5 +1,29 @@
-<div layout="row">
-  <div flex offset="33">
-    [flex offset="33"]
+<div layout="row" layout-align="center center">
+  <div flex='33' layout-padding layout-margin>
+    <div layout="column" layout-fill>
+      <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools" layout-fill>
+          Sign Up
+        </h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <form ng-submit='signup()'>
+          <md-content layout-padding layout="column">
+            <md-input-container>
+              <label>Email</label>
+              <input ng-model="user.email" type="email">
+            </md-input-container>
+            <md-input-container>
+              <label>Password</label>
+              <input ng-model="user.password" type="password">
+            </md-input-container>
+          </md-content>
+          <md-button class="md-raised md-primary" type='submit'>Sign Up</md-button>
+        </form>
+      </md-content>
+      <md-content layout-padding>
+        Already have an account? <a href='#/login'>Log in!</a>
+      </md-content>
+    </div>
   </div>
 </div>
