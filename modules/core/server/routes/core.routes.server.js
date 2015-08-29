@@ -7,4 +7,5 @@ var core = require(path.resolve('./modules/core/server/controllers/core.controll
 module.exports = function(app) {
   app.route('/').get(core.renderIndex);
   app.route('/api/core/users/login').post(core.logIn);
+  app.route('/api/core/users/signup').post(core.signUp);
 };

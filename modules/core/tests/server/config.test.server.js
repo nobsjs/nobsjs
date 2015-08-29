@@ -22,7 +22,7 @@ describe('Config lib', function () {
     expect(typeof config.env).toEqual('string');
   });
 
-  xit('should have a secret string', function () {
+  it('should have a secret string', function () {
     expect(typeof config.secret).toEqual('string');
   });
 
