@@ -14,7 +14,7 @@ tropicalbs.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
     // MAIN PARENT ROUTE ========
     .state('app', {
-      templateUrl: '../../../../modules/core/client/views/core.client.app.html',
+      templateUrl: '../../../../modules/core/client/views/app.view.client.html',
       abstract: true,
       controller: 'AppController'
     });

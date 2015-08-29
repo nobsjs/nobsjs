@@ -2,7 +2,7 @@
 
 angular.module('tropicalbs')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('nav', {
         parent: 'app',
@@ -16,7 +16,7 @@ angular.module('tropicalbs')
             template: '<div ui-view name="nav-child-content"></div>'
           }
         }
-      })
+      });
   })
 
 	.controller('NavigationController', function ($scope, $state) {
@@ -33,11 +33,11 @@ angular.module('tropicalbs')
     // updateTabMapping();
 
     $scope.tabs = [
-      { title:"Home", href:"#/home", uisref:"home"},
-      { title:"Schedule", href:"#/schedule", uisref:"schedule"},
-      { title:"Blog", href:"#/blog", uisref:"blog"},
-      { title:"About", href:"#/about", uisref:"about"},
-      { title:"Admin", href:"#/admin", uisref:"admin"}
+      { title:'Home', href:'#/home', uisref:'home'},
+      { title:'Schedule', href:'#/schedule', uisref:'schedule'},
+      { title:'Blog', href:'#/blog', uisref:'blog'},
+      { title:'About', href:'#/about', uisref:'about'},
+      { title:'Admin', href:'#/admin', uisref:'admin'}
     ];
 
     // allow view to access the current state

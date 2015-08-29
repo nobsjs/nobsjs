@@ -2,18 +2,18 @@
 
 angular.module('tropicalbs')
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('about', {
         parent: 'nav',
         url: '/about',
         views: {
           'nav-child-content': {
-            templateUrl: '../../../../modules/core/client/views/core.client.about.html',
+            templateUrl: '../../../../modules/core/client/views/about.view.client.html',
             controller: 'AboutController'
           }
         }
-      })
+      });
   })
 
   .controller('AboutController', function($scope) {

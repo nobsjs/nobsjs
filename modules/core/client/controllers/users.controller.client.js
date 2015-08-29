@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
