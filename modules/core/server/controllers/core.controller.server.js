@@ -64,3 +64,45 @@ exports.signUp = function (req, res) {
     }
   });
 };
+
+exports.checkAuth = function (req, res, next) {
+  // this route has 'decode' as middleware. If the token was successfully decoded, req will have a 'user' property
+  var token = req.headers['x-access-token'];
+  if (!token) {
+    res.status(403).send('no token provided');
+    // next(new Error('No token'));
+  } else {
+    var user = jwt.decode(token, config.secret);
+    User.findOne({email: user.email})
+      .then(function (foundUser) {
+        if (foundUser) {
+          res.sendStatus(200);
+        } else {
+          res.status(401).send('User does not exist');
+        }
+      })
+      .catch(function (e) {
+        next(e);
+      });
+  }
+};
+
+exports.decode = function(req, res, next){
+  var token = req.headers['x-access-token'];
+  var user;
+
+  if (!token) {
+    return res.send(403); // send forbidden if a token is not provided
+  }
+
+  try {
+    // decode token and attach user to the request
+    // for use inside our controllers
+    user = jwt.decode(token, config.secret);
+    req.user = user;
+    next();
+  } catch(error) {
+    return next(error);
+  }
+
+};
