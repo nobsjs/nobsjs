@@ -10,12 +10,12 @@ exports.renderIndex = function(req, res) {
 };
 
 exports.logIn = function(req, res) {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
 
   User.findOne({
     where: {
-      username: username 
+      email: email 
     }
   })
   .then(function (user) {
@@ -39,11 +39,11 @@ exports.logIn = function(req, res) {
 };
 
 exports.signUp = function (req, res) {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
   User.findOne({
     where: {
-      username: username
+      email: email
     }
   })
   .then(function (user) {
@@ -51,7 +51,7 @@ exports.signUp = function (req, res) {
       res.status(400).send('User already exists');
     } else {
       User.create({
-        username: username,
+        email: email,
         password: password
       })
       .then(function (user) {
@@ -59,7 +59,7 @@ exports.signUp = function (req, res) {
         res.json({token: token});
       })
       .catch(function (e) {
-        res.status(500).send(e);
+        res.status(400).send(e.message);
       });
     }
   });

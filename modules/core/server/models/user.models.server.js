@@ -11,10 +11,13 @@ Promise.promisifyAll(bcrypt);
 
 
 var User = sequelize.define('user', {
-  username: {
+  email: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      isEmail: true
+    }
   },
   password: Sequelize.STRING,
   admin: Sequelize.BOOLEAN
