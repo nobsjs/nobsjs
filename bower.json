@@ -5,9 +5,10 @@
   "homepage": "https://github.com/tropicalsubmarine/tropicalbs",
   "dependencies": {
     "angular": "1.4.4",
-    "angular-ui-router": "0.2.15",
+    "angular-material": "0.10.1",
+    "angular-messages": "~1.4.5",
     "angular-mocks": "1.4.4",
-    "angular-material": "0.10.1"
+    "angular-ui-router": "0.2.15"
   },
   "resolutions": {
     "angular": "1.4.5"

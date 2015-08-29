@@ -4,7 +4,8 @@
 // TODO: load all modules and controllers dynamically
 var tropicalbs = angular.module('tropicalbs', [
     'ui.router',
-    'ngMaterial'
+    'ngMaterial',
+    'ngMessages'
   ]);
 
 tropicalbs.config(function ($stateProvider, $urlRouterProvider) {
@@ -19,3 +20,9 @@ tropicalbs.config(function ($stateProvider, $urlRouterProvider) {
       controller: 'AppController'
     });
 });
+
+tropicalbs.config(function ($mdThemingProvider) {
+   // Configure a dark theme with primary foreground yellow
+   $mdThemingProvider.theme('docs-dark', 'default')
+       .primaryPalette('yellow');
+ });
