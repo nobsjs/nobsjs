@@ -4,18 +4,18 @@ angular.module('tropicalbs')
 
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('blog', {
+      .state('about', {
         parent: 'nav',
-        url: '/blog',
+        url: '/about',
         views: {
           'nav-child-content': {
-            templateUrl: '../../../../modules/blog/client/views/blog.view.client.html',
-            controller: 'BlogController'
+            templateUrl: '../../../../modules/core/client/views/core.client.about.html',
+            controller: 'AboutController'
           }
         }
       })
   })
 
-  .controller('BlogController', function($scope) {
+  .controller('AboutController', function($scope) {
     $scope.content = 'this is some controller generated content';
   });
