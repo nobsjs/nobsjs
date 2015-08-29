@@ -1,0 +1,7 @@
+<!-- href links need to make sure they have an associated html view and controller -->
+<md-toolbar>
+<h1>Tropical BS</h1>
+  <md-tabs md-selected="selectedIndex" md-selected="selectedIndex">
+    <md-tab md-active="state.is(tab.uisref)" ng-repeat="tab in tabs" ui-sref="{{tab.uisref}}" label="{{tab.title}}"></md-tab>
+  </md-tabs>
+</md-toolbar>
