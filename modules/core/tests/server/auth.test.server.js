@@ -11,7 +11,7 @@ describe('login', function () {
 
   beforeAll(function(done){
     
-    sequelize.sync()
+    sequelize.sync({force: true})
       .then(function () {
         return User.create({
           username: 'Rob',
@@ -23,19 +23,22 @@ describe('login', function () {
       });
   });
 
-  afterAll(function(done){
+  afterAll(function (done) {
     User.destroy({
       where: {
         id: {
           $gt: 0
         }
       }
-    }).then(function (rows) {
-      // console.log('Destroyed ', rows, ' entries');
-      return sequelize.drop();
-    }).then(function(){
+    })
+    .then(function () { //callback argument would be # of rows deleted
+      // console.log('Destroyed ', rows, ' entries (login)');
+      // return sequelize.drop();
       done();
     });
+    // .then(function(){
+    //   done();
+    // });
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -48,7 +51,7 @@ describe('login', function () {
       .expect(200)
       .end(function(err){
         if (err) {
-          done(err);
+          done.fail(err);
         } else {
           done();
         }
@@ -63,7 +66,7 @@ describe('login', function () {
       .expect(400)
       .end(function(err){
         if (err) {
-          done(err);
+          done.fail(err);
         } else {
           done();
         }
@@ -78,7 +81,7 @@ describe('login', function () {
       .expect(400)
       .end(function(err){
         if (err) {
-          done(err);
+          done.fail(err);
         } else {
           done();
         }
@@ -98,7 +101,7 @@ describe('login', function () {
       })
       .end(function(err){
         if (err) {
-          done(err);
+          done.fail(err);
         } else {
           done();
         }
@@ -107,3 +110,71 @@ describe('login', function () {
 
 });
 
+describe('signup', function () {
+
+  beforeAll(function (done) {
+    sequelize.sync({force: true})
+      .then(function () {
+        done();
+      });
+  });
+
+  afterEach(function (done) {
+    User.destroy({
+      where: {
+        id: {
+          $gt: 0
+        }
+      }
+    })
+    .then(function () { //callback argument would be # of rows deleted
+      // console.log('Destroyed ', rows, ' entries (signup)');
+      done();
+    });
+    // .then(function(){
+    //   done();
+    // });
+    
+  });
+
+  var app = require(path.resolve('./lib/express.js'));
+
+  it('should return a token upon new user signup', function (done) {
+    
+    request(app)
+      .post('/api/core/users/signup')
+      .send({username: 'Rob', password: 'testpassword'})
+      .expect(function (res) {
+        if (!res.body.hasOwnProperty('token')){
+          return 'token not found';
+        }
+      })
+      .end(function (err){
+        if (err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });  
+  });
+
+  it('should fail upon duplicate signup', function (done) {
+    
+    request(app)
+      .post('/api/core/users/signup')
+      .send({username: 'Rob', password: 'testpassword'})
+      .end(function () { //call back arguments would be err, res
+        request(app)
+          .post('/api/core/users/signup')
+          .send({username: 'Rob', password: 'testpassword'})
+          .expect(400)
+          .end(function (err) {
+            if (err) {
+              done.fail(err);
+            } else {
+              done();
+            }
+          });
+      });
+  });
+});

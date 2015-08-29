@@ -10,7 +10,7 @@ describe('User functionality', function () {
 
   beforeAll(function(done){
     
-    sequelize.sync()
+    sequelize.sync({force: true})
       .then(function () {
         return User.create({
           username: 'Test',
@@ -29,12 +29,15 @@ describe('User functionality', function () {
           $gt: 0
         }
       }
-    }).then(function (rows) {
+    })
+    .then(function (  ) { //argument to callback would be # of rows deleted
       // console.log('Destroyed ', rows, ' entries');
-      return sequelize.drop();
-    }).then(function(){
+      // return sequelize.drop();
       done();
     });
+    // .then(function(){
+    //   done();
+    // });
   });
   
 
@@ -43,7 +46,7 @@ describe('User functionality', function () {
       username: 'TestCreate',
       password: 'testpassword'
     })
-    .then(function(user) {
+    .then(function (user) {
       expect(typeof user.password).toEqual('string');
       done();
     })
@@ -58,8 +61,8 @@ describe('User functionality', function () {
         username: 'Test',
       }
     })
-    .then(function(user){
-      user.comparePassword('testPassword').then(function(isMatch){
+    .then(function (user){
+      user.comparePassword('testPassword').then(function (isMatch){
         expect(isMatch).toEqual(true);
         done();
       });
@@ -76,8 +79,8 @@ describe('User functionality', function () {
           username: 'Test',
         }
       })
-      .then(function(user){
-        user.comparePassword('tesasdftpassword').then(function(isMatch){
+      .then(function (user){
+        user.comparePassword('tesasdftpassword').then(function (isMatch){
           expect(isMatch).toEqual(false);
           done();
         });
