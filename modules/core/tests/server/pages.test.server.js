@@ -25,7 +25,7 @@ describe('/api/core/pages', function () {
   });
 
   beforeEach(function () {
-    page = {}
+    page = {};
     page.slug = '/test';
     page.title = 'Test title';
     page.content = 'Some content for the title page';
@@ -42,7 +42,7 @@ describe('/api/core/pages', function () {
     request(app)
       .get('/api/core/pages')
       .expect(200)
-      .end(function (err, res){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -83,7 +83,7 @@ describe('/api/core/pages', function () {
     request(app)
       .get('/api/core/pages/1')
       .expect(400)
-      .end(function (err, res){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -96,7 +96,7 @@ describe('/api/core/pages', function () {
     request(app)
       .post('/api/core/pages')
       .send(page)
-      .end(function (err, res) {
+      .end(function (err) {
         if(err) {
           done.fail(err);
         } else {
@@ -151,7 +151,7 @@ describe('/api/core/pages', function () {
       request(app)
         .get('/api/core/pages/' + savedPage.id)
         .expect(200)
-        .end(function (err, res) {
+        .end(function (err) {
           if(err) {
             done.fail(err);
           } else {
@@ -181,7 +181,7 @@ describe('/api/core/pages', function () {
         .put('/api/core/pages/' + savedPage.id)
         .send(page)
         .expect(200)
-        .end(function (err, res) {
+        .end(function (err) {
           if(err) {
             done.fail(err);
           } else {
@@ -196,7 +196,7 @@ describe('/api/core/pages', function () {
         .put('/api/core/pages/' + savedPage.id)
         .send(page)
         .expect(200)
-        .end(function (err, res) {
+        .end(function (err) {
           if(err) {
             done.fail(err);
           } else {
@@ -221,7 +221,7 @@ describe('/api/core/pages', function () {
       request(app)
         .delete('/api/core/pages/' + savedPage.id)
         .expect(200)
-        .end(function (err, res) {
+        .end(function (err) {
           if(err) {
             done.fail(err);
           } else {
@@ -229,7 +229,7 @@ describe('/api/core/pages', function () {
             request(app)
               .get('/api/core/pages/' + savedPage.id)
               .expect(400)
-              .end(function (err, res) {
+              .end(function (err) {
                 if(err) {
                   done.fail(err);
                 } else {

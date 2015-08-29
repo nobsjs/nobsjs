@@ -48,7 +48,7 @@ exports.updatePage = function(req, res) {
 
 exports.deletePage = function(req, res) {
   Page.destroy({ where: { id: req.page.id } })
-    .then(function (result) {
+    .then(function () {
       res.status(200).send('Page deleted');
     });
 };
