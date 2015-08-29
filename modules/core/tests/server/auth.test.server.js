@@ -192,4 +192,24 @@ describe('signup', function () {
           });
       });
   });
+
+  it('should fail upon duplicate signup', function (done) {
+    
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .end(function () { //call back arguments would be err, res
+        request(app)
+          .post('/api/core/users/signup')
+          .send({email: 'rob@rob.com', password: 'testpassword'})
+          .expect(400)
+          .end(function (err) {
+            if (err) {
+              done.fail(err);
+            } else {
+              done();
+            }
+          });
+      });
+  });
 });
