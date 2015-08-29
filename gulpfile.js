@@ -43,11 +43,11 @@ gulp.task('jshint', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('karma', function () {
+gulp.task('karma', function (done) {
   return new karmaServer({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
-  }).start();
+  }, done).start();
 });
 
 gulp.task('nodemon', function () {
