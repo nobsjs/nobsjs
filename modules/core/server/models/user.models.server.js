@@ -44,7 +44,7 @@ var User = sequelize.define('user', {
 User.hook('beforeCreate', function (user){
   //users are not admin upon creation. Must use web interface to make admins
   user.admin = false;
-
+  user.email = user.email.toLowerCase();
   return bcrypt.hashAsync(user.password, 10)
     .then(function (hash) {
       user.password = hash;
