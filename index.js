@@ -12,9 +12,12 @@ _.forEach(config.files.server.models, function (model) {
   require(path.resolve('./' + model));
 });
 
-sequelize.sync()
-  .then(function(){
+sequelize.sync({force: config.force}) //use force true (defined in local) when changing schema
+  .then(function (){
     app.listen(config.port, function (){
       clog.green('Listening on port ' + config.port);
     });
+  })
+  .catch(function (err){
+    clog.red(err);
   });

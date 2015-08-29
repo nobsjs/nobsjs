@@ -14,7 +14,7 @@ describe('login', function () {
     sequelize.sync({force: true})
       .then(function () {
         return User.create({
-          username: 'Rob',
+          email: 'Rob@rob.com',
           password: 'testpassword'
         });
       })
@@ -47,7 +47,7 @@ describe('login', function () {
     
     request(app)
       .post('/api/core/users/login')
-      .send({username: 'Rob', password: 'testpassword'})
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
       .expect(200)
       .end(function(err){
         if (err) {
@@ -62,7 +62,7 @@ describe('login', function () {
     
     request(app)
       .post('/api/core/users/login')
-      .send({username: 'Rob', password: 'testpaasdfasdfssword'})
+      .send({email: 'Rob@rob.com', password: 'testpaasdfasdfssword'})
       .expect(400)
       .end(function(err){
         if (err) {
@@ -73,11 +73,11 @@ describe('login', function () {
       });  
   });
 
-  it('should respond to a POST request with bad username to "/api/core/users/login" with 400 status', function (done) {
+  it('should respond to a POST request with bad email to "/api/core/users/login" with 400 status', function (done) {
     
     request(app)
       .post('/api/core/users/login')
-      .send({username: 'RobISNOTINTHISDAF', password: 'testpassword'})
+      .send({email: 'Rob@notrob.com', password: 'testpassword'})
       .expect(400)
       .end(function(err){
         if (err) {
@@ -92,7 +92,7 @@ describe('login', function () {
     
     request(app)
       .post('/api/core/users/login')
-      .send({username: 'Rob', password: 'testpassword'})
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
       .expect(200)
       .expect(function (res) {
         if (!res.body.hasOwnProperty('token')){
@@ -143,7 +143,7 @@ describe('signup', function () {
     
     request(app)
       .post('/api/core/users/signup')
-      .send({username: 'Rob', password: 'testpassword'})
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
       .expect(function (res) {
         if (!res.body.hasOwnProperty('token')){
           return 'token not found';
@@ -158,15 +158,30 @@ describe('signup', function () {
       });  
   });
 
+  it('should fail upon non-valid email', function (done) {
+    
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'THISISNOTANEMAILADDRESS', password: 'testpassword'})
+      .expect(400)
+      .end(function (err){
+        if (err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });  
+  });
+
   it('should fail upon duplicate signup', function (done) {
     
     request(app)
       .post('/api/core/users/signup')
-      .send({username: 'Rob', password: 'testpassword'})
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
       .end(function () { //call back arguments would be err, res
         request(app)
           .post('/api/core/users/signup')
-          .send({username: 'Rob', password: 'testpassword'})
+          .send({email: 'Rob@rob.com', password: 'testpassword'})
           .expect(400)
           .end(function (err) {
             if (err) {
