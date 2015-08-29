@@ -60,7 +60,7 @@ describe('User functionality', function () {
       email: 'THIS IS NOT AN EMAIL',
       password: 'testpassword'
     })
-    .then(function (user) {
+    .then(function () { //callback takes 'user' as an argument
       done();
     })
     .catch(function (err) {
