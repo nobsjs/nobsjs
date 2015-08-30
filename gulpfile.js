@@ -8,6 +8,8 @@ var karmaServer = require('karma').Server;
 var nodemon = require('gulp-nodemon');
 var runSequence = require('run-sequence');
 
+var isWatching = false;
+
 var config = {};
 
 gulp.task('default', ['nodemon']);
@@ -51,6 +53,7 @@ gulp.task('karma', function (done) {
 });
 
 gulp.task('nodemon', function () {
+  isWatching = true;
   nodemon({ script: 'index.js',
             ext: 'html js',
             //ignore: ['ignored.js']
@@ -59,11 +62,10 @@ gulp.task('nodemon', function () {
     .on('restart', function () {
       console.log('restarted!');
     });
+
 });
 
 // THIS SECTION IS A WORK AROUND FOR GULP HANGING AT THE END OF TESTS
-
-var isWatching = false;
 /*
 //REFERENCE THIS CODE IF WE BEGIN USING ANY WATCHES
 gulp.task('watch', [....], function() {
