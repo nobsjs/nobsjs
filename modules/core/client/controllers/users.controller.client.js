@@ -3,14 +3,10 @@
 angular.module('tropicalbs')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('app.login', {
+      .state('login', {
         url: '/login',
-        views: {
-          'main-content': {
-            templateUrl: '../../../../modules/core/client/views/core.client.login.html',
-            controller: 'UsersController'
-          }
-        }
+        templateUrl: '../../../../modules/core/client/views/core.client.login.html',
+        controller: 'UsersController'
       })
       .state('signup', {
         url: '/signup',
