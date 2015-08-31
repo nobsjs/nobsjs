@@ -1,26 +1,37 @@
 
-<div layout="row" layout-align="center center">
+<div layout="row" layout-align="center center" md-theme>
   <div flex='33' layout-padding layout-margin>
-    <div ng-controller="UsersController" layout="column">
+    <div layout="column" layout-fill>
       <md-toolbar class="md-primary">
         <h1 class="md-toolbar-tools" layout-fill>
           Log in
         </h1>
       </md-toolbar>
       <md-content layout-padding>
-        <form name="login">
-          <md-content md-theme="docs-dark" layout-padding layout="column">
+        <form ng-submit='login()' name='login'>
+          <md-content layout-padding layout="column">
             <md-input-container>
               <label>Email</label>
-              <input ng-model="user.email" type="email">
+              <input name="email" ng-model="user.email" type="email" required>
+              <div ng-messages="login.email.$error" ng-show="login.email.$touched">
+                <div ng-message="required" >This is required.</div>
+                <div ng-message="email" >Please use a valid email.</div>
+              </div>
             </md-input-container>
             <md-input-container>
               <label>Password</label>
-              <input ng-model="user.password" type="password">
+              <input name='password' ng-model="user.password" type="password" required ng-minlength="8">
+              <div ng-messages="login.password.$error" ng-show="login.password.$touched">
+                <div ng-message="required">This is required.</div>
+                <div ng-message="minlength">Password must be at least 8 characters long.</div>
+              </div>
             </md-input-container>
           </md-content>
-          <md-button class="md-raised md-primary">Log In</md-button>
+          <md-button class="md-raised md-primary" type='submit'>Log In</md-button>
         </form>
+      </md-content>
+      <md-content layout-padding>
+        Don't have an account yet? <a href='#/signup'>Sign up!</a>
       </md-content>
     </div>
   </div>
