@@ -20,4 +20,14 @@ angular.module('tropicalbs')
 
     this.currentState = $state.current.name;
 
+    this.createPage = function(page) {
+      return $http({
+        method: 'POST',
+        url: 'api/core/pages',
+        data: page
+      }).then(function (resp) {
+        return resp.data;
+      });
+    };
+
   });
