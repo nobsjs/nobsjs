@@ -1,12 +1,28 @@
 'use strict';
+
 var path = require('path');
 var jwt = require('jwt-simple');
+
+var Page = require(path.resolve('./modules/core/server/models/page.model.server.js'));
 var User = require(path.resolve('./modules/core/server/models/user.models.server.js'));
 
 var config = require(path.resolve('./lib/config'));
 
 exports.renderIndex = function(req, res) {
-  res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'));
+  // Page.create({
+  //   slug: '/test1',
+  //   title: 'Page Title Test1',
+  //   content: 'Content for the Test1 Page'
+  Page.findAll()
+   // TODO: Simplify the amount of content sent here
+    .then(function (pages) {
+      res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
+        pages: pages
+      });
+    })
+    .catch(function () {
+      res.status(500).send('Unable to retrieve a list of pages.');
+    });
 };
 
 exports.logIn = function(req, res) {

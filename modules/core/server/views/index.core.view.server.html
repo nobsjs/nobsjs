@@ -13,6 +13,10 @@
 </head>
 <body ng-app="tropicalbs">
 
+  <script type="text/javascript">
+    var pages = {{ pages | json | safe }};
+  </script>
+
   {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
   {% for jsFile in files.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
