@@ -42,7 +42,8 @@ gulp.task('jasmine', function () {
 gulp.task('jshint', function () {
   return gulp.src(['./gulpfile.js', './modules/**/*.js', './config/**/*.js', './lib/**/*.js'])
     .pipe(jshint())
-    .pipe(jshint.reporter('default'));
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('karma', function (done) {
