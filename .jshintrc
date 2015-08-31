@@ -32,7 +32,8 @@
         "xit": true,
         "fail": true,
         "beforeAll": true,
-        "afterAll": true
+        "afterAll": true,
+        "pages": true
      },
      "predef": ["-Promise"]
 }

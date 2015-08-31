@@ -8,8 +8,6 @@
   {% for cssFile in files.lib.css %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
   {% for cssFile in files.css %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 
-  
-
 </head>
 <body ng-app="tropicalbs">
 
@@ -17,8 +15,8 @@
     var pages = {{ pages | json | safe }};
   </script>
 
-  {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
-  {% for jsFile in files.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+  {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  {% for jsFile in files.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
   <div ui-view></div>
 </body>

@@ -13,6 +13,7 @@ exports.renderIndex = function(req, res) {
   //   slug: '/test1',
   //   title: 'Page Title Test1',
   //   content: 'Content for the Test1 Page'
+  // });
   Page.findAll()
    // TODO: Simplify the amount of content sent here
     .then(function (pages) {
@@ -31,7 +32,7 @@ exports.logIn = function(req, res) {
 
   User.findOne({
     where: {
-      email: email 
+      email: email
     }
   })
   .then(function (user) {
@@ -120,5 +121,4 @@ exports.decode = function(req, res, next){
   } catch(error) {
     return next(error);
   }
-
 };
