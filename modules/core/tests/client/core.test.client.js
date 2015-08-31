@@ -162,3 +162,28 @@ describe('Users Controller & Auth Service', function () {
   });
 });
 
+describe('PagesController', function () {
+  beforeEach(module('tropicalbs'));
+  var $controller;
+  beforeEach(inject(function (_$controller_){
+    // The injector unwraps the underscores (_) from around the parameter names when matching
+    $controller = _$controller_;
+  }));
+
+  describe('$scope', function () {
+    var $scope, controller;
+
+    beforeEach(function () {
+      $scope = {};
+      controller = $controller('PagesController', { $scope: $scope });
+   });
+
+    it('should have a controller', function () {
+      expect($controller).not.toBeUndefined();
+    });
+
+    it('should have scope', function () {
+      expect($scope).not.toBeUndefined();
+    });
+  });
+});
