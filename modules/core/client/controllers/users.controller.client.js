@@ -29,7 +29,9 @@ angular.module('tropicalbs')
           $location.path('/home');
         })
         .catch(function (error) {
+          $scope.loginForm.password.$error.reject = true;
           console.log(error);
+
         });
     };
 
@@ -40,6 +42,7 @@ angular.module('tropicalbs')
           $location.path('/home');
         })
         .catch(function (error) {
+          $scope.signupForm.email.$error.reject = true;
           console.log(error);
         });
     };
