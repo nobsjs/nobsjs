@@ -1,5 +1,35 @@
 <md-toolbar>
-<h1>Tropical BS</h1>
+  <div layout="row">
+    <div flex="66" layout-padding>
+      <h1>Tropical BS</h1>
+    </div>
+    <div flex="33">
+      <div layout="row" layout-align="end center">
+          <div class="md-caption">
+            {{ user.email }}
+          </div>
+          <div>
+            <md-menu md-position-mode="target-right target">
+              <md-button aria-label="menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+                <md-icon md-font-set="material-icons"> person_outline </md-icon>
+              </md-button>
+              <md-menu-content width="3">
+                <md-menu-item>
+                  <md-button aria-label="sign-up" ui-sref="signup">
+                    Sign up
+                  </md-button>
+                </md-menu-item>
+                 <md-menu-item>
+                  <md-button aria-label="login" ui-sref="login">
+                    Log in
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
+    </div>
+  </div>
   <md-tabs md-selected="selectedIndex" md-selected="selectedIndex">
     <md-tab md-active="state.is(tab.uisref)" ng-repeat="tab in tabs" ui-sref="{{tab.uisref}}" label="{{tab.title}}"></md-tab>
   </md-tabs>

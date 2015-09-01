@@ -12,7 +12,10 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        return res.data.token;
+        res.data.user = {};
+        res.data.user.email = 'user@gmail.com';
+        res.data.user.admin = false;
+        return res.data;
       });
     };
 
@@ -23,7 +26,10 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        return res.data.token;
+        res.data.user = {};
+        res.data.user.email = 'user@gmail.com';
+        res.data.user.admin = false;
+        return res.data;
       });
     };
 
