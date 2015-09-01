@@ -41,6 +41,9 @@ exports.updatePage = function(req, res) {
   page.title = req.body.title || req.page.title;
   page.content = req.body.content || req.body.content;
   Page.update(page, { where: { id: req.page.id } })
+    .then(function () {
+      return Page.findOne({ where: { id: req.page.id }});
+    })
     .then(function (updatedPage) {
       res.send(updatedPage);
     });

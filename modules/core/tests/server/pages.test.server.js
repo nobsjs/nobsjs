@@ -181,7 +181,10 @@ describe('/api/core/pages', function () {
         .put('/api/core/pages/' + savedPage.id)
         .send(page)
         .expect(200)
-        .end(function (err) {
+        .end(function (err, res) {
+          expect(res.body.slug).toEqual(page.slug);
+          expect(res.body.title).toEqual(page.title);
+          expect(res.body.content).toEqual(page.content);
           if(err) {
             done.fail(err);
           } else {
