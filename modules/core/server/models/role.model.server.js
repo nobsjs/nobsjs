@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Role = sequelize.define('Role', {
     name: {
       type: DataTypes.STRING,
@@ -10,8 +10,9 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: function (models) {
         Role.belongsToMany(models.User, {through: 'UserRole'});
+        Role.belongsToMany(models.Tab, {through: 'TabRole'});
       }
     }
   });

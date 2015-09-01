@@ -41,7 +41,7 @@ exports.updatePage = function(req, res) {
   var page = {};
   page.slug = req.body.slug || req.page.slug;
   page.title = req.body.title || req.page.title;
-  page.content = req.body.content || req.body.content;
+  page.content = req.body.content || req.page.content;
   Page.update(page, { where: { id: req.page.id } })
     .then(function () {
       return Page.findOne({ where: { id: req.page.id }});
@@ -59,7 +59,7 @@ exports.deletePage = function(req, res) {
 };
 
 exports.getPageById = function(req, res, next, id) {
-  Page.findOne({ 
+  Page.findOne({
     where: {
       id: id
     }
