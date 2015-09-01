@@ -15,13 +15,14 @@ angular.module('tropicalbs')
     }});
 })
 
-.controller('PagesAdminController', function($scope, $state, Pages) {
+.controller('PagesAdminController', function($scope, $state, $pageStateManager, Pages) {
   $scope.page = {};
 
   $scope.create = function() {
     Pages.createPage($scope.page)
       .then(function (resp) {
-        console.log("Created: ", resp);
+        $pageStateManager.addState(resp);
+        $state.go('pages.' + resp.id);
       });
   };
 });
