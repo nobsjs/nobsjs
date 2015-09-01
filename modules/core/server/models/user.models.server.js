@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       comparePassword : function(candidatePassword) {
         return bcrypt.compareAsync(candidatePassword, this.getDataValue('password'))
           .then(function (isMatch) {
-            if(isMatch) { 
+            if(isMatch) {
               return true;
             } else {
               return false;
@@ -54,7 +54,5 @@ module.exports = function(sequelize, DataTypes) {
         return e;
       });
   });
-
-
   return User;
 };

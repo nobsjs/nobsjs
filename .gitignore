@@ -31,3 +31,6 @@ node_modules
 
 # Server config file
 lib/env/local.js
+
+# Certificates
+certs
