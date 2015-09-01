@@ -5,12 +5,12 @@ angular.module('tropicalbs')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: '../../../../modules/core/client/views/core.client.login.html',
+        templateUrl: '../../../../modules/core/client/views/login.view.client.html',
         controller: 'UsersController'
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: '../../../../modules/core/client/views/core.client.signup.html',
+        templateUrl: '../../../../modules/core/client/views/signup.view.client.html',
         controller: 'UsersController'
       });
   })
