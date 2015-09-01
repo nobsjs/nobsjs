@@ -1,17 +1,20 @@
 'use strict';
 
-var path = require('path');
-var Sequelize = require('sequelize');
+module.exports = function(sequelize, DataTypes) {
+  var Role = sequelize.define('Role', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      required: true,
+      unique: true
+    }
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Role.belongsToMany(models.User, {through: 'UserRole'});
+      }
+    }
+  });
 
-var sequelize = require(path.resolve('./lib/sequelize.js'));
-
-var Role = sequelize.define('role', {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    required: true,
-    unique: true
-  }
-});
-
-module.exports = Role;
+  return Role;
+};

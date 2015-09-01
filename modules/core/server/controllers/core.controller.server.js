@@ -2,9 +2,10 @@
 
 var path = require('path');
 var jwt = require('jwt-simple');
+var db = require(path.resolve('./lib/db.js'));
 
-var Page = require(path.resolve('./modules/core/server/models/page.model.server.js'));
-var User = require(path.resolve('./modules/core/server/models/user.models.server.js'));
+var Page = db.Page;
+var User = db.User;
 
 var config = require(path.resolve('./lib/config'));
 

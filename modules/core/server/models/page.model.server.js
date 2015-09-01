@@ -1,18 +1,15 @@
 'use strict';
 
-var path = require('path');
-var Sequelize = require('sequelize');
+module.exports = function(sequelize, DataTypes) {
+  var Page = sequelize.define('Page', {
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    title: DataTypes.STRING,
+    content: DataTypes.STRING
+  });
 
-var sequelize = require(path.resolve('./lib/sequelize.js'));
-
-var Page = sequelize.define('page', {
-  slug: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
-  },
-  title: Sequelize.STRING,
-  content: Sequelize.STRING
-});
-
-module.exports = Page;
+  return Page;
+};

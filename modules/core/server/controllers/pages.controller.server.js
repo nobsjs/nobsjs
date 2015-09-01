@@ -2,7 +2,9 @@
 
 var path = require('path');
 
-var Page = require(path.resolve('./modules/core/server/models/page.model.server.js'));
+var db = require(path.resolve('./lib/db.js'));
+
+var Page = db.Page;
 
 exports.getPages = function(req, res) {
 

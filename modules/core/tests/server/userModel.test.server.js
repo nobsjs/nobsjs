@@ -1,16 +1,15 @@
 'use strict';
 
 var path = require('path');
-var sequelize = require(path.resolve('./lib/sequelize.js'));
+var db = require(path.resolve('./lib/db.js'));
 
-var User = require(path.resolve('./modules/core/server/models/user.models.server.js'));
-
+var User = db.User;
 
 describe('User functionality', function () {
 
   beforeAll(function(done){
     
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
       .then(function () {
         return User.create({
           email: 'test@test.com',
