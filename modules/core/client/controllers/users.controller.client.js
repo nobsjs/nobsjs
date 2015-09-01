@@ -51,9 +51,4 @@ angular.module('tropicalbs')
         });
     };
 
-    $scope.logout = function () {
-      $window.localStorage.removeItem('userToken');
-      $location.path('/login');
-    };
-
   }]);

@@ -19,7 +19,7 @@ angular.module('tropicalbs')
       });
   })
 
-	.controller('NavigationController', function ($scope, $state, $window) {
+	.controller('NavigationController', function ($scope, $state, $window, Auth) {
 
     $scope.user = {};
     $scope.user.email = $window.localStorage.getItem('userEmail');
@@ -43,6 +43,11 @@ angular.module('tropicalbs')
       { title:'About', href:'#/about', uisref:'about'},
       { title:'Admin', href:'#/admin', uisref:'admin'}
     ];
+
+    $scope.logout = function () {
+      $scope.user = {};
+      Auth.logout();
+    };
 
     // allow view to access the current state
     $scope.state = $state;

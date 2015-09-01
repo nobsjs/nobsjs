@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('Auth', function ($http) {
+  .factory('Auth', function ($http, $location, $window) {
 
     var auth = {};
 
@@ -34,7 +34,11 @@ angular.module('tropicalbs')
     };
 
     auth.logout = function () {
-      //TODO: write logout function
+      $window.localStorage.removeItem('userToken');
+      $window.localStorage.removeItem('userEmail');
+      $window.localStorage.removeItem('userAdmin');
+
+      $location.path('/');
     };
 
     return auth;
