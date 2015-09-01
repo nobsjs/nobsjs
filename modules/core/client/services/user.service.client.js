@@ -4,7 +4,7 @@ angular.module('tropicalbs')
   .factory('User', function ($http, $location, $window) {
 
     var defaultUser = {
-        email: '',
+        email: null,
         roles: ['public']
       };
 

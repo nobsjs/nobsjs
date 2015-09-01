@@ -16,8 +16,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     password: DataTypes.STRING,
-    admin: DataTypes.BOOLEAN
-
   }, {
     instanceMethods: {
       comparePassword : function(candidatePassword) {
@@ -28,10 +26,10 @@ module.exports = function(sequelize, DataTypes) {
             } else {
               return false;
             }
-          })
-          .catch(function (e) {
-            return e;
           });
+          // .catch(function (e) {
+          //   return e;
+          // });
       }
     },
     classMethods: {

@@ -55,6 +55,9 @@ exports.logIn = function(req, res) {
           } else {
             res.status(400).send('User does not exist or password is incorrect');
           }
+        })
+        .catch(function (err){
+          res.status(400).send('Invalid Password');
         });
     }
   })

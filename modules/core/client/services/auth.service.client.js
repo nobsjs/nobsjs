@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('Auth', function ($http, $location, $window, $cookies, User) {
+  .factory('Auth', ['$http', '$location', '$window', '$cookies', 'User', function ($http, $location, $window, $cookies, User) {
 
     var auth = {};
 
@@ -14,7 +14,7 @@ angular.module('tropicalbs')
       .then(function (res) {
         $cookies.put('userToken', res.data.token, {secure: true});
         User.currentUser = res.data.user;
-        return res.data;
+        return res;
       });
     };
 
@@ -25,9 +25,14 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        $cookies.put('userToken', res.data.token, {secure: true});
+        console.log('token', res.data.token);
+        if (res.secure) {
+          $cookies.put('userToken', res.data.token, {secure: true});
+        } else {
+          $cookies.put('userToken', res.data.token);
+        }
         User.currentUser = res.data.user;
-        return res.data;
+        return res;
       });
     };
 
@@ -38,4 +43,4 @@ angular.module('tropicalbs')
 
     return auth;
 
-  });
+  }]);

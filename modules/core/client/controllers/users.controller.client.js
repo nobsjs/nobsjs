@@ -20,9 +20,7 @@ angular.module('tropicalbs')
 
     $scope.login = function () {
       Auth.login($scope.user)
-        .then(function (res) {
-          //The local storage approach is insecure, we should refactor later to use secure cookies
-          //https://stormpath.com/blog/token-auth-spa/
+        .then(function () {
           $location.path('/home');
         })
         .catch(function (error) {
@@ -36,7 +34,7 @@ angular.module('tropicalbs')
 
     $scope.signup = function () {
       Auth.signup($scope.user)
-        .then(function (res) {
+        .then(function () {
           $location.path('/home');
         })
         .catch(function (error) {
