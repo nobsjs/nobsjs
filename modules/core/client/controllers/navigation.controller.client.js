@@ -19,7 +19,11 @@ angular.module('tropicalbs')
       });
   })
 
-	.controller('NavigationController', function ($scope, $state) {
+	.controller('NavigationController', function ($scope, $state, $window) {
+
+    $scope.user = {};
+    $scope.user.email = $window.localStorage.getItem('userEmail');
+    $scope.user.admin = $window.localStorage.getItem('userAdmin');
 
     // probably not needed
     // var updateTabMapping = function () {
