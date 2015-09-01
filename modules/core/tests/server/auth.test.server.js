@@ -2,16 +2,15 @@
 
 var path = require('path');
 var request = require('supertest');
-var sequelize = require(path.resolve('./lib/sequelize.js'));
+var db = require(path.resolve('./lib/db.js'));
 
-var User = require(path.resolve('./modules/core/server/models/user.models.server.js'));
-
+var User = db.User;
 
 describe('login', function () {
 
   beforeAll(function(done){
     
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
       .then(function () {
         return User.create({
           email: 'Rob@rob.com',
@@ -113,7 +112,7 @@ describe('login', function () {
 describe('signup', function () {
 
   beforeAll(function (done) {
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
       .then(function () {
         done();
       });
@@ -214,7 +213,7 @@ describe('checkAuth', function () {
   var app = require(path.resolve('./lib/express.js'));
 
   beforeAll(function (done) {
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
       .then(function () {
         done();
       });

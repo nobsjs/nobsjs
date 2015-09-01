@@ -1,14 +1,14 @@
 'use strict';
 
 var path = require('path');
-var sequelize = require(path.resolve('./lib/sequelize.js'));
+var db = require(path.resolve('./lib/db.js'));
 
-var Role = require(path.resolve('./modules/core/server/models/role.model.server.js'));
+var Role = db.Role;
 
 describe('Role Model', function () {
   
   beforeEach(function (done) {
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
     .then(done);
   });
 

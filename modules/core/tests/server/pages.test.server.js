@@ -1,17 +1,17 @@
 'use strict';
 
 var path = require('path');
-var sequelize = require(path.resolve('./lib/sequelize.js'));
+var db = require(path.resolve('./lib/db.js'));
 var request = require('supertest');
 
-var Page = require(path.resolve('./modules/core/server/models/page.model.server.js'));
+var Page = db.Page;
 
 describe('/api/core/pages', function () {
 
   var page;
 
   beforeAll(function (done){
-    sequelize.sync({force: true})
+    db.sequelize.sync({force: true})
       // .then(function () {
       //   return Page.create({
       //     slug: '/test1',
