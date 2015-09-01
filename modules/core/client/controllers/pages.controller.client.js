@@ -45,6 +45,14 @@ angular.module('tropicalbs')
 	.controller('PagesController', function($scope, $state, Pages) {
     $scope.state = $state.current.name;
 
+    /*
+    Code useful for testing - to log the current page Id
+    // var pageId = $scope.state;
+    // pageId = pageId.split('.')[1];
+    // console.log('the pageId accessed from $state is', pageId);
+    */
+
+    // Get the page and attach data to the scope
     Pages.getPage().then(function(res){
       $scope.title = res.title;
       $scope.content = res.content;

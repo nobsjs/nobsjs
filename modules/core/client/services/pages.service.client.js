@@ -28,7 +28,7 @@ angular.module('tropicalbs')
 
       var pageId = $state.current.name;
       pageId = pageId.split('.')[1];
-      console.log(pageId);
+      // console.log(pageId);
 
       return $http ({
         method: 'GET',
@@ -38,6 +38,20 @@ angular.module('tropicalbs')
         return res.data;
       });
     };
+
+    // TODO: merge the two getPAge functions
+    this.getPageById = function (pageId) {
+      return $http ({
+        method: 'GET',
+        url: 'api/core/pages/' + pageId
+      })
+      .then(function(res) {
+        return res.data;
+      }, function(err) {
+        throw(err);
+      });
+    };
+
 
     this.currentState = $state.current.name;
 
@@ -51,4 +65,13 @@ angular.module('tropicalbs')
       });
     };
 
+    this.updatePage = function(page, pageId) {
+      return $http({
+        method: 'PUT',
+        url: '/api/core/pages/' + pageId,
+        data: page
+      }).then(function (resp) {
+        return resp.data;
+      });
+    };
   });
