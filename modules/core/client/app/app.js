@@ -5,7 +5,8 @@
 var tropicalbs = angular.module('tropicalbs', [
     'ui.router',
     'ngMaterial',
-    'ngMessages'
+    'ngMessages',
+    'ngCookies'
   ]);
 
 tropicalbs.config(function ($stateProvider, $urlRouterProvider) {

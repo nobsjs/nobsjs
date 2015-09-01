@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('Auth', function ($http, $location, $window) {
+  .factory('Auth', function ($http, $location, $window, $cookies, User) {
 
     var auth = {};
 
@@ -12,10 +12,8 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        res.data.user = {};
-        // TODO: Unmock this
-        res.data.user.email = 'user@gmail.com';
-        res.data.user.roles = ['admin'];
+        $cookies.put('userToken', res.data.token, {secure: true});
+        User.currentUser = res.data.user;
         return res.data;
       });
     };
@@ -27,17 +25,15 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        res.data.user = {};
-        // TODO: Unmock this
-        res.data.user.email = 'user@gmail.com';
-        res.data.user.roles = ['admin'];
+        $cookies.put('userToken', res.data.token, {secure: true});
+        User.currentUser = res.data.user;
         return res.data;
       });
     };
 
     auth.logout = function () {
-      $window.localStorage.removeItem('userToken');
-      $location.path('/');
+      $cookies.remove('userToken');
+      User.setDefault();
     };
 
     return auth;
