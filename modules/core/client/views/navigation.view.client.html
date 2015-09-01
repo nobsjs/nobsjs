@@ -14,14 +14,19 @@
                 <md-icon md-font-set="material-icons"> person_outline </md-icon>
               </md-button>
               <md-menu-content width="3">
-                <md-menu-item>
+                <md-menu-item ng-hide="user.email">
                   <md-button aria-label="sign-up" ui-sref="signup">
                     Sign up
                   </md-button>
                 </md-menu-item>
-                 <md-menu-item>
+                <md-menu-item ng-hide="user.email">
                   <md-button aria-label="login" ui-sref="login">
                     Log in
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item ng-show="user.email">
+                  <md-button aria-label="logout" ng-click="logout()">
+                    Log Out
                   </md-button>
                 </md-menu-item>
               </md-menu-content>
