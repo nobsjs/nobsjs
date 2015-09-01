@@ -11,7 +11,8 @@
           <div>
             <md-menu md-position-mode="target-right target">
               <md-button aria-label="menu" class="md-icon-button" ng-click="$mdOpenMenu()">
-                <md-icon md-font-set="material-icons"> person_outline </md-icon>
+                <md-icon md-font-set="material-icons" ng-hide="user.email"> person_outline </md-icon>
+                <md-icon md-font-set="material-icons" ng-show="user.email"> person </md-icon>
               </md-button>
               <md-menu-content width="3">
                 <md-menu-item ng-hide="user.email">

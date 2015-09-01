@@ -19,12 +19,10 @@ angular.module('tropicalbs')
       });
   })
 
-	.controller('NavigationController', function ($scope, $state, $window, Auth) {
+	.controller('NavigationController', function ($scope, $state, $window, Auth, Nav, User, $location) {
 
-    $scope.user = {};
-    $scope.user.email = $window.localStorage.getItem('userEmail');
-    $scope.user.admin = $window.localStorage.getItem('userAdmin');
-
+    $scope.user = User.currentUser;
+    console.log('User', User.currentUser);
     // probably not needed
     // var updateTabMapping = function () {
     //   var curr;
@@ -35,18 +33,18 @@ angular.module('tropicalbs')
     // };
     // $scope.tabMapping = {};
     // updateTabMapping();
-
-    $scope.tabs = [
-      { title:'Home', href:'#/home', uisref:'home'},
-      { title:'Schedule', href:'#/schedule', uisref:'schedule'},
-      { title:'Blog', href:'#/blog', uisref:'blog'},
-      { title:'About', href:'#/about', uisref:'about'},
-      { title:'Admin', href:'#/admin', uisref:'admin'}
-    ];
+    var tabs = _.filter(Nav.tabs, function (tab) {
+      //intersection returns empty array when no intersection is found
+      //thus we can use this to determine whether or not a tab should be visible
+      return _.intersection(tab.visibleRoles, $scope.user.roles).length > 0;
+    });
+    $scope.tabs = tabs;
+    // filters tabs by intersection of user roles and tab visible roles
 
     $scope.logout = function () {
-      $scope.user = {};
+      User.setDefault();
       Auth.logout();
+      $window.location.reload();
     };
 
     // allow view to access the current state
