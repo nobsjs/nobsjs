@@ -8,7 +8,8 @@
     "angular-material": "0.10.0",
     "angular-messages": "~1.4.5",
     "angular-mocks": "1.4.4",
-    "angular-ui-router": "0.2.15"
+    "angular-ui-router": "0.2.15",
+    "lodash": "~3.10.1"
   },
   "resolutions": {
     "angular": "1.4.5"

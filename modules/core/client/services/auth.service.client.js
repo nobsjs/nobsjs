@@ -13,8 +13,9 @@ angular.module('tropicalbs')
       })
       .then(function (res) {
         res.data.user = {};
+        // TODO: Unmock this
         res.data.user.email = 'user@gmail.com';
-        res.data.user.admin = false;
+        res.data.user.roles = ['admin'];
         return res.data;
       });
     };
@@ -27,17 +28,15 @@ angular.module('tropicalbs')
       })
       .then(function (res) {
         res.data.user = {};
+        // TODO: Unmock this
         res.data.user.email = 'user@gmail.com';
-        res.data.user.admin = false;
+        res.data.user.roles = ['admin'];
         return res.data;
       });
     };
 
     auth.logout = function () {
       $window.localStorage.removeItem('userToken');
-      $window.localStorage.removeItem('userEmail');
-      $window.localStorage.removeItem('userAdmin');
-
       $location.path('/');
     };
 

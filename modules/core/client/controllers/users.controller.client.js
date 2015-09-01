@@ -14,7 +14,7 @@ angular.module('tropicalbs')
         controller: 'UsersController'
       });
   })
-  .controller('UsersController', ['$scope', 'Auth', '$window', '$location', function ($scope, Auth, $window, $location) {
+  .controller('UsersController', ['$scope', 'Auth', '$window', '$location', 'User', function ($scope, Auth, $window, $location, User) {
 
     $scope.user = {};
 
@@ -24,8 +24,7 @@ angular.module('tropicalbs')
           //The local storage approach is insecure, we should refactor later to use secure cookies
           //https://stormpath.com/blog/token-auth-spa/
           $window.localStorage.setItem('userToken', res.token);
-          $window.localStorage.setItem('userEmail', res.user.email);
-          $window.localStorage.setItem('userAdmin', res.user.admin);
+          User.currentUser = res.user;
           $location.path('/home');
         })
         .catch(function (error) {
@@ -41,8 +40,7 @@ angular.module('tropicalbs')
       Auth.signup($scope.user)
         .then(function (res) {
           $window.localStorage.setItem('userToken', res.token);
-          $window.localStorage.setItem('userEmail', res.user.email);
-          $window.localStorage.setItem('userAdmin', res.user.admin);
+          User.currentUser = res.user;
           $location.path('/home');
         })
         .catch(function (error) {

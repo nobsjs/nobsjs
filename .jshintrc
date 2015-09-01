@@ -33,7 +33,8 @@
         "fail": true,
         "beforeAll": true,
         "afterAll": true,
-        "pages": true
+        "pages": true,
+        "_": true
      },
      "predef": ["-Promise"]
 }
