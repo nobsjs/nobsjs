@@ -15,17 +15,18 @@ _.forEach(config.files.server.models, function (model) {
   require(path.resolve('./' + model));
 });
 
-var options = {
-  key: fs.readFileSync(path.resolve('./certs/private.key')),
-  cert: fs.readFileSync(path.resolve('./certs/certificate.pem'))
-};
+//SECURE MODE DOES NOT WORK WITHOUT THIS
+// var options = {
+//   key: fs.readFileSync(path.resolve('./certs/private.key')),
+//   cert: fs.readFileSync(path.resolve('./certs/certificate.pem'))
+// };
 
 db.sequelize.sync({force: config.force}) //use force true (defined in local) when changing schema
   .then(function (){
-    http.createServer(app).listen(config.httpPort);
-    https.createServer(options, app).listen(config.httpsPort);
-    clog.green('Listening for http on port ' + config.httpPort);
-    clog.green('Listening for https on port ' + config.httpsPort);
+    http.createServer(app).listen(config.port);
+    // https.createServer(options, app).listen(config.securePort);
+    clog.green('Listening for http on port ' + config.port);
+    // clog.green('Listening for https on port ' + config.securePort);
   })
 
   .catch(function (err){

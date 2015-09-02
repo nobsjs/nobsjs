@@ -116,7 +116,6 @@ describe('Users Controller & Auth Service', function () {
       $httpBackend.expectPOST('api/core/users/signup').respond({token: token});
       $scope.signup({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
-      console.log($cookies.get('userToken'));
       expect($cookies.get('userToken')).toEqual(token);
     });
 

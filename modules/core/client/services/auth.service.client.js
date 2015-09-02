@@ -25,7 +25,6 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        console.log('token', res.data.token);
         if (res.secure) {
           $cookies.put('userToken', res.data.token, {secure: true});
         } else {

@@ -27,9 +27,6 @@ module.exports = function(sequelize, DataTypes) {
               return false;
             }
           });
-          // .catch(function (e) {
-          //   return e;
-          // });
       }
     },
     classMethods: {
