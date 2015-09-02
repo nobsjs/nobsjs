@@ -18,12 +18,44 @@ describe('Config lib', function () {
     expect(typeof config.port).toEqual('number');
   });
 
+  it('should have a securePort defined', function () {
+    expect(config.securePort).toEqual(jasmine.anything());
+  });
+
+  it('securePort should be a number', function () { 
+    expect(typeof config.securePort).toEqual('number');
+  });
+
   it('should have an enviorment string', function () {
     expect(typeof config.env).toEqual('string');
   });
 
   it('should have a secret string', function () {
     expect(typeof config.secret).toEqual('string');
+  });
+
+  it('should have a secure boolean', function () {
+    expect(typeof config.secure).toEqual('boolean');
+  });
+
+  describe('ssl', function () {
+
+    it('should have a ssl object', function () {
+      expect(typeof config.ssl).toEqual('object');
+    });
+
+    it('should have a key value', function () {
+      expect(typeof config.ssl.key).toEqual('string');
+    });
+
+    it('should have a cert value', function () {
+      expect(typeof config.ssl.cert).toEqual('string');
+    });
+
+  });
+
+  it('should have a force boolean', function () {
+    expect(typeof config.force).toEqual('boolean');
   });
 
   describe('database', function () {

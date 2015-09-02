@@ -4,19 +4,19 @@
   "description": "> Pithy project description",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
     "test": "gulp test",
     "postinstall": "bower install --config.interactive=false"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codydaig/tropicalbs.git"
+    "url": "git+https://github.com/tropicalsubmarine/tropicalbs.git"
   },
-  "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/codydaig/tropicalbs/issues"
+    "url": "https://github.com/tropicalsubmarine/tropicalbs/issues"
   },
-  "homepage": "https://github.com/codydaig/tropicalbs#readme",
+  "homepage": "https://github.com/tropicalsubmarine/tropicalbs#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-jasmine": "^2.0.1",

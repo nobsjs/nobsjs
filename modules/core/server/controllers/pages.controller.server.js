@@ -13,7 +13,7 @@ exports.getPages = function(req, res) {
       res.send(pages);
     })
     .catch(function (e) {
-      res.send(e);
+      res.status(500).send('Database Error: Could not retrieve Pages.');
     });
 };
 
@@ -34,6 +34,9 @@ exports.createPage = function(req, res) {
   Page.create(page)
     .then(function (newPage) {
       res.send(newPage);
+    })
+    .catch(function () {
+      res.status(500).send('Database Error: Page could not be Created');
     });
 };
 
@@ -48,6 +51,9 @@ exports.updatePage = function(req, res) {
     })
     .then(function (updatedPage) {
       res.send(updatedPage);
+    })
+    .catch(function () {
+      res.status(500).send('Database Error: Page could not be updated');
     });
 };
 
@@ -55,6 +61,9 @@ exports.deletePage = function(req, res) {
   Page.destroy({ where: { id: req.page.id } })
     .then(function () {
       res.status(200).send('Page deleted');
+    })
+    .catch(function () {
+      res.status(500).send('Database Error: Page could not be deleted.');
     });
 };
 
@@ -67,5 +76,8 @@ exports.getPageById = function(req, res, next, id) {
   .then(function (page) {
     req.page = page;
     next();
+  })
+  .catch(function () {
+    res.status(500).send('Database Error: Could not retrieve Page');
   });
 };

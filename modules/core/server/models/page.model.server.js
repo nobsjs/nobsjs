@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     },
     title: DataTypes.STRING,
-    content: DataTypes.STRING
+    content: DataTypes.TEXT
   });
 
   return Page;
