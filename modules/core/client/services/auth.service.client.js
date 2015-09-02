@@ -12,8 +12,12 @@ angular.module('tropicalbs')
         data: user
       })
       .then(function (res) {
-        $cookies.put('userToken', res.data.token, {secure: true});
-        User.currentUser = res.data.user;
+        if (res.secure) {
+          $cookies.put('userToken', res.data.token, {secure: true});
+        } else {
+          $cookies.put('userToken', res.data.token);
+        }
+        User.logIn(res.data.user);
         return res;
       });
     };
@@ -30,7 +34,7 @@ angular.module('tropicalbs')
         } else {
           $cookies.put('userToken', res.data.token);
         }
-        User.currentUser = res.data.user;
+        User.logIn(res.data.user);
         return res;
       });
     };
@@ -38,6 +42,22 @@ angular.module('tropicalbs')
     auth.logout = function () {
       $cookies.remove('userToken');
       User.setDefault();
+    };
+
+    auth.checkAuth = function () {
+      return $http({
+        method: 'POST',
+        url: 'api/core/users/checkauth'
+      })
+      .then(function (res) {
+        User.logIn(res.data.user);
+        return res;
+      })
+      .catch(function (e) {
+        console.log(e);
+        //if AUTH is unsuccessful, 'logout'
+        auth.logout();
+      });
     };
 
     return auth;
