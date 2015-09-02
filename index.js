@@ -10,25 +10,20 @@ var db = require('./lib/db');
 var http = require('http');
 var https = require('https');
 
-//load models and sync database
-_.forEach(config.files.server.models, function (model) {
-  require(path.resolve('./' + model));
-});
-
-//SECURE MODE DOES NOT WORK WITHOUT THIS
-// var options = {
-//   key: fs.readFileSync(path.resolve('./certs/private.key')),
-//   cert: fs.readFileSync(path.resolve('./certs/certificate.pem'))
-// };
-
 db.sequelize.sync({force: config.force}) //use force true (defined in local) when changing schema
-  .then(function (){
+  .then(function () {
     http.createServer(app).listen(config.port);
-    // https.createServer(options, app).listen(config.securePort);
     clog.green('Listening for http on port ' + config.port);
-    // clog.green('Listening for https on port ' + config.securePort);
-  })
 
-  .catch(function (err){
+    if(config.secure) {
+      var options = {
+        key: fs.readFileSync(path.resolve(config.ssl.key)),
+        cert: fs.readFileSync(path.resolve(config.ssl.cert))
+      };
+      https.createServer(options, app).listen(config.securePort);
+      clog.green('Listening for https on port ' + config.securePort);
+    }
+  })
+  .catch(function (err) {
     clog.red(err);
   });
