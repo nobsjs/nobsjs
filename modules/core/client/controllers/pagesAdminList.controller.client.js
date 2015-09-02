@@ -24,6 +24,11 @@ angular.module('tropicalbs')
     $state.go('pages.' + pageId);
   };
 
+  // transitions state to page create view
+  $scope.gotoCreatePage = function () {
+    $state.go('pagesCreate');
+  };
+
   // transitions state to page EDIT view with that page Id
   $scope.gotoEditPage = function (pageId) {
     $state.go('pagesEdit',{
