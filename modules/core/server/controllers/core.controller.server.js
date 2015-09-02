@@ -6,24 +6,32 @@ var db = require(path.resolve('./lib/db.js'));
 
 var Page = db.Page;
 var User = db.User;
+var Tab = db.Tab;
 
 var config = require(path.resolve('./lib/config'));
 
 exports.renderIndex = function(req, res) {
-  // Page.create({
-  //   slug: '/test1',
-  //   title: 'Page Title Test1',
-  //   content: 'Content for the Test1 Page'
-  // });
+  //Pages
+  var pages;
   Page.findAll()
-   // TODO: Simplify the amount of content sent here
+    // TODO: Simplify the amount of content sent here
     .then(function (pages) {
-      res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
-        pages: pages
-      });
+      pages = pages;
     })
     .catch(function () {
       res.status(500).send('Unable to retrieve a list of pages.');
+    });
+
+  //Tabs
+  Tab.findAll()
+    .then(function (tabs) {
+      res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
+        pages: pages,
+        tabs: tabs
+      });
+    })
+    .catch(function () {
+      res.status(500).send('Unable to retrieve a list of tabs.');
     });
 };
 

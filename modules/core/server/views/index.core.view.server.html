@@ -13,6 +13,7 @@
 
   <script type="text/javascript">
     var pages = {{ pages | json | safe }};
+    var tabs = {{ tabs | json | safe }};
   </script>
 
   {% for jsFile in files.lib.js %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
