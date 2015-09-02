@@ -34,8 +34,8 @@ angular.module('tropicalbs')
         method: 'GET',
         url: 'api/core/pages/' + pageId
       })
-      .then(function(res) {
-        return res.data;
+      .then(function(resp) {
+        return resp.data;
       });
     };
 
@@ -45,17 +45,28 @@ angular.module('tropicalbs')
         method: 'GET',
         url: 'api/core/pages/' + pageId
       })
-      .then(function(res) {
-        return res.data;
+      .then(function(resp) {
+        return resp.data;
       }, function(err) {
         throw(err);
       });
     };
 
+    this.getAllPages = function () {
+      return $http ({
+        method: 'GET',
+        url: '/api/core/pages'
+      })
+      .then(function(resp) {
+        return resp.data;
+      }, function(err) {
+        throw(err);
+      });
+    };
 
     this.currentState = $state.current.name;
 
-    this.createPage = function(page) {
+    this.createPage = function (page) {
       return $http({
         method: 'POST',
         url: 'api/core/pages',
@@ -65,7 +76,7 @@ angular.module('tropicalbs')
       });
     };
 
-    this.updatePage = function(page, pageId) {
+    this.updatePage = function (page, pageId) {
       return $http({
         method: 'PUT',
         url: '/api/core/pages/' + pageId,

@@ -2,7 +2,7 @@
 
 angular.module('tropicalbs')
 
-.config(function ($stateProvider) {
+.config(['$stateProvider', function ($stateProvider) {
   $stateProvider
     .state('pagesCreate', {
       parent: 'nav',
@@ -14,6 +14,7 @@ angular.module('tropicalbs')
         }
     }
   })
+
     .state('pagesEdit', {
           parent: 'nav',
           url: '/pages/edit/:pageId',
@@ -24,9 +25,9 @@ angular.module('tropicalbs')
             }
         }
       });
-})
+}])
 
-.controller('PagesAdminController', function ($scope, $state, $pageStateManager, Pages, $stateParams, $window) {
+.controller('PagesAdminController', ['$scope', '$state', '$pageStateManager', 'Pages', '$stateParams', '$window', function ($scope, $state, $pageStateManager, Pages, $stateParams, $window) {
   $scope.page = {};
 
   if($state.current.name === 'pagesCreate') {
@@ -86,4 +87,4 @@ angular.module('tropicalbs')
       });
   };
 
-});
+}]);
