@@ -2,10 +2,10 @@
 
 angular.module('tropicalbs')
 
-.provider('$pageStateManager', function ($stateProvider) {
-  this.$get = function($state) {
+.provider('$pageStateManager', ['$stateProvider', function ($stateProvider) {
+  this.$get = function ($state) {
     return {
-      addState: function(page) {
+      addState: function (page) {
         $stateProvider.state('pages.' + page.id, {
           url: page.slug,
           parent: 'pages',
@@ -20,11 +20,11 @@ angular.module('tropicalbs')
       }
     };
   };
-})
+}])
 
-  .service('Pages', function ($state, $http) {
+  .service('Pages', ['$state', '$http', function ($state, $http) {
 
-    this.getPage = function() {
+    this.getPage = function () {
 
       var pageId = $state.current.name;
       pageId = pageId.split('.')[1];
@@ -34,8 +34,11 @@ angular.module('tropicalbs')
         method: 'GET',
         url: 'api/core/pages/' + pageId
       })
-      .then(function(resp) {
+      .then(function (resp) {
         return resp.data;
+      })
+      .catch(function (err) {
+        throw(err);
       });
     };
 
@@ -45,9 +48,10 @@ angular.module('tropicalbs')
         method: 'GET',
         url: 'api/core/pages/' + pageId
       })
-      .then(function(resp) {
+      .then(function (resp) {
         return resp.data;
-      }, function(err) {
+      })
+      .catch(function (err) {
         throw(err);
       });
     };
@@ -57,9 +61,10 @@ angular.module('tropicalbs')
         method: 'GET',
         url: '/api/core/pages'
       })
-      .then(function(resp) {
+      .then(function (resp) {
         return resp.data;
-      }, function(err) {
+      })
+      .catch(function (err) {
         throw(err);
       });
     };
@@ -73,6 +78,9 @@ angular.module('tropicalbs')
         data: page
       }).then(function (resp) {
         return resp.data;
+      })
+      .catch(function (err) {
+        throw(err);
       });
     };
 
@@ -83,6 +91,21 @@ angular.module('tropicalbs')
         data: page
       }).then(function (resp) {
         return resp.data;
+      })
+      .catch(function (err) {
+        throw(err);
       });
     };
-  });
+
+    this.deletePage = function (pageId) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/core/pages/' + pageId
+      }).then(function (resp) {
+        return resp.data;
+      })
+      .catch(function (err) {
+        throw(err);
+      });
+    };
+  }]);

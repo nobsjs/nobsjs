@@ -1,6 +1,6 @@
 <h1>{{pageTitle}}</h1>
 <md-content layout-padding>
-  <form ng-submit='submit()' name='createPageForm'>
+  <form name='createPageForm'>
     <md-content layout-padding layout="column">
       <md-input-container>
         <label>Title</label>
@@ -15,7 +15,8 @@
         <textarea name='content' ng-model="page.content"></textarea>
       </md-input-container>
     </md-content>
-    <!-- <span>{{page}}</span> -->
-    <md-button class="md-raised md-primary" type='submit'>{{button}}</md-button>
+    <md-button class="md-raised md-primary" ng-if="mode === 'create'" ng-click='create()' type='submit'>Create Page</md-button>
+    <md-button class="md-raised md-primary" ng-if="mode === 'edit'" ng-click='update()'>Update Page</md-button>
+    <md-button class="md-warn md-hue-2" ng-if="mode === 'edit'" ng-click='delete()'>Delete Page</md-button>
   </form>
 </md-content>
