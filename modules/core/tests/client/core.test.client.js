@@ -54,7 +54,7 @@ describe('HomeController', function () {
 
 //tests the User controller
 describe('Users Controller & Auth Service', function () {
-  var $rootScope, $location, $window, $httpBackend, $scope, Auth, $controller, createController;
+  var $rootScope, $location, $window, $httpBackend, $scope, Auth, $controller, createController, $cookies;
 
   beforeEach(module('tropicalbs'));
 
@@ -65,6 +65,7 @@ describe('Users Controller & Auth Service', function () {
     $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
     Auth = $injector.get('Auth');
+    $cookies = $injector.get('$cookies');
 
     $controller = $injector.get('$controller');
 
@@ -109,13 +110,13 @@ describe('Users Controller & Auth Service', function () {
       expect($scope.user.password).toEqual('derp1234');
     });
 
-    it('should store token in localStorage after signup', function() {
+    it('should store token in a secure userToken cookie after signup', function() {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
       $httpBackend.expectPOST('api/core/users/signup').respond({token: token});
       $scope.signup({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
-      expect($window.localStorage.getItem('userToken')).toEqual(token);
+      expect($cookies.get('userToken')).toEqual(token);
     });
 
   });

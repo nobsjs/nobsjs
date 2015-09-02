@@ -44,10 +44,20 @@ exports.logIn = function(req, res) {
         .then(function (isMatch){
           if (isMatch) {
             var token = jwt.encode(user, config.secret);
-            res.json({token: token});
+            res.json({
+              token: token,
+              user:{
+                email: user.email,
+                //MOCK of roles. Need to figure this out still
+                roles: ['admin']
+              }
+            });
           } else {
             res.status(400).send('User does not exist or password is incorrect');
           }
+        })
+        .catch(function (err){
+          res.status(400).send('Invalid Password');
         });
     }
   })
@@ -74,7 +84,14 @@ exports.signUp = function (req, res) {
       })
       .then(function (user) {
         var token = jwt.encode(user, config.secret);
-        res.json({token: token});
+        res.json({
+          token: token,
+          user:{
+            email: user.email,
+            //MOCK of roles. Need to figure this out still
+            roles: ['admin']
+          }
+        });
       })
       .catch(function (e) {
         res.status(400).send(e.message);
@@ -84,11 +101,9 @@ exports.signUp = function (req, res) {
 };
 
 exports.checkAuth = function (req, res, next) {
-  // this route has 'decode' as middleware. If the token was successfully decoded, req will have a 'user' property
   var token = req.headers['x-access-token'];
   if (!token) {
     res.status(403).send('no token provided');
-    // next(new Error('No token'));
   } else {
     var user = jwt.decode(token, config.secret);
     User.findOne({email: user.email})

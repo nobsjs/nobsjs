@@ -22,7 +22,6 @@ angular.module('tropicalbs')
 	.controller('NavigationController', function ($scope, $state, $window, Auth, Nav, User, $location) {
 
     $scope.user = User.currentUser;
-    console.log('User', User.currentUser);
     // probably not needed
     // var updateTabMapping = function () {
     //   var curr;

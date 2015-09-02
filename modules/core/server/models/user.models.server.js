@@ -16,21 +16,16 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     password: DataTypes.STRING,
-    admin: DataTypes.BOOLEAN
-
   }, {
     instanceMethods: {
       comparePassword : function(candidatePassword) {
         return bcrypt.compareAsync(candidatePassword, this.getDataValue('password'))
           .then(function (isMatch) {
-            if(isMatch) { 
+            if(isMatch) {
               return true;
             } else {
               return false;
             }
-          })
-          .catch(function (e) {
-            return e;
           });
       }
     },
@@ -54,7 +49,5 @@ module.exports = function(sequelize, DataTypes) {
         return e;
       });
   });
-
-
   return User;
 };
