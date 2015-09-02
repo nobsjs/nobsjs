@@ -2,7 +2,7 @@
 
 angular.module('tropicalbs')
 
-  .config(function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
 
     // example:
     // pages: [
@@ -40,9 +40,9 @@ angular.module('tropicalbs')
            // onEnter: function($stateParams) { console.log('enter pages' + $stateParams); }
         });
     }
-  })
+  }])
 
-	.controller('PagesController', function($scope, $state, Pages) {
+	.controller('PagesController', ['$scope', '$state', 'Pages', function($scope, $state, Pages) {
     $scope.state = $state.current.name;
 
     /*
@@ -58,4 +58,4 @@ angular.module('tropicalbs')
       $scope.content = res.content;
     });
 
-	});
+	}]);
