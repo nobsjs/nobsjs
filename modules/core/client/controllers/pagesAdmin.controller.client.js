@@ -33,15 +33,12 @@ angular.module('tropicalbs')
   if($state.current.name === 'pagesCreate') {
     // we are in create mode
     $scope.mode = 'create';
-    $scope.button = 'Create Page';
     $scope.pageTitle = 'Create a Page';
   } else if ($state.current.name === 'pagesEdit') {
     // we are in edit mode
     $scope.mode = 'edit';
-    $scope.button = 'Update Page';
     $scope.pageTitle = 'Update a Page';
   }
-  // console.log('stateParams pageId from the url', $stateParams.pageId);
 
   // Make sure pageId exists
   if($stateParams.pageId) {
@@ -57,7 +54,7 @@ angular.module('tropicalbs')
     // TODO: show the user an error message or create a redirect handler.
   }
 
-  $scope.submit = function() {
+  $scope.submit = function () {
     if($scope.mode === 'create') {
       $scope.create();
     } else if ($scope.mode === 'edit') {
@@ -67,23 +64,38 @@ angular.module('tropicalbs')
 
 
   // TODO: add validation in the view (check if it has a slash and other acceptability requirements)
-  $scope.create = function() {
+  $scope.create = function () {
     Pages.createPage($scope.page)
       .then(function (resp) {
+        // TODO: add success/error message
         $pageStateManager.addState(resp);
         $state.go('pages.' + resp.id);
       });
   };
 
-  $scope.update = function() {
+  $scope.update = function () {
     Pages.updatePage($scope.page, $scope.page.id)
       .then(function (resp) {
         // TODO: update state so that you don't need to refresh the page
-        // $pageStateManager.addState(resp);
+        // TODO: add success/error message
         // $state.go('pages.' + resp.id);
 
         // reloads the app
         $window.location.reload();
+      });
+  };
+
+  $scope.delete = function () {
+    Pages.deletePage($scope.page.id)
+      .then(function (resp) {
+        // TODO: update state so that you don't need to refresh the page
+        // TODO: add success/error message
+        // $state.go('pages.' + resp.id);
+
+        // reloads the app
+        // TODO: find a way to handle this more gracefully
+        $window.location.reload();
+        $state.go('pagesList');
       });
   };
 
