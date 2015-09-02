@@ -42,6 +42,7 @@ angular.module('tropicalbs')
     auth.logout = function () {
       $cookies.remove('userToken');
       User.setDefault();
+      $window.location.reload();
     };
 
     auth.checkAuth = function () {
