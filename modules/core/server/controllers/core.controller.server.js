@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var Promise = require('bluebird');
 var jwt = require('jwt-simple');
 var db = require(path.resolve('./lib/db.js'));
 
@@ -12,27 +13,17 @@ var config = require(path.resolve('./lib/config'));
 
 exports.renderIndex = function(req, res) {
   //Pages
-  var pages;
-  Page.findAll()
-    // TODO: Simplify the amount of content sent here
-    .then(function (pages) {
-      pages = pages;
-    })
-    .catch(function () {
-      res.status(500).send('Unable to retrieve a list of pages.');
-    });
 
-  //Tabs
-  Tab.findAll()
-    .then(function (tabs) {
-      res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
-        pages: pages,
-        tabs: tabs
-      });
-    })
-    .catch(function () {
-      res.status(500).send('Unable to retrieve a list of tabs.');
+  Promise.all([Page.findAll(), Tab.findAll()])
+  .then(function (results) {
+    res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
+      pages: results[0],
+      tabs: results[1]
     });
+  })
+  .catch(function () {
+    res.status(500).send('Database Error Occured');
+  });
 };
 
 exports.logIn = function(req, res) {
