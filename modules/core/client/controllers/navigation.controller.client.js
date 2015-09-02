@@ -22,16 +22,6 @@ angular.module('tropicalbs')
 	.controller('NavigationController', function ($scope, $state, $window, Auth, Nav, User, $location) {
 
     $scope.user = User.currentUser;
-    // probably not needed
-    // var updateTabMapping = function () {
-    //   var curr;
-    //   for (var i = 0; i< $scope.tabs.length; i++) {
-    //     curr = $scope.tabs[i];
-    //     $scope.tabMapping[curr.uisref] = i;
-    //   }
-    // };
-    // $scope.tabMapping = {};
-    // updateTabMapping();
     var tabs = _.filter(Nav.tabs, function (tab) {
       //intersection returns empty array when no intersection is found
       //thus we can use this to determine whether or not a tab should be visible
@@ -41,7 +31,6 @@ angular.module('tropicalbs')
     // filters tabs by intersection of user roles and tab visible roles
 
     $scope.logout = function () {
-      User.setDefault();
       Auth.logout();
       $window.location.reload();
     };

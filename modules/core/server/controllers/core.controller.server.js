@@ -109,7 +109,13 @@ exports.checkAuth = function (req, res, next) {
     User.findOne({email: user.email})
       .then(function (foundUser) {
         if (foundUser) {
-          res.sendStatus(200);
+          res.status(200).json({
+            user: {
+              email: foundUser.email,
+              //MOCK of roles. Need to figure this out
+              roles: ['admin']
+            }
+          });
         } else {
           res.status(401).send('User does not exist');
         }

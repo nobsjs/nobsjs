@@ -1,19 +1,26 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('User', function ($http, $location, $window) {
+  .factory('User', function () {
 
     var defaultUser = {
         email: null,
         roles: ['public']
       };
 
+    var isLoggedIn = false;
+
     var user = {
-      currentUser: {},
+      currentUser: defaultUser,
+      isLoggedIn: isLoggedIn,
       setDefault: function(){
         user.currentUser = defaultUser;
+        user.isLoggedIn = false;
+      },
+      logIn: function (newUser) {
+        user.currentUser = newUser;
+        user.isLoggedIn = true;
       }
     };
-    user.setDefault();
     return user;
   });
