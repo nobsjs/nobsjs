@@ -1,54 +1,24 @@
 'use strict';
-
 describe('Basic Client Side Tests', function () {
   it('should pass a basic truth test', function () {
     expect(true).toEqual(true);
   });
 });
 
-//tests the App controller
-describe('AppController', function () {
-
-  beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-  }));
-
-  describe('$scope', function () {
-    var $scope, controller;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('AppController', { $scope: $scope });
-   });
-    it('should have scope', function () {
-      expect($scope).not.toBeUndefined();
-    });
-  });
-});
-
 //tests the Home controller
 describe('HomeController', function () {
   beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
+  var HomeController;
+  beforeEach(inject(function ($controller){
     // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
+    HomeController = $controller('HomeController');
   }));
 
-  describe('$scope.content', function () {
-    var $scope, controller;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('HomeController', { $scope: $scope });
-   });
-
-    it('should have content', function () {
-      expect($scope.content).not.toBeUndefined();
-    });
+  it('should have content', function () {
+    expect(HomeController.content).not.toBeUndefined();
+    //this will break once hardcoded content goes away. leaving it for now as it proves that the test is
+    //able to access the content object on the controller
+    expect(HomeController.content).toBe('this is some controller generated content');
   });
 });
 
@@ -60,7 +30,6 @@ describe('Users Controller & Auth Service', function () {
 
   beforeEach(inject(function ($injector) {
     $rootScope = $injector.get('$rootScope');
-    $scope = $rootScope.$new();
     $window = $injector.get('$window');
     $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
@@ -81,40 +50,41 @@ describe('Users Controller & Auth Service', function () {
   }));
 
   describe('Users Controller', function () {
-    var $scope, controller;
+    var $scope, controller, vm;
 
     beforeEach(function () {
       $scope = {};
       controller = $controller('UsersController', { $scope: $scope });
+      vm = controller;
       // spyOn($scope, 'login');
     });
 
     it('should have a $scope', function () {
-      expect($scope).toBeDefined();
+      expect(vm).toBeDefined();
     });
 
     it('should have a login method', function () {
-      expect($scope.login).toBeDefined();
+      expect(vm.login).toBeDefined();
     });
 
     it('should have a signup method', function () {
-      expect($scope.signup).toBeDefined();
+      expect(vm.signup).toBeDefined();
     });
 
     it('should be able to set email and password', function () {
       var email = 'user@gmail.com';
       var password = 'derp1234';
-      $scope.user.email = email;
-      $scope.user.password = password;
-      expect($scope.user.email).toEqual('user@gmail.com');
-      expect($scope.user.password).toEqual('derp1234');
+      vm.user.email = email;
+      vm.user.password = password;
+      expect(vm.user.email).toEqual('user@gmail.com');
+      expect(vm.user.password).toEqual('derp1234');
     });
 
     it('should store token in a secure userToken cookie after signup', function() {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
       $httpBackend.expectPOST('api/core/users/signup').respond({token: token});
-      $scope.signup({email: 'email@gmail.com', password: 'derp1234'});
+      vm.signup({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
       expect($cookies.get('userToken')).toEqual(token);
     });
@@ -164,27 +134,17 @@ describe('Users Controller & Auth Service', function () {
 });
 
 describe('PagesController', function () {
+
+  var PagesController;
+
   beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
+
+  beforeEach(inject(function ($controller){
+    PagesController = $controller('PagesController');
   }));
 
-  describe('$scope', function () {
-    var $scope, controller;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('PagesController', { $scope: $scope });
-   });
-
-    it('should have a controller', function () {
-      expect($controller).not.toBeUndefined();
-    });
-
-    it('should have scope', function () {
-      expect($scope).not.toBeUndefined();
-    });
+  it('should exist', function () {
+    expect(PagesController).not.toBeUndefined();
   });
+
 });

@@ -1,21 +1,9 @@
 'use strict';
 
 angular.module('tropicalbs')
+  .controller('AboutController', AboutController);
 
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('about', {
-        parent: 'nav',
-        url: '/about',
-        views: {
-          'nav-child-content': {
-            templateUrl: '../../../../modules/core/client/views/about.view.client.html',
-            controller: 'AboutController'
-          }
-        }
-      });
-  })
-
-  .controller('AboutController', function($scope) {
-    $scope.content = 'this is some controller generated content';
-  });
+function AboutController () {
+  var vm = this;
+  vm.content = 'OOT AND ABOOT';
+}

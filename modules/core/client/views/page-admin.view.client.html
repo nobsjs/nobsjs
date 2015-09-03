@@ -1,22 +1,22 @@
-<h1>{{pageTitle}}</h1>
+<h1>{{ vm.viewTitle }}</h1>
 <md-content layout-padding>
   <form name='createPageForm'>
     <md-content layout-padding layout="column">
       <md-input-container>
         <label>Title</label>
-        <input name="email" ng-model="page.title" type="text" required>
+        <input name="email" ng-model="vm.page.title" type="text" required>
       </md-input-container>
       <md-input-container>
         <label>Slug</label>
-        <input name='slug' ng-model="page.slug" type="text" required>
+        <input name='slug' ng-model="vm.page.slug" type="text" required>
       </md-input-container>
       <md-input-container>
         <label>Content</label>
-        <textarea name='content' ng-model="page.content"></textarea>
+        <textarea name='content' ng-model="vm.page.content"></textarea>
       </md-input-container>
     </md-content>
-    <md-button class="md-raised md-primary" ng-if="mode === 'create'" ng-click='create()' type='submit'>Create Page</md-button>
-    <md-button class="md-raised md-primary" ng-if="mode === 'edit'" ng-click='update()'>Update Page</md-button>
-    <md-button class="md-warn md-hue-2" ng-if="mode === 'edit'" ng-click='delete()'>Delete Page</md-button>
+    <md-button class="md-raised md-primary" ng-if="vm.mode === 'create'" ng-click='vm.createPage()' type='submit'>Create Page</md-button>
+    <md-button class="md-raised md-primary" ng-if="vm.mode === 'edit'" ng-click='vm.updatePage()'>Update Page</md-button>
+    <md-button class="md-warn md-hue-2" ng-if="vm.mode === 'edit'" ng-click='vm.deletePage()'>Delete Page</md-button>
   </form>
 </md-content>

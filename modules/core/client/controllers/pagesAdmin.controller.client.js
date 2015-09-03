@@ -1,92 +1,53 @@
 'use strict';
 
 angular.module('tropicalbs')
+  .controller('PagesAdminController', PagesAdminController);
 
-.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider
-    .state('pagesCreate', {
-      parent: 'nav',
-      url: '/pages/create',
-      views: {
-        'nav-child-content': {
-          templateUrl: '../../../../modules/core/client/views/page-admin.view.client.html',
-          controller: 'PagesAdminController'
-        }
-    }
-  })
+PagesAdminController.$inject = ['$state', '$pageStateManager', 'Pages', '$stateParams', '$window'];
 
-    .state('pagesEdit', {
-          parent: 'nav',
-          url: '/pages/edit/:pageId',
-          views: {
-            'nav-child-content': {
-              templateUrl: '../../../../modules/core/client/views/page-admin.view.client.html',
-              controller: 'PagesAdminController'
-            }
-        }
-      });
-}])
+function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $window) {
+  var vm = this;
 
-.controller('PagesAdminController', ['$scope', '$state', '$pageStateManager', 'Pages', '$stateParams', '$window', function ($scope, $state, $pageStateManager, Pages, $stateParams, $window) {
-  $scope.page = {};
+  vm.createPage = createPage;
+  vm.deletePage = deletePage;
+  vm.mode = '';
+  vm.page = {};
+  vm.viewTitle = '';
+  vm.updatePage = updatePage;
 
-  if($state.current.name === 'pagesCreate') {
-    // we are in create mode
-    $scope.mode = 'create';
-    $scope.pageTitle = 'Create a Page';
-  } else if ($state.current.name === 'pagesEdit') {
-    // we are in edit mode
-    $scope.mode = 'edit';
-    $scope.pageTitle = 'Update a Page';
-  }
+  activate();
 
-  // Make sure pageId exists
-  if($stateParams.pageId) {
-
-    $scope.page.id = $stateParams.pageId;
-    //get page info and update $scope.page if successful
-    Pages.getPageById($scope.page.id).then(function(res) {
-      $scope.page.title = res.title;
-      $scope.page.slug = res.slug;
-      $scope.page.content = res.content;
-    });
-  } else {
-    // TODO: show the user an error message or create a redirect handler.
-  }
-
-  $scope.submit = function () {
-    if($scope.mode === 'create') {
-      $scope.create();
-    } else if ($scope.mode === 'edit') {
-      $scope.update();
-    }
-  };
-
+  ///////////
 
   // TODO: add validation in the view (check if it has a slash and other acceptability requirements)
-  $scope.create = function () {
-    Pages.createPage($scope.page)
+  function activate () {
+    checkState();
+    getPage();
+  }
+
+  function checkState () {
+    if($state.current.name === 'pagesCreate') {
+      // we are in create mode
+      vm.mode = 'create';
+      vm.viewTitle = 'Create a Page';
+    } else if ($state.current.name === 'pagesEdit') {
+      // we are in edit mode
+      vm.mode = 'edit';
+      vm.viewTitle = 'Update a Page';
+    }
+  }
+
+  function createPage () {
+    Pages.createPage(vm.page)
       .then(function (resp) {
         // TODO: add success/error message
         $pageStateManager.addState(resp);
         $state.go('pages.' + resp.id);
       });
-  };
+  }
 
-  $scope.update = function () {
-    Pages.updatePage($scope.page, $scope.page.id)
-      .then(function (resp) {
-        // TODO: update state so that you don't need to refresh the page
-        // TODO: add success/error message
-        // $state.go('pages.' + resp.id);
-
-        // reloads the app
-        $window.location.reload();
-      });
-  };
-
-  $scope.delete = function () {
-    Pages.deletePage($scope.page.id)
+  function deletePage () {
+    Pages.deletePage(vm.page.id)
       .then(function (resp) {
         // TODO: update state so that you don't need to refresh the page
         // TODO: add success/error message
@@ -97,6 +58,32 @@ angular.module('tropicalbs')
         $window.location.reload();
         $state.go('pagesList');
       });
-  };
+  }
 
-}]);
+  function getPage () {
+    // Make sure pageId exists
+    if($stateParams.pageId) {
+      vm.page.id = $stateParams.pageId;
+      // get page info and update vm.page if successful
+      Pages.getPageById(vm.page.id).then(function(res) {
+        vm.page.title = res.title;
+        vm.page.slug = res.slug;
+        vm.page.content = res.content;
+      });
+    } else {
+      // TODO: show the user an error message or create a redirect handler.
+    }
+  }
+
+  function updatePage () {
+    Pages.updatePage(vm.page, vm.page.id)
+      .then(function (resp) {
+        // TODO: update state so that you don't need to refresh the page
+        // TODO: add success/error message
+        // $state.go('pages.' + resp.id);
+
+        // reloads the app
+        $window.location.reload();
+      });
+  }
+}
