@@ -5,49 +5,77 @@ var Promise = require('bluebird');
 
 Promise.promisifyAll(bcrypt);
 
-module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+module.exports = UserModel;
+
+//////////
+
+function UserModel (sequelize, DataTypes) {
+  var userSchema = {
     email: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
       unique: true,
       validate: {
         isEmail: true
       }
     },
-    password: DataTypes.STRING,
-  }, {
+    password: DataTypes.STRING
+  };
+
+  var userMethods = {
     instanceMethods: {
-      comparePassword : function(candidatePassword) {
-        return bcrypt.compareAsync(candidatePassword, this.getDataValue('password'))
-          .then(function (isMatch) {
-            if(isMatch) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-      }
+      comparePassword: comparePassword
     },
     classMethods: {
-      associate: function(models) {
-        User.belongsToMany(models.Role, {through: 'UserRole'});
-      }
+      associate: associate
     }
-  });
+  };
+
+  var User = sequelize.define('User', userSchema, userMethods);
 
 
-  User.hook('beforeCreate', function (user){
+  User.hook('beforeCreate', beforeCreate);
+
+  return User;
+
+  //////////
+
+  function associate (models) {
+    User.belongsToMany(models.Role, {through: 'UserRole'});
+  }
+
+  function beforeCreate (user){
     //users are not admin upon creation. Must use web interface to make admins
     user.admin = false;
     user.email = user.email.toLowerCase();
     return bcrypt.hashAsync(user.password, 10)
-      .then(function (hash) {
-        user.password = hash;
-      })
-      .catch(function (e) {
-        return e;
-      });
-  });
-  return User;
-};
+      .then(setHash)
+      .catch(returnError);
+
+    //////////
+
+    function setHash (hash) {
+      user.password = hash;
+    }
+
+    function returnError (e) {
+      return e;
+    }
+  }
+
+  function comparePassword(candidatePassword) {
+    /* jshint validthis:true */
+    return bcrypt.compareAsync(candidatePassword, this.getDataValue('password'))
+      .then(checkMatch);
+
+    //////////
+
+    function checkMatch (isMatch) {
+      if(isMatch) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+}

@@ -1,21 +1,34 @@
 'use strict';
 
-module.exports = function (sequelize, DataTypes) {
-  var Role = sequelize.define('Role', {
+module.exports = RoleModel;
+
+//////////
+
+function RoleModel (sequelize, DataTypes) {
+  var roleSchema = {
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
       required: true,
+      type: DataTypes.STRING,
       unique: true
     }
-  }, {
+  };
+
+  var roleMethods = {
     classMethods: {
-      associate: function (models) {
-        Role.belongsToMany(models.User, {through: 'UserRole'});
-        Role.belongsToMany(models.Tab, {through: 'TabRole'});
-      }
+      associate: associate
     }
-  });
+  };
+
+  var Role = sequelize.define('Role', roleSchema, roleMethods);
 
   return Role;
-};
+  
+  //////////
+
+  function associate (models) {
+    Role.belongsToMany(models.User, {through: 'UserRole'});
+    Role.belongsToMany(models.Tab, {through: 'TabRole'});
+  }
+
+}

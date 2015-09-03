@@ -1,15 +1,21 @@
 'use strict';
 
-module.exports = function(sequelize, DataTypes) {
-  var Page = sequelize.define('Page', {
+module.exports = PageModel;
+
+//////////
+
+function PageModel (sequelize, DataTypes) {
+  var pageSchema = {
+    content: DataTypes.TEXT,
     slug: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
       unique: true
     },
-    title: DataTypes.STRING,
-    content: DataTypes.TEXT
-  });
+    title: DataTypes.STRING
+  };
+
+  var Page = sequelize.define('Page', pageSchema);
 
   return Page;
-};
+}
