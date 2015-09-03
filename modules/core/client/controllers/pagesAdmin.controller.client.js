@@ -5,6 +5,15 @@ angular.module('tropicalbs')
 
 PagesAdminController.$inject = ['$state', '$pageStateManager', 'Pages', '$stateParams', '$window'];
 
+/**
+ * Manages the view of an individual Page Admin. This is an admin view that enables create/edit/delete operations on a Page
+ *
+ * @param {AngularService} $state UI-router service
+ * @param {CustomProvider} $pageStateManager provider that can add pages to the $state
+ * @param {CustomService} Pages service that manages Pages operations
+ * @param {AngularService} $stateParams UI-router service used to access state parameters
+ * @param {AngularService} $window Angular service that references the browser window
+ */
 function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $window) {
   var vm = this;
 
@@ -20,11 +29,18 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
   ///////////
 
   // TODO: add validation in the view (check if it has a slash and other acceptability requirements)
+
+  /**
+   * Checks if state represent edit mode or creation mode, then retrieves the page and loads data into the view model
+   */
   function activate () {
     checkState();
     getPage();
   }
 
+  /**
+   * Checks if state represent edit mode or creation mode by accessing the name of the current $state
+   */
   function checkState () {
     if($state.current.name === 'pagesCreate') {
       // we are in create mode
@@ -37,6 +53,9 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
     }
   }
 
+  /**
+   * Requests the page Service to perform a page creation action then requests the $pageStateManager provider to add a new state
+   */
   function createPage () {
     Pages.createPage(vm.page)
       .then(function (resp) {
@@ -46,6 +65,9 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
       });
   }
 
+  /**
+   * Requests the page Service to perform a delete page action, then reloads the app and transition to the pages List
+   */
   function deletePage () {
     Pages.deletePage(vm.page.id)
       .then(function (resp) {
@@ -60,6 +82,9 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
       });
   }
 
+  /**
+   * Requests the page Service to retrieve the content of a page
+   */
   function getPage () {
     // Make sure pageId exists
     if($stateParams.pageId) {
@@ -75,6 +100,9 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
     }
   }
 
+  /**
+   * Requests the page Service to update the content of a specific page then reloads the app
+   */
   function updatePage () {
     Pages.updatePage(vm.page, vm.page.id)
       .then(function (resp) {

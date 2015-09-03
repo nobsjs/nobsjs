@@ -5,6 +5,12 @@ angular.module('tropicalbs')
 
 PagesAdminListController.$inject =  ['Pages', '$state'];
 
+/**
+ * Manages the view of the Page List Admin view which displays a list of pages and an interface to perform operations on them
+ *
+ * @param {CustomService} Pages service that manages Pages operations
+ * @param {AngularService} $stateParams UI-router service used to access state parameters
+ */
 function PagesAdminListController (Pages, $state) {
   var vm = this;
 
@@ -16,8 +22,10 @@ function PagesAdminListController (Pages, $state) {
 
   //////////
 
+  /**
+   * Queries the database to get all Pages
+   */
   function activate() {
-    // Queries the database to get all Pages
     // NOTE: it retrieves the entire content
     // TODO: ideally we should decide to show a snippet of the content or not show the content at all
     Pages.getAllPages()
@@ -26,17 +34,23 @@ function PagesAdminListController (Pages, $state) {
       });
   }
 
-  // transitions state to page create view
+  /**
+   * Transitions state to page create view
+   */
   function gotoCreatePage() {
     $state.go('pagesCreate');
   }
 
-  // transitions state to page EDIT view with that page Id
+  /**
+   * Transitions state to page EDIT view with that page Id
+   */
   function gotoEditPage(pageId) {
     $state.go('pagesEdit',{pageId: pageId});
   }
 
-  // transitions state to page view with that page Id
+  /**
+   * Transitions state to page view with that page Id
+   */
   function gotoPage(pageId) {
     $state.go('pages.' + pageId);
   }
