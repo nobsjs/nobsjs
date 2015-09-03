@@ -7,7 +7,7 @@ NavigationController.$inject = ['$state', 'Auth', 'Nav', 'User'];
 
 function NavigationController ($state, Auth, Nav, User) {
   var vm = this;
-  vm.logOut = Auth.logout;
+  vm.logout = Auth.logout;
   vm.state = $state;
   vm.tabs = [];
   vm.user = User.currentUser;

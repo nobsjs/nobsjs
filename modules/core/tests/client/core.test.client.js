@@ -1,57 +1,24 @@
 'use strict';
-
 describe('Basic Client Side Tests', function () {
   it('should pass a basic truth test', function () {
     expect(true).toEqual(true);
   });
 });
 
-//tests the App controller
-describe('AppController', function () {
-
-  beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-  }));
-
-  describe('$scope', function () {
-    var $scope, controller;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('AppController', { $scope: $scope });
-   });
-
-    it('should have a controller', function () {
-      expect($controller).not.toBeUndefined();
-    });
-
-  });
-});
-
 //tests the Home controller
 describe('HomeController', function () {
   beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
+  var HomeController;
+  beforeEach(inject(function ($controller){
     // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
+    HomeController = $controller('HomeController');
   }));
 
-  describe('$scope.content', function () {
-    var $scope, controller, vm;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('HomeController', { $scope: $scope });
-      vm = controller;
-   });
-
-    it('should have content', function () {
-      expect(vm.content).not.toBeUndefined();
-    });
+  it('should have content', function () {
+    expect(HomeController.content).not.toBeUndefined();
+    //this will break once hardcoded content goes away. leaving it for now as it proves that the test is
+    //able to access the content object on the controller
+    expect(HomeController.content).toBe('this is some controller generated content');
   });
 });
 
@@ -63,7 +30,6 @@ describe('Users Controller & Auth Service', function () {
 
   beforeEach(inject(function ($injector) {
     $rootScope = $injector.get('$rootScope');
-    $scope = $rootScope.$new();
     $window = $injector.get('$window');
     $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
@@ -168,24 +134,17 @@ describe('Users Controller & Auth Service', function () {
 });
 
 describe('PagesController', function () {
+
+  var PagesController;
+
   beforeEach(module('tropicalbs'));
-  var $controller;
-  beforeEach(inject(function (_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
+
+  beforeEach(inject(function ($controller){
+    PagesController = $controller('PagesController');
   }));
 
-  describe('$scope', function () {
-    var $scope, controller, vm;
-
-    beforeEach(function () {
-      $scope = {};
-      controller = $controller('PagesController', { $scope: $scope });
-      vm = controller;
-   });
-
-    it('should have a controller', function () {
-      expect($controller).not.toBeUndefined();
-    });
+  it('should exist', function () {
+    expect(PagesController).not.toBeUndefined();
   });
+
 });
