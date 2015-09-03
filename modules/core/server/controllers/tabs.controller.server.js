@@ -3,7 +3,6 @@
 var path = require('path');
 
 var db = require(path.resolve('./lib/db.js'));
-var Promise = require('bluebird');
 
 var Tab = db.Tab;
 var Role = db.Role;
@@ -36,37 +35,24 @@ exports.getTab = function (req, res) {
   */
 
 var addRoles = function (tab, roles) {
-  return new Promise(function (resolve, reject) {
-    //if there are no roles, set owner and admin
-    if( roles === undefined ) {
-      roles = ['owner', 'admin'];
+  //if there are no roles, set owner and admin
+  if( roles === undefined ) {
+    roles = ['owner', 'admin'];
+  }
+  //create an object to use with the $or operator
+  var or = [];
+  roles.forEach(function (role) {
+    or.push({name: role});
+  });
+  //find role models from the database
+  return Role.findAll({
+    where: {
+      $or: or
     }
-    //create an object to use with the $or operator
-    var or = [];
-    roles.forEach(function (role) {
-      or.push({name: role});
-    });
-    //find role models from the database
-    Role.findAll({
-      where: {
-        $or: or
-      }
-    })
-    //set the roles on the tab
-    .then(function (roles) {
-      return tab.setRoles(roles);
-    })
-    .then(function () {
-      return tab.getRoles()
-      .then(function(roles) {
-      });
-    })
-    .then(function () {
-      resolve();
-    })
-    .catch(function (err) {
-      reject(err);
-    });
+  })
+  //set the roles on the tab
+  .then(function (roles) {
+    return tab.setRoles(roles);
   });
 };
 
@@ -79,8 +65,8 @@ exports.createTab = function (req, res) {
 
   //create the tab
   Tab.create(tab)
-  //add the roles to the newtab
   .then(function (newTab) {
+    //add the roles to the newtab
     return addRoles(newTab, tab.roles)
       .then(function () {
         return newTab.getRoles();
