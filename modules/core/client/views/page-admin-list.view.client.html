@@ -1,12 +1,12 @@
 <md-content layout-padding>
   <h1 >Page Admin List</h1>
-<md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="gotoCreatePage()">
+<md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.gotoCreatePage()">
   <md-icon md-font-set="material-icons"> add </md-icon>
 </md-button>
 <!-- <md-subheader class="md-primary">These are your pages</md-subheader> -->
   <md-list>
     <md-subheader>These are your pages</md-subheader>
-    <md-list-item class="md-3-line" ng-repeat="page in allPages" ng-click="gotoPage(page.id)">
+    <md-list-item class="md-3-line" ng-repeat="page in vm.allPages" ng-click="vm.gotoPage(page.id)">
       <md-button>
         <md-icon md-font-set="material-icons"> pageview </md-icon>
       </md-button>
@@ -15,7 +15,7 @@
           <p>{{page.content}}</p>
           <md-divider md-inset></md-divider>
       </div>
-      <md-icon md-font-set="material-icons" ng-click="gotoEditPage(page.id)"> mode_edit </md-icon>
+      <md-icon md-font-set="material-icons" ng-click="vm.gotoEditPage(page.id)"> mode_edit </md-icon>
     </md-list-item>
   </md-list>
 </md-content>
