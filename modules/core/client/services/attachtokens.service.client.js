@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('tropicalbs')
   .factory('AttachTokens', AttachTokens);
 
@@ -24,6 +25,3 @@ function AttachTokens($window, $cookies){
       return req;
     }
 }
-
-
-

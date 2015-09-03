@@ -1,8 +1,10 @@
 'use strict';
+
 angular.module('tropicalbs')
   .config(userRoutes);
 
 userRoutes.$inject = ['$stateProvider'];
+
 function userRoutes($stateProvider) {
   $stateProvider
     .state('login', {

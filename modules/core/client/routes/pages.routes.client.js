@@ -13,30 +13,35 @@ function pagesRoutes ($stateProvider) {
       abstract: true
     });
 
-    generatePages($stateProvider);
-}
+  generatePages();
 
-function generatePages ($stateProvider) {
-  var currPage;
-  var currPageState;
-  //'pages' exists on global scope because it is sent over with intial index.html file
-  for(var i = 0; i < pages.length; i++) {
-    currPage = pages[i];
-    currPageState = 'pages.' + currPage.id;
+  //////////
 
-    $stateProvider
-      .state(currPageState, {
-        // assigned as a child of the pages state
-        parent: 'pages',
-        url: currPage.slug,
-        views: {
-          // loads nested view at the Nav - grandparent level
-          'nav-child-content@nav': {
-            templateUrl: '../../../../modules/core/client/views/page.view.client.html',
-            controller: 'PagesController',
-            controllerAs: 'vm'
+  function generatePages () {
+    var currPage;
+    var currPageState;
+    //'pages' exists on global scope because it is sent over with intial index.html file
+    for(var i = 0; i < pages.length; i++) {
+      currPage = pages[i];
+      currPageState = 'pages.' + currPage.id;
+
+      $stateProvider
+        .state(currPageState, {
+          // assigned as a child of the pages state
+          parent: 'pages',
+          url: currPage.slug,
+          views: {
+            // loads nested view at the Nav - grandparent level
+            'nav-child-content@nav': {
+              templateUrl: '../../../../modules/core/client/views/page.view.client.html',
+              controller: 'PagesController',
+              controllerAs: 'vm'
+            }
           }
-        }
-      });
+        });
+    }
   }
+
+
 }
+

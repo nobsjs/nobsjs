@@ -9,7 +9,7 @@ function mainConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/home');
 
   $stateProvider
-    // MAIN PARENT ROUTE ========
+    // MAIN PARENT ROUTE
     .state('app', {
       templateUrl: '../../../../modules/core/client/views/app.view.client.html',
       abstract: true
@@ -17,8 +17,3 @@ function mainConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $httpProvider.interceptors.push('AttachTokens');
 }
-
-
-
-
-

@@ -14,6 +14,8 @@ function NavigationController ($state, Auth, Nav, User) {
 
   activate ();
 
+  //////////
+
   function activate () {
     vm.tabs = _.filter(Nav.tabs, function (tab) {
     //intersection returns empty array when no intersection is found

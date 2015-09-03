@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('tropicalbs')
-
   .controller('AdminController', AdminController);
 
 function AdminController () {

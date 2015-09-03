@@ -9,6 +9,8 @@ function PagesController ($state, Pages) {
   var vm = this;
 
   activate();
+
+  //////////
   // Get the page and attach data to the scope
   function activate() {
     Pages.getPage().then(function(res){

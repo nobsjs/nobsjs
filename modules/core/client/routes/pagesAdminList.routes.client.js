@@ -1,8 +1,10 @@
 'use strict';
+
 angular.module('tropicalbs')
   .config(pagesAdminListRoutes);
 
 pagesAdminListRoutes.$inject = ['$stateProvider'];
+
 function pagesAdminListRoutes($stateProvider) {
   $stateProvider
     .state('pagesList', {
@@ -17,4 +19,3 @@ function pagesAdminListRoutes($stateProvider) {
       }
     });
 }
-
