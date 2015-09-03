@@ -3,18 +3,18 @@
 angular.module('tropicalbs')
   .controller('PagesAdminController', PagesAdminController);
 
-PagesAdminController.$inject = ['$state', '$pageStateManager', 'Pages', '$stateParams', '$window'];
+PagesAdminController.$inject = ['$pageStateManager', '$state', '$stateParams', '$window', 'pagesService'];
 
 /**
  * Manages the view of an individual Page Admin. This is an admin view that enables create/edit/delete operations on a Page
  *
+ * @param {CustomProvider} Provider that can add pages to the $state
  * @param {AngularService} $state UI-router service
- * @param {CustomProvider} $pageStateManager provider that can add pages to the $state
- * @param {CustomService} Pages service that manages Pages operations
  * @param {AngularService} $stateParams UI-router service used to access state parameters
+ * @param {CustomService} Service than manages custom pages
  * @param {AngularService} $window Angular service that references the browser window
  */
-function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $window) {
+function PagesAdminController ($pageStateManager, $state, $stateParams, $window, pagesService) {
   var vm = this;
 
   vm.createPage = createPage;
@@ -34,8 +34,10 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
    * Checks if state represent edit mode or creation mode, then retrieves the page and loads data into the view model
    */
   function activate () {
-    checkState();
-    getPage();
+    var state = checkState();
+    if (state === 'edit') {
+      getPage();
+    }
   }
 
   /**
@@ -46,10 +48,12 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
       // we are in create mode
       vm.mode = 'create';
       vm.viewTitle = 'Create a Page';
+      return 'create';
     } else if ($state.current.name === 'pagesEdit') {
       // we are in edit mode
       vm.mode = 'edit';
       vm.viewTitle = 'Update a Page';
+      return 'edit';
     }
   }
 
@@ -57,29 +61,22 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
    * Requests the page Service to perform a page creation action then requests the $pageStateManager provider to add a new state
    */
   function createPage () {
-    Pages.createPage(vm.page)
-      .then(function (resp) {
-        // TODO: add success/error message
-        $pageStateManager.addState(resp);
-        $state.go('pages.' + resp.id);
-      });
+    pagesService.createPage(vm.page)
+      .then(addState);
+  }
+
+  function addState (res) {
+    // TODO: add success/error message
+    $pageStateManager.addState(res);
+    $state.go('pages.' + res.id);
   }
 
   /**
    * Requests the page Service to perform a delete page action, then reloads the app and transition to the pages List
    */
   function deletePage () {
-    Pages.deletePage(vm.page.id)
-      .then(function (resp) {
-        // TODO: update state so that you don't need to refresh the page
-        // TODO: add success/error message
-        // $state.go('pages.' + resp.id);
-
-        // reloads the app
-        // TODO: find a way to handle this more gracefully
-        $window.location.reload();
-        $state.go('pagesList');
-      });
+    pagesService.deletePage(vm.page.id)
+      .then(reloadRedirect);
   }
 
   /**
@@ -90,28 +87,44 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
     if($stateParams.pageId) {
       vm.page.id = $stateParams.pageId;
       // get page info and update vm.page if successful
-      Pages.getPageById(vm.page.id).then(function(res) {
-        vm.page.title = res.title;
-        vm.page.slug = res.slug;
-        vm.page.content = res.content;
-      });
+      pagesService.getPageById(vm.page.id)
+        .then(setPageContent);
     } else {
       // TODO: show the user an error message or create a redirect handler.
     }
+  }
+
+  function reload () {
+    // TODO: update state so that you don't need to refresh the page
+    // TODO: add success/error message
+    // $state.go('pages.' + resp.id);
+
+    // reloads the app
+    $window.location.reload();
+  }
+
+  function reloadRedirect () {
+    // TODO: update state so that you don't need to refresh the page
+    // TODO: add success/error message
+    // $state.go('pages.' + resp.id);
+
+    // reloads the app
+    // TODO: find a way to handle this more gracefully
+    $window.location.reload();
+    $state.go('pagesList');
+  }
+
+  function setPageContent (res) {
+    vm.page.title = res.title;
+    vm.page.slug = res.slug;
+    vm.page.content = res.content;
   }
 
   /**
    * Requests the page Service to update the content of a specific page then reloads the app
    */
   function updatePage () {
-    Pages.updatePage(vm.page, vm.page.id)
-      .then(function (resp) {
-        // TODO: update state so that you don't need to refresh the page
-        // TODO: add success/error message
-        // $state.go('pages.' + resp.id);
-
-        // reloads the app
-        $window.location.reload();
-      });
+    pagesService.updatePage(vm.page, vm.page.id)
+      .then(reload);
   }
 }

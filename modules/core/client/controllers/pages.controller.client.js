@@ -3,15 +3,15 @@
 angular.module('tropicalbs')
 	.controller('PagesController', PagesController);
 
-PagesController.$inject = ['$state', 'Pages'];
+PagesController.$inject = ['$state', 'pagesService'];
 
 /**
  * Manages the view of an individual page
  *
  * @param {AngularService} $state UI-router service
- * @param {CustomService} Pages service that manages Pages operations
+ * @param {CustomService} Service than manages custom pages
  */
-function PagesController ($state, Pages) {
+function PagesController ($state, pagesService) {
   var vm = this;
 
   activate();
@@ -22,9 +22,12 @@ function PagesController ($state, Pages) {
    * Retrieves the page and loads data into the view model
    */
   function activate() {
-    Pages.getPage().then(function(res){
-      vm.title = res.title;
-      vm.content = res.content;
-    });
+    pagesService.getPage()
+      .then(setPageView);
+  }
+
+  function setPageView (res) {
+    vm.title = res.title;
+    vm.content = res.content;
   }
 }

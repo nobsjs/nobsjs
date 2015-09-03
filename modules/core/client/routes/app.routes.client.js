@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('tropicalbs')
-.config(mainConfig);
+  .config(mainConfig);
 
-mainConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+mainConfig.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider'];
 
-function mainConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
+function mainConfig ($httpProvider, $stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
 
   $stateProvider
@@ -15,5 +15,5 @@ function mainConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
       abstract: true
     });
 
-  $httpProvider.interceptors.push('AttachTokens');
+  $httpProvider.interceptors.push('attachTokens');
 }

@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('AttachTokens', AttachTokens);
+  .factory('attachTokens', attachTokens);
 
-AttachTokens.$inject = ['$window', '$cookies'];
+attachTokens.$inject = ['$cookies', '$window'];
 
-function AttachTokens($window, $cookies){
+function attachTokens($cookies, $window){
   // this is an $httpInterceptor
   // its job is to stop all out going request
   // then look in local storage and find the user's token
@@ -17,11 +17,11 @@ function AttachTokens($window, $cookies){
   //////////
 
   function request (req) {
-      var jwt = $cookies.get('userToken');
-      if (jwt) {
-        req.headers['x-access-token'] = jwt;
-      }
-      req.headers['Allow-Control-Allow-Origin'] = '*';
-      return req;
+    var jwt = $cookies.get('userToken');
+    if (jwt) {
+      req.headers['x-access-token'] = jwt;
+    }
+    req.headers['Allow-Control-Allow-Origin'] = '*';
+    return req;
     }
 }
