@@ -1,66 +1,77 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .factory('Auth', ['$http', '$location', '$window', '$cookies', 'User', function ($http, $location, $window, $cookies, User) {
+  .factory('AuthService', AuthService);
 
-    var auth = {};
+AuthService.$inject =  ['$http', '$location', '$window', '$cookies', 'UserService'];
 
-    auth.login = function (user) {
-      return $http({
-        method: 'POST',
-        url: 'api/core/users/login',
-        data: user
-      })
-      .then(function (res) {
-        if (res.secure) {
-          $cookies.put('userToken', res.data.token, {secure: true});
-        } else {
-          $cookies.put('userToken', res.data.token);
-        }
-        User.logIn(res.data.user);
-        return res;
-      });
-    };
+function AuthService ($http, $location, $window, $cookies, UserService) {
 
-    auth.signup = function (user) {
-      return $http({
-        method: 'POST',
-        url: 'api/core/users/signup',
-        data: user
-      })
-      .then(function (res) {
-        if (res.secure) {
-          $cookies.put('userToken', res.data.token, {secure: true});
-        } else {
-          $cookies.put('userToken', res.data.token);
-        }
-        User.logIn(res.data.user);
-        return res;
-      });
-    };
+  var auth = {
+    checkAuth: checkAuth,
+    login: login,
+    logout: logout,
+    signup: signup
+  };
 
-    auth.logout = function () {
-      $cookies.remove('userToken');
-      User.setDefault();
-      $window.location.reload();
-    };
+  return auth;
 
-    auth.checkAuth = function () {
-      return $http({
-        method: 'POST',
-        url: 'api/core/users/checkauth'
-      })
-      .then(function (res) {
-        User.logIn(res.data.user);
-        return res;
-      })
-      .catch(function (e) {
-        console.log(e);
-        //if AUTH is unsuccessful, 'logout'
-        auth.logout();
-      });
-    };
+  //////////
 
-    return auth;
+  function checkAuth () {
+    return $http({
+      method: 'POST',
+      url: 'api/core/users/checkauth'
+    })
+    .then(function (res) {
+      UserService.logIn(res.data.user);
+      return res;
+    })
+    .catch(function (e) {
+      console.log(e);
+      //if AUTH is unsuccessful, 'logout'
+      auth.logout();
+    });
+  }
 
-  }]);
+  function handleError (error) {
+    return error;
+  }
+
+  function login (user) {
+    return $http({
+      method: 'POST',
+      url: 'api/core/users/login',
+      data: user
+    })
+    .then(storeCookie)
+    .catch(handleError);
+  }
+
+  function logout () {
+    $cookies.remove('userToken');
+    UserService.setDefault();
+    $window.location.reload();
+  }
+
+  function signup (user) {
+    return $http({
+      method: 'POST',
+      url: 'api/core/users/signup',
+      data: user
+    })
+    .then(storeCookie)
+    .catch(handleError);
+  }
+
+  //store the Cookie and Log the user in
+  function storeCookie (res) {
+    if (res.secure) {
+        $cookies.put('userToken', res.data.token, {secure: true});
+      } else {
+        $cookies.put('userToken', res.data.token);
+      }
+      UserService.logIn(res.data.user);
+      return res;
+  }
+}

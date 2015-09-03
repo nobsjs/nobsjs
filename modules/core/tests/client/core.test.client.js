@@ -24,7 +24,7 @@ describe('HomeController', function () {
 
 //tests the User controller
 describe('Users Controller & Auth Service', function () {
-  var $rootScope, $location, $window, $httpBackend, $scope, Auth, $controller, createController, $cookies;
+  var $rootScope, $location, $window, $httpBackend, $scope, AuthService, $controller, createController, $cookies;
 
   beforeEach(module('tropicalbs'));
 
@@ -33,7 +33,7 @@ describe('Users Controller & Auth Service', function () {
     $window = $injector.get('$window');
     $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
-    Auth = $injector.get('Auth');
+    AuthService = $injector.get('AuthService');
     $cookies = $injector.get('$cookies');
 
     $controller = $injector.get('$controller');
@@ -42,7 +42,7 @@ describe('Users Controller & Auth Service', function () {
       return $controller('UsersController', {
         $scope: $scope,
         $window: $window,
-        Auth: Auth
+        Auth: AuthService
       });
     };
 
@@ -96,7 +96,7 @@ describe('Users Controller & Auth Service', function () {
 
     beforeEach(function () {
       $scope = {};
-      controller = $controller('UsersController', { $scope: $scope, Auth: Auth });
+      controller = $controller('UsersController', { $scope: $scope, Auth: AuthService });
       // spyOn($scope, 'login');
     });
 
@@ -107,7 +107,7 @@ describe('Users Controller & Auth Service', function () {
     });
 
     it('should have a login function', function() {
-      expect(Auth.login).toBeDefined();
+      expect(AuthService.login).toBeDefined();
     });
 
     //These tests are not working. there is a promise issue with $httpBackend
@@ -116,7 +116,7 @@ describe('Users Controller & Auth Service', function () {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
       $httpBackend.expectPOST('api/core/users/login').respond({token: token});
-      Auth.login({email: 'email@gmail.com', password: 'derp1234'});
+      AuthService.login({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
     });
 
@@ -125,7 +125,7 @@ describe('Users Controller & Auth Service', function () {
     xit('should not set token in localStorage on unsuccessful request', function() {
 
       $httpBackend.expectPOST('api/core/users/login').respond({status: 400});
-      Auth.login({email: 'email@gmail.com', password: 'derp1234'});
+      AuthService.login({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
       expect($window.localStorage.getItem('userToken')).toBeUndefined();
     });

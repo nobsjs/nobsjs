@@ -2,9 +2,9 @@
 angular.module('tropicalbs')
   .controller('UsersController', UsersController);
 
-UsersController.$inject = ['Auth', '$window', '$location', 'User'];
+UsersController.$inject = ['AuthService', '$window', '$location', 'UserService'];
 
-function UsersController (Auth, $window, $location, User) {
+function UsersController (AuthService, $window, $location, UserService) {
   var vm = this;
   vm.login = login;
   vm.signup = signup;
@@ -13,7 +13,7 @@ function UsersController (Auth, $window, $location, User) {
   //////////
 
   function login () {
-    Auth.login(vm.user)
+    AuthService.login(vm.user)
       .then(function () {
         $location.path('/home');
       })
@@ -27,7 +27,7 @@ function UsersController (Auth, $window, $location, User) {
   }
 
   function signup () {
-    Auth.signup(vm.user)
+    AuthService.signup(vm.user)
       .then(function () {
         $location.path('/home');
       })

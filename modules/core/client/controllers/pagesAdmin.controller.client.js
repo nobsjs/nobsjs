@@ -3,9 +3,9 @@
 angular.module('tropicalbs')
   .controller('PagesAdminController', PagesAdminController);
 
-PagesAdminController.$inject = ['$state', '$pageStateManager', 'Pages', '$stateParams', '$window'];
+PagesAdminController.$inject = ['$state', '$pageStateManager', 'PagesService', '$stateParams', '$window'];
 
-function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $window) {
+function PagesAdminController ($state, $pageStateManager, PagesService, $stateParams, $window) {
   var vm = this;
 
   vm.createPage = createPage;
@@ -38,7 +38,7 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
   }
 
   function createPage () {
-    Pages.createPage(vm.page)
+    PagesService.createPage(vm.page)
       .then(function (resp) {
         // TODO: add success/error message
         $pageStateManager.addState(resp);
@@ -47,7 +47,7 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
   }
 
   function deletePage () {
-    Pages.deletePage(vm.page.id)
+    PagesService.deletePage(vm.page.id)
       .then(function (resp) {
         // TODO: update state so that you don't need to refresh the page
         // TODO: add success/error message
@@ -65,7 +65,7 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
     if($stateParams.pageId) {
       vm.page.id = $stateParams.pageId;
       // get page info and update vm.page if successful
-      Pages.getPageById(vm.page.id).then(function(res) {
+      PagesService.getPageById(vm.page.id).then(function(res) {
         vm.page.title = res.title;
         vm.page.slug = res.slug;
         vm.page.content = res.content;
@@ -76,7 +76,7 @@ function PagesAdminController ($state, $pageStateManager, Pages, $stateParams, $
   }
 
   function updatePage () {
-    Pages.updatePage(vm.page, vm.page.id)
+    PagesService.updatePage(vm.page, vm.page.id)
       .then(function (resp) {
         // TODO: update state so that you don't need to refresh the page
         // TODO: add success/error message

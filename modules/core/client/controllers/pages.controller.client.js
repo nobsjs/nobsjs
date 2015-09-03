@@ -3,9 +3,9 @@
 angular.module('tropicalbs')
 	.controller('PagesController', PagesController);
 
-PagesController.$inject = ['$state', 'Pages'];
+PagesController.$inject = ['$state', 'PagesService'];
 
-function PagesController ($state, Pages) {
+function PagesController ($state, PagesService) {
   var vm = this;
 
   activate();
@@ -13,7 +13,7 @@ function PagesController ($state, Pages) {
   //////////
   // Get the page and attach data to the scope
   function activate() {
-    Pages.getPage().then(function(res){
+    PagesService.getPage().then(function(res){
       vm.title = res.title;
       vm.content = res.content;
     });
