@@ -1,45 +1,41 @@
 'use strict';
 
 angular.module('tropicalbs')
+  .controller('PagesAdminListController', PagesAdminListController);
 
-.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider
+PagesAdminListController.$inject =  ['Pages', '$state'];
 
-    .state('pagesList', {
-      parent: 'nav',
-      url: '/pages',
-      views: {
-        'nav-child-content': {
-          templateUrl: '../../../../modules/core/client/views/page-admin-list.view.client.html',
-          controller: 'PagesAdminListController'
-        }
-      }
-    });
-}])
+function PagesAdminListController (Pages, $state) {
+  var vm = this;
+  vm.gotoCreatePage = gotoCreatePage;
+  vm.gotoPage = gotoPage;
+  vm.gotoEditPage = gotoEditPage;
 
-.controller('PagesAdminListController', ['$scope', 'Pages', '$state', function ($scope, Pages, $state) {
+  activate();
+  //////////
+
+  function activate() {
+    // Queries the database to get all Pages
+    // NOTE: it retrieves the entire content
+    // TODO: ideally we should decide to show a snippet of the content or not show the content at all
+    Pages.getAllPages()
+      .then(function(res){
+        vm.allPages = res;
+      });
+  }
 
   // transitions state to page view with that page Id
-  $scope.gotoPage = function (pageId) {
+  function gotoPage(pageId) {
     $state.go('pages.' + pageId);
-  };
+  }
 
   // transitions state to page create view
-  $scope.gotoCreatePage = function () {
+  function gotoCreatePage() {
     $state.go('pagesCreate');
-  };
+  }
 
   // transitions state to page EDIT view with that page Id
-  $scope.gotoEditPage = function (pageId) {
-    $state.go('pagesEdit',{
-      pageId: pageId
-    });
-  };
-
-  // Queries the database to get all Pages
-  // NOTE: it retrieves the entire content
-  // TODO: ideally we should decide to show a snippet of the content or not show the content at all
-  Pages.getAllPages().then(function(res){
-    $scope.allPages = res;
-  });
-}]);
+  function gotoEditPage(pageId) {
+    $state.go('pagesEdit',{pageId: pageId});
+  }
+}
