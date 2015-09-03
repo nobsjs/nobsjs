@@ -3,9 +3,9 @@
 angular.module('tropicalbs')
   .controller('PagesAdminListController', PagesAdminListController);
 
-PagesAdminListController.$inject =  ['Pages', '$state'];
+PagesAdminListController.$inject =  ['PagesService', '$state'];
 
-function PagesAdminListController (Pages, $state) {
+function PagesAdminListController (PagesService, $state) {
   var vm = this;
 
   vm.gotoCreatePage = gotoCreatePage;
@@ -20,7 +20,7 @@ function PagesAdminListController (Pages, $state) {
     // Queries the database to get all Pages
     // NOTE: it retrieves the entire content
     // TODO: ideally we should decide to show a snippet of the content or not show the content at all
-    Pages.getAllPages()
+    PagesService.getAllPages()
       .then(function(res){
         vm.allPages = res;
       });

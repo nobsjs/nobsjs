@@ -11,12 +11,12 @@ angular
   ])
   .run(runBlock);
 
-runBlock.$inject = ['$rootScope', '$location', '$cookies', 'Auth', 'User'];
+runBlock.$inject = ['$rootScope', '$location', '$cookies', 'AuthService', 'UserService'];
 
-function runBlock($rootScope, $location, $cookies, Auth, User) {
+function runBlock($rootScope, $location, $cookies, AuthService, UserService) {
   $rootScope.$on('$stateChangeStart', function (evt, next, nextParams, current, currentParams) {
-    if (next && !User.isLoggedIn && $cookies.get('userToken')) {
-      Auth.checkAuth();
+    if (next && !UserService.isLoggedIn && $cookies.get('userToken')) {
+      AuthService.checkAuth();
     }
   });
 }
