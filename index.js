@@ -1,28 +1,35 @@
 'use strict';
 
-var app = require('./lib/express');
 var clog = require('c.log');
-var config = require('./lib/config');
 var fs = require('fs');
-var path = require('path');
-var db = require('./lib/db');
 var http = require('http');
 var https = require('https');
+var path = require('path');
 
-db.sequelize.sync({force: config.force}) //use force true (defined in local) when changing schema
-  .then(function () {
-    http.createServer(app).listen(config.port);
-    clog.green('Listening for http on port ' + config.port);
+var app = require('./lib/express');
+var config = require('./lib/config');
+var db = require('./lib/db');
 
-    if(config.secure) {
-      var options = {
-        key: fs.readFileSync(path.resolve(config.ssl.key)),
-        cert: fs.readFileSync(path.resolve(config.ssl.cert))
-      };
-      https.createServer(options, app).listen(config.securePort);
-      clog.green('Listening for https on port ' + config.securePort);
-    }
-  })
-  .catch(function (err) {
-    clog.red(err);
-  });
+db.sequelize.sync({force: config.force})
+  .then(startServer)
+  .catch(logError);
+
+//////////
+
+function logError(err) {
+  clog.red(err);
+}
+
+function startServer() {
+  http.createServer(app).listen(config.port);
+  clog.green('Listening for http on port ' + config.port);
+
+  if(config.secure) {
+    var options = {
+      key: fs.readFileSync(path.resolve(config.ssl.key)),
+      cert: fs.readFileSync(path.resolve(config.ssl.cert))
+    };
+    https.createServer(options, app).listen(config.securePort);
+    clog.green('Listening for https on port ' + config.securePort);
+  }
+}
