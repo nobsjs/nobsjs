@@ -12,8 +12,7 @@ function mainConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
     // MAIN PARENT ROUTE ========
     .state('app', {
       templateUrl: '../../../../modules/core/client/views/app.view.client.html',
-      abstract: true,
-      controller: 'AppController'
+      abstract: true
     });
 
   $httpProvider.interceptors.push('AttachTokens');
