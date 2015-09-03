@@ -23,9 +23,11 @@ describe('AppController', function () {
       $scope = {};
       controller = $controller('AppController', { $scope: $scope });
    });
-    it('should have scope', function () {
-      expect($scope).not.toBeUndefined();
+
+    it('should have a controller', function () {
+      expect($controller).not.toBeUndefined();
     });
+
   });
 });
 
@@ -39,15 +41,16 @@ describe('HomeController', function () {
   }));
 
   describe('$scope.content', function () {
-    var $scope, controller;
+    var $scope, controller, vm;
 
     beforeEach(function () {
       $scope = {};
       controller = $controller('HomeController', { $scope: $scope });
+      vm = controller;
    });
 
     it('should have content', function () {
-      expect($scope.content).not.toBeUndefined();
+      expect(vm.content).not.toBeUndefined();
     });
   });
 });
@@ -81,40 +84,41 @@ describe('Users Controller & Auth Service', function () {
   }));
 
   describe('Users Controller', function () {
-    var $scope, controller;
+    var $scope, controller, vm;
 
     beforeEach(function () {
       $scope = {};
       controller = $controller('UsersController', { $scope: $scope });
+      vm = controller;
       // spyOn($scope, 'login');
     });
 
     it('should have a $scope', function () {
-      expect($scope).toBeDefined();
+      expect(vm).toBeDefined();
     });
 
     it('should have a login method', function () {
-      expect($scope.login).toBeDefined();
+      expect(vm.login).toBeDefined();
     });
 
     it('should have a signup method', function () {
-      expect($scope.signup).toBeDefined();
+      expect(vm.signup).toBeDefined();
     });
 
     it('should be able to set email and password', function () {
       var email = 'user@gmail.com';
       var password = 'derp1234';
-      $scope.user.email = email;
-      $scope.user.password = password;
-      expect($scope.user.email).toEqual('user@gmail.com');
-      expect($scope.user.password).toEqual('derp1234');
+      vm.user.email = email;
+      vm.user.password = password;
+      expect(vm.user.email).toEqual('user@gmail.com');
+      expect(vm.user.password).toEqual('derp1234');
     });
 
     it('should store token in a secure userToken cookie after signup', function() {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
       $httpBackend.expectPOST('api/core/users/signup').respond({token: token});
-      $scope.signup({email: 'email@gmail.com', password: 'derp1234'});
+      vm.signup({email: 'email@gmail.com', password: 'derp1234'});
       $httpBackend.flush();
       expect($cookies.get('userToken')).toEqual(token);
     });
@@ -172,19 +176,16 @@ describe('PagesController', function () {
   }));
 
   describe('$scope', function () {
-    var $scope, controller;
+    var $scope, controller, vm;
 
     beforeEach(function () {
       $scope = {};
       controller = $controller('PagesController', { $scope: $scope });
+      vm = controller;
    });
 
     it('should have a controller', function () {
       expect($controller).not.toBeUndefined();
-    });
-
-    it('should have scope', function () {
-      expect($scope).not.toBeUndefined();
     });
   });
 });
