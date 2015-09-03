@@ -4,7 +4,11 @@ var path = require('path');
 
 var tabs = require(path.resolve('./modules/core/server/controllers/tabs.controller.server.js'));
 
-module.exports = function (app) {
+module.exports = tabRoutes;
+
+//////////
+
+function tabRoutes (app) {
   app.route('/api/core/tabs')
     .get(tabs.getTabs)
     .post(tabs.createTab);
@@ -15,4 +19,4 @@ module.exports = function (app) {
     .delete(tabs.deleteTab);
 
   app.param('tabId', tabs.getTabById);
-};
+}

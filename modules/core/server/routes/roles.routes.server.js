@@ -4,7 +4,11 @@ var path = require('path');
 
 var roles = require(path.resolve('./modules/core/server/controllers/roles.controllers.server.js'));
 
-module.exports = function (app) {
+module.exports = rolesRoutes;
+
+//////////
+
+function rolesRoutes (app) {
   app.route('/api/core/roles')
     .get(roles.getRoles)
     .post(roles.createRole);
@@ -14,4 +18,4 @@ module.exports = function (app) {
     .put(roles.updateRole);
 
   app.param('roleId', roles.getRoleById);
-};
+}

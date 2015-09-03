@@ -4,7 +4,11 @@ var path = require('path');
 
 var pages = require(path.resolve('./modules/core/server/controllers/pages.controller.server.js'));
 
-module.exports = function (app) {
+module.exports = pageRoutes;
+
+//////////
+
+function pageRoutes (app) {
   app.route('/api/core/pages')
     .get(pages.getPages)
     .post(pages.createPage);
@@ -15,4 +19,4 @@ module.exports = function (app) {
     .delete(pages.deletePage);
 
   app.param('pageId', pages.getPageById);
-};
+}
