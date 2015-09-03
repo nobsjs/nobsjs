@@ -14,7 +14,7 @@ function tabRoutes (app) {
     .post(tabs.createTab);
 
   app.route('/api/core/tabs/:tabId')
-    .get(tabs.getTab)
+    .get(tabs.sendTab)
     .put(tabs.updateTab)
     .delete(tabs.deleteTab);
 

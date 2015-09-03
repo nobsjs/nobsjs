@@ -9,7 +9,7 @@ var User = db.User;
 describe('login', function () {
 
   beforeAll(function(done){
-    
+
     db.sequelize.sync({force: true})
       .then(function () {
         return User.create({
@@ -17,7 +17,25 @@ describe('login', function () {
           password: 'testpassword'
         });
       })
-      .then(function(){
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'user'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'admin'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'owner'
+        });
+      })
+      .then(function () {
         done();
       });
   });
@@ -43,7 +61,7 @@ describe('login', function () {
   var app = require(path.resolve('./lib/express.js'));
 
   it('should respond to a successful POST request to "/api/core/users/login" with 200 status', function (done) {
-    
+
     request(app)
       .post('/api/core/users/login')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
@@ -54,11 +72,11 @@ describe('login', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should respond to a POST request with bad password to "/api/core/users/login" with 400 status', function (done) {
-    
+
     request(app)
       .post('/api/core/users/login')
       .send({email: 'Rob@rob.com', password: 'testpaasdfasdfssword'})
@@ -69,11 +87,11 @@ describe('login', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should respond to a POST request with bad email to "/api/core/users/login" with 400 status', function (done) {
-    
+
     request(app)
       .post('/api/core/users/login')
       .send({email: 'Rob@notrob.com', password: 'testpassword'})
@@ -84,11 +102,11 @@ describe('login', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('response to successful login should include a token', function (done) {
-    
+
     request(app)
       .post('/api/core/users/login')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
@@ -104,7 +122,7 @@ describe('login', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
 });
@@ -134,7 +152,7 @@ describe('signup', function () {
   var app = require(path.resolve('./lib/express.js'));
 
   it('should return a token upon new user signup', function (done) {
-    
+
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
@@ -149,11 +167,11 @@ describe('signup', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should fail upon non-valid email', function (done) {
-    
+
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'THISISNOTANEMAILADDRESS', password: 'testpassword'})
@@ -164,11 +182,11 @@ describe('signup', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should fail upon duplicate signup', function (done) {
-    
+
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
@@ -188,7 +206,7 @@ describe('signup', function () {
   });
 
   it('should fail upon duplicate signup', function (done) {
-    
+
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
