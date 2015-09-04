@@ -111,12 +111,6 @@ describe('/api/core/tabs', function () {
 
     var savedTab;
 
-    Tab.destroy({
-      where: {
-        title: 'Home'
-      }
-    });
-
     beforeEach(function (done) {
       Tab.create(tab)
         .then(function (newTab) {
