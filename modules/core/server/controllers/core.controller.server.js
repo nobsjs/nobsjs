@@ -120,7 +120,7 @@ function logIn(req, res) {
         // Create a user object to send to the client
         var userResponse = {
           email: user.email,
-          roles: user.Roles
+          roles: stripRoleNames(user.Roles)
         };
 
         // Create a token, and encode the userResponse
@@ -148,6 +148,20 @@ function logIn(req, res) {
   function send500 (err) {
     res.status(500).send('An error occured while logging in.');
   }
+}
+
+/**
+ * Strips an array of Roles returned from the Database to an array of role names
+ *
+ * @param {Array} roles An Array
+ * @returns {Array} roleNames An array of role names
+ */
+function stripRoleNames (roles) {
+  var roleNames = [];
+  for(var r = 0; r < roles.length; r++) {
+    roleNames.push(roles[r].name);
+  }
+  return roleNames;
 }
 
 /**
@@ -214,7 +228,7 @@ function signUp (req, res) {
       .then(setRole);
 
     function setRole (role) {
-      return user.setRoles(role);
+      return user.addRole(role);
     }
   }
 
@@ -224,7 +238,7 @@ function signUp (req, res) {
       token: token,
       user: {
         email: user.email,
-        roles: user.Roles
+        roles: stripRoleNames(user.Roles)
       }
     };
 

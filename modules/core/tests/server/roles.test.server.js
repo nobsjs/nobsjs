@@ -15,34 +15,34 @@ describe('Roles Controllers', function () {
 
   beforeEach(function (done) {
     db.sequelize.sync({force: true})
-    .then(done);
+      .then(done);
   });
 
   beforeEach(function (done) {
     Role.create({name: 'Admin'})
-    .then(function (role) {
-      role1 = role;
-      return Role.create({name: 'role2'});
-    })
-    .then(function (role) {
-      role2 = role;
-      return User.create({
-        email: 'test@example.com',
-        password: 'testPassword'
-      });
-    })
-    .then(function (user) {
-      user1 = user;
-      return User.create({
-        email: 'test2@example.com',
-        password: 'testPassword2'
-      });
-    })
-    .then(function (user) {
-      user2 = user;
-    })
-    .then(done)
-    .catch(done.fail);
+      .then(function (role) {
+        role1 = role;
+        return Role.create({name: 'role2'});
+      })
+      .then(function (role) {
+        role2 = role;
+        return User.create({
+          email: 'test@example.com',
+          password: 'testPassword'
+        });
+      })
+      .then(function (user) {
+        user1 = user;
+        return User.create({
+          email: 'test2@example.com',
+          password: 'testPassword2'
+        });
+      })
+      .then(function (user) {
+        user2 = user;
+      })
+      .then(done)
+      .catch(done.fail);
   });
 
   it('should have two roles and two users for testing', function (done) {
@@ -99,7 +99,7 @@ describe('Roles Controllers', function () {
       });
   });
 
-  xit('should return a requested role with a list of users', function (done) {
+  it('should return a requested role with a list of users', function (done) {
     request(app)
       .get('/api/core/roles/' + role1.id)
       .expect(200)
@@ -166,14 +166,44 @@ describe('Roles Controllers', function () {
       .expect(200)
       .end(function (err, res) {
         if(err) {
-          expect(res.body.name).toEqual('updatedRole2');
           done.fail(err);
         } else {
+          expect(res.body.name).toEqual('updatedRole2');
           done();
         }
       });
   });
 
-  
+  it('should return the role upon deletion', function (done) {
+    request(app)
+      .delete('/api/core/roles/' + role1.id)
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(res.body.name).toEqual(role1.name);
+          done();
+        }
+      });
+  });
+
+  it('should be able to delete a role', function (done) {
+    request(app)
+      .delete('/api/core/roles/' + role1.id)
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          db.Role.findOne({where:{id:role1.id}})
+            .then(function (role) {
+              expect(role).toEqual(null);
+            })
+            .then(done)
+            .catch(done.fail);
+        }
+      });
+  });
 
 });

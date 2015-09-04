@@ -17,10 +17,13 @@ describe('login', function () {
           password: 'testpassword'
         });
       })
-      .then(function () {
+      .then(function (user) {
         //create user role
         return db.Role.create({
           name: 'user'
+        })
+        .then(function (role) {
+          return user.addRole(role);
         });
       })
       .then(function () {
@@ -125,12 +128,77 @@ describe('login', function () {
       });
   });
 
+  it('should respond to a successful login with a user object', function (done) {
+    request(app)
+      .post('/api/core/users/login')
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(typeof res.body.user).toEqual('object');
+          done();
+        }
+      });
+  });
+
+  it('should respond to a successful login with a user email', function (done) {
+    request(app)
+      .post('/api/core/users/login')
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(typeof res.body.user.email).toEqual('string');
+          expect(res.body.user.email).toEqual('rob@rob.com');
+          done();
+        }
+      });
+  });
+
+  it('should respond to a successful login with the user roles', function (done) {
+    request(app)
+      .post('/api/core/users/login')
+      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(Array.isArray(res.body.user.roles)).toEqual(true);
+          expect(res.body.user.roles).toEqual(['user']);
+          done();
+        }
+      });
+  });
+
 });
 
 describe('signup', function () {
 
   beforeAll(function (done) {
     db.sequelize.sync({force: true})
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'user'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'admin'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'owner'
+        });
+      })
       .then(function () {
         done();
       });
@@ -165,6 +233,53 @@ describe('signup', function () {
         if (err) {
           done.fail(err);
         } else {
+          done();
+        }
+      });
+  });
+
+  it('shoudl return a user on new user signup', function (done) {
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'cody@cody.com', password: 'testPassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(typeof res.body.user).toEqual('object');
+          done();
+        }
+      });
+  });
+
+  it('should return a user with their email on signup', function (done) {
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'cody2@cody.com', password: 'testPassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(typeof res.body.user.email).toEqual('string');
+          expect(res.body.user.email).toEqual('cody2@cody.com');
+          done();
+        }
+      });
+  });
+
+  it('should return a user with a default user role', function (done) {
+    request(app)
+      .post('/api/core/users/signup')
+      .send({email: 'cody2@cody.com', password: 'testPassword'})
+      .expect(200)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          expect(Array.isArray(res.body.user.roles)).toEqual(true);
+          expect(res.body.user.roles).toEqual(['user']);
           done();
         }
       });
@@ -232,6 +347,24 @@ describe('checkAuth', function () {
 
   beforeAll(function (done) {
     db.sequelize.sync({force: true})
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'user'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'admin'
+        });
+      })
+      .then(function () {
+        //create user role
+        return db.Role.create({
+          name: 'owner'
+        });
+      })
       .then(function () {
         done();
       });

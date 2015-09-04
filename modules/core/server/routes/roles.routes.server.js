@@ -15,7 +15,8 @@ function rolesRoutes (app) {
 
   app.route('/api/core/roles/:roleId')
     .get(roles.sendRole)
-    .put(roles.updateRole);
+    .put(roles.updateRole)
+    .delete(roles.deleteRole);
 
   app.param('roleId', roles.getRoleById);
 }
