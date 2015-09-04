@@ -7,12 +7,12 @@
         </h1>
       </md-toolbar>
       <md-content layout-padding>
-        <form ng-submit='vm.signup()' name="signupForm">
+        <form ng-submit='vm.signup()' name="vm.signupForm">
           <md-content layout-padding layout="column">
             <md-input-container>
               <label>Email</label>
               <input ng-model="vm.user.email" type="email" name="email" required>
-              <div ng-messages="signupForm.email.$error" ng-show="signupForm.email.$touched">
+              <div ng-messages="vm.signupForm.email.$error" ng-show="vm.signupForm.email.$touched">
                 <div ng-message="reject">Email address already in use.</div>
                 <div ng-message="required" >This is required.</div>
                 <div ng-message="email" >Please use a valid email.</div>
@@ -21,7 +21,7 @@
             <md-input-container>
               <label>Password</label>
               <input ng-model="vm.user.password" type="password" name="password" ng-minlength="8" required>
-              <div ng-messages="signupForm.password.$error" ng-show="signupForm.password.$touched">
+              <div ng-messages="vm.signupForm.password.$error" ng-show="vm.signupForm.password.$touched">
                 <div ng-message="required">This is required.</div>
                 <div ng-message="minlength">Password must be at least 8 characters long.</div>
               </div>
