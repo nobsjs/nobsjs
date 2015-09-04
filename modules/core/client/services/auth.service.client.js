@@ -35,10 +35,6 @@ function authService ($cookies, $http, $location, $window, userService) {
     }
   }
 
-  function handleError (err) {
-    return err;
-  }
-
   function login (user) {
     var req = {
       method: 'POST',
@@ -48,8 +44,8 @@ function authService ($cookies, $http, $location, $window, userService) {
 
     return $http(req)
       .then(storeCookie)
-      .then(userLogin)
-      .catch(handleError);
+      .then(userLogin);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
   function logout () {
@@ -67,12 +63,13 @@ function authService ($cookies, $http, $location, $window, userService) {
 
     return $http(req)
       .then(storeCookie)
-      .then(userLogin)
-      .catch(handleError);
+      .then(userLogin);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
   // Store the Cookie
   function storeCookie (res) {
+    console.log('Inside store cookie', res);
     if (res.secure) {
       $cookies.put('userToken', res.data.token, {secure: true});
     } else {
@@ -82,6 +79,7 @@ function authService ($cookies, $http, $location, $window, userService) {
   }
 
   function userLogin (res) {
+    console.log('inside user login', res);
     userService.login(res.data.user);
     return res;
   }
