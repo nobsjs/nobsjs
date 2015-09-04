@@ -2,15 +2,15 @@
 
 describe('PagesController', function () {
 
-  var PagesController;
+  var pagesController;
 
   beforeEach(module('tropicalbs'));
 
   beforeEach(inject(function ($controller) {
-    PagesController = $controller('PagesController');
+    pagesController = $controller('PagesController');
   }));
 
   it('should exist', function () {
-    expect(PagesController).not.toBeUndefined();
+    expect(pagesController).not.toBeUndefined();
   });
 });
