@@ -186,8 +186,16 @@ describe('Config lib', function () {
       expect(typeof config.log).toEqual('object');
     });
 
-    it('should have a log.db boolean', function () {
-      expect(typeof config.log.db).toEqual('boolean');
+    it('should have a log.db boolean', function (done) {
+      if(typeof config.log.db === 'boolean') {
+        expect(config.log.db).toEqual(false);
+        done();
+      } else if (typeof config.log.db === 'function') {
+        done();
+      } else {
+        done.fail();
+      }
+      
     });
 
   });
