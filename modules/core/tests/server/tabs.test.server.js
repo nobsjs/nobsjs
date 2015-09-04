@@ -111,28 +111,28 @@ describe('/api/core/tabs', function () {
 
     var savedTab;
 
-    Tab.destroy({
-      where: {
-        title: 'Home'
-      }
-    });
-
     beforeEach(function (done) {
-      Tab.create(tab)
-        .then(function (newTab) {
-          savedTab = newTab;
-        })
-        .then(done);
-    });
-
-    afterEach(function (done) {
       Tab.destroy({
         where: {
           title: 'Home'
         }
-      })
-      .then(done);
+      }).then (function () {
+        Tab.create(tab)
+          .then(function (newTab) {
+            savedTab = newTab;
+          })
+          .then(done);
+      });
     });
+
+    // afterEach(function (done) {
+    //   Tab.destroy({
+    //     where: {
+    //       title: 'Home'
+    //     }
+    //   })
+    //   .then(done);
+    // });
 
     it('should be able to retrieve the new tab', function (done) {
       request(app)

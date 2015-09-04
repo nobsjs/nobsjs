@@ -5,16 +5,16 @@ var path = require('path');
 describe('Config lib', function () {
 
   var config = require(path.resolve('./lib/config.js'));
-  
+
   it('should be an object', function () {
     expect(typeof config).toEqual('object');
   });
-  
+
   it('should have a port defined', function () {
     expect(config.port).toEqual(jasmine.anything());
   });
 
-  it('port should be a number', function () { 
+  it('port should be a number', function () {
     expect(typeof config.port).toEqual('number');
   });
 
@@ -22,7 +22,7 @@ describe('Config lib', function () {
     expect(config.securePort).toEqual(jasmine.anything());
   });
 
-  it('securePort should be a number', function () { 
+  it('securePort should be a number', function () {
     expect(typeof config.securePort).toEqual('number');
   });
 
@@ -137,7 +137,7 @@ describe('Config lib', function () {
   });
 
   describe('assets', function () {
-    
+
     it('should have an assets object', function () {
       expect(typeof config.assets).toEqual('object');
     });
@@ -181,12 +181,12 @@ describe('Config lib', function () {
   });
 
   describe('log', function () {
-    
+
     it('should have a log object', function () {
       expect(typeof config.log).toEqual('object');
     });
 
-    it('should have a log.db boolean', function () {
+    xit('should have a log.db boolean', function () {
       expect(typeof config.log.db).toEqual('boolean');
     });
 
@@ -205,7 +205,7 @@ describe('Config lib', function () {
   });
 
   describe('files', function () {
-    
+
     it('should have a files object', function () {
       expect(typeof config.files).toEqual('object');
     });
