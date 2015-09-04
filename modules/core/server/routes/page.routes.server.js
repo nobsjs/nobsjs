@@ -14,7 +14,7 @@ function pageRoutes (app) {
     .post(pages.createPage);
 
   app.route('/api/core/pages/:pageId')
-    .get(pages.getPage)
+    .get(pages.sendPage)
     .put(pages.updatePage)
     .delete(pages.deletePage);
 
