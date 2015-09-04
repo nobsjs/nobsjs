@@ -3,22 +3,22 @@
 angular.module('tropicalbs')
 	.controller('NavigationController', NavigationController);
 
-NavigationController.$inject = ['$state', 'Auth', 'Nav', 'User'];
+NavigationController.$inject = ['$state', 'authService', 'navService', 'userService'];
 
 /**
  * Manages the view of navigation tabs
  *
  * @param {AngularService} $state UI-router service
- * @param {CustomService} Auth authentication service
- * @param {CustomService} Nav service that manages the navigation object
- * @param {CustomService} User service that manages user sessions
+ * @param {CustomService} Service that manages authentication
+ * @param {CustomService} Service that manages navigation
+ * @param {CustomService} Service that manages user sessions
  */
-function NavigationController ($state, Auth, Nav, User) {
+function NavigationController ($state, authService, navService, userService) {
   var vm = this;
-  vm.logout = Auth.logout;
+  vm.logout = authService.logout;
   vm.state = $state;
   vm.tabs = [];
-  vm.user = User.currentUser;
+  vm.user = userService.currentUser;
 
   activate ();
 
@@ -28,7 +28,7 @@ function NavigationController ($state, Auth, Nav, User) {
    * Initial set-up of navigation tabs
    */
   function activate () {
-    vm.tabs = _.filter(Nav.tabs, function (tab) {
+    vm.tabs = _.filter(navService.tabs, function (tab) {
     // intersection returns empty array when no intersection is found
     // thus we can use this to determine whether or not a tab should be visible
     return _.intersection(tab.visibleRoles, vm.user.roles).length > 0;
