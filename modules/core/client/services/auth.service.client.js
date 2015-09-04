@@ -69,7 +69,6 @@ function authService ($cookies, $http, $location, $window, userService) {
 
   // Store the Cookie
   function storeCookie (res) {
-    console.log('Inside store cookie', res);
     if (res.secure) {
       $cookies.put('userToken', res.data.token, {secure: true});
     } else {
@@ -79,7 +78,6 @@ function authService ($cookies, $http, $location, $window, userService) {
   }
 
   function userLogin (res) {
-    console.log('inside user login', res);
     userService.login(res.data.user);
     return res;
   }
