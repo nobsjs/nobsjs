@@ -22,18 +22,14 @@ exports.updateTab = updateTab;
   */
 
 function addRoles (tab, roles) {
-  //if there are no roles, set owner and admin
-  if (roles === undefined) {
-    roles = ['owner', 'admin'];
-  }
 
-  //create an object to use with the $or operator
+  // Create an object to use with the $or operator
   var or = [];
   roles.forEach(function (role) {
     or.push({name: role});
   });
 
-  //find role models from the database
+  // Find role models from the database
   var roleQuery = {
     where: {
       $or: or
@@ -41,7 +37,7 @@ function addRoles (tab, roles) {
   };
 
   return db.Role.findAll(roleQuery)
-    //set the roles on the tab
+    // Set the roles on the tab
     .then(setRoles);
 
   function setRoles (roles) {
@@ -57,13 +53,13 @@ function addRoles (tab, roles) {
   */
 
 function createTab (req, res) {
-  //build the new tab
+  // Build the new tab
   var tab = {};
   tab.title = req.body.title;
   tab.uisref = req.body.uisref;
-  tab.roles = req.body.roles;
+  tab.roles = req.body.roles || ['owner', 'admin'];
 
-  //create the tab
+  // Create the tab
   db.Tab.create(tab)
     .then(addRolesAndSendTab)
     .catch(send500);
@@ -71,31 +67,19 @@ function createTab (req, res) {
   //////////
 
   function addRolesAndSendTab (newTab) {
-    //add the roles to the newtab
+    // Add the roles to the newtab
     return addRoles(newTab, tab.roles)
-      .then(getRoles)
-      .then(findNewTab)
       .then(sendTab);
 
     //////////
 
-    function findNewTab (roles) {
-      var tabQuery = {
-        where: {
-          id: newTab.id
-        },
-        include: [{model: db.Role}]
-      };
-
-      return db.Tab.find(tabQuery);
-    }
-
-    function getRoles () {
-      return newTab.getRoles();
-    }
-
-    function sendTab (tab) {
-      res.send(tab);
+    function sendTab () {
+      var resJson = {};
+      resJson.id = newTab.id;
+      resJson.title = newTab.title;
+      resJson.uisref = newTab.uisref;
+      resJson.visibleRoles = tab.roles;
+      res.send(resJson);
     }
   }
 
@@ -175,17 +159,28 @@ function getTabs (req, res) {
   };
 
   db.Tab.findAll(tabQuery)
-    .then(sendTabs)
+    .then(processTabsAndSend)
     .catch(sendError);
 
   //////////
 
-  function sendError (err) {
-    res.send(err);
+  function processTabsAndSend (tabs) {
+    var response = [];
+    tabs.forEach(function (tab) {
+      var tempTab = {};
+      tempTab.title = tab.title;
+      tempTab.uisref = tab.uisref;
+      tempTab.visibleRoles = [];
+      tab.Roles.forEach(function (role) {
+        tempTab.visibleRoles.push(role.name);
+      });
+      response.push(tempTab);
+    });
+    res.send(response);
   }
 
-  function sendTabs (tabs) {
-    res.send(tabs);
+  function sendError (err) {
+    res.send(err);
   }
 }
 
