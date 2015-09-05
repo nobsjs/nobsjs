@@ -19,6 +19,8 @@ function NavigationController ($state, authService, navService, userService) {
   vm.state = $state;
   vm.tabs = [];
   vm.user = userService.currentUser;
+  vm.login = login;
+  vm.signup = signup;
 
   activate ();
 
@@ -33,5 +35,19 @@ function NavigationController ($state, authService, navService, userService) {
     // thus we can use this to determine whether or not a tab should be visible
     return _.intersection(tab.visibleRoles, vm.user.roles).length > 0;
     });
+  }
+
+  /**
+   * Redirects state to login page
+   */
+  function login () {
+    $state.go('login');
+  }
+
+  /**
+   * Redirects state to signup page
+   */
+  function signup () {
+    $state.go('signup');
   }
 }
