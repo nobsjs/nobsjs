@@ -56,7 +56,7 @@ function checkAuth (req, res, next) {
       var resJson = {
         user: {
           email: foundUser.email,
-          roles: foundUser.Roles
+          roles: stripRoleNames(foundUser.Roles)
         }
       };
 
