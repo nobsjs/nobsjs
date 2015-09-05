@@ -147,7 +147,7 @@ describe('/api/core/tabs', function () {
         });
     });
 
-    xit('should be able to update a tab', function (done) {
+    it('should be able to update a tab', function (done) {
       request(app)
         .put('/api/core/tabs/' + savedTab.id)
         .send(tab)
@@ -163,7 +163,7 @@ describe('/api/core/tabs', function () {
         });
     });
 
-    xit('should be able to update a tab', function (done) {
+    it('should be able to update a tab', function (done) {
       tab.title = 'Some New Tab Title';
       request(app)
         .put('/api/core/tabs/' + savedTab.id)
@@ -189,7 +189,7 @@ describe('/api/core/tabs', function () {
         });
     });
 
-    it('should be able to delete a tab', function (done) {
+    xit('should be able to delete a tab', function (done) {
       request(app)
         .delete('/api/core/tabs/' + savedTab.id)
         .expect(200)

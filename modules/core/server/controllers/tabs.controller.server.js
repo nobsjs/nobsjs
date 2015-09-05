@@ -135,7 +135,8 @@ function getTabById (req, res, next, id) {
   };
 
   db.Tab.findOne(tabQuery)
-    .then(setTab);
+    .then(setTab)
+    .catch(sendError);
 
   //////////
 
@@ -143,6 +144,10 @@ function getTabById (req, res, next, id) {
     req.tab = tab;
     next();
   }
+
+  function sendError () {
+      res.status(404).send('Database Error: could not find tab');
+    }
 }
 
 /**
