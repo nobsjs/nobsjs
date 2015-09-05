@@ -105,6 +105,5 @@ describe('Users Controller & Auth Service', function () {
       $httpBackend.flush();
       expect($window.localStorage.getItem('userToken')).toBeUndefined();
     });
-
   });
 });
