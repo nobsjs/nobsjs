@@ -16,12 +16,12 @@
               </md-button>
               <md-menu-content width="3">
                 <md-menu-item ng-hide="vm.user.email">
-                  <md-button aria-label="sign-up" ui-sref="signup">
+                  <md-button aria-label="sign-up" ng-click="vm.signup()">
                     Sign up
                   </md-button>
                 </md-menu-item>
                 <md-menu-item ng-hide="vm.user.email">
-                  <md-button aria-label="login" ui-sref="login">
+                  <md-button aria-label="login" ng-click="vm.login()">
                     Log in
                   </md-button>
                 </md-menu-item>
