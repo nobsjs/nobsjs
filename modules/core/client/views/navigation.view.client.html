@@ -36,7 +36,7 @@
         </div>
     </div>
   </div>
-  <md-tabs md-selected="selectedIndex" md-selected="selectedIndex">
+  <md-tabs md-selected="selectedIndex" md-selected="selectedIndex" ng-if="tabs.length">
     <md-tab md-active="vm.state.is(tab.uisref)" ng-repeat="tab in vm.tabs" ui-sref="{{tab.uisref}}" label="{{tab.title}}"></md-tab>
   </md-tabs>
 </md-toolbar>
