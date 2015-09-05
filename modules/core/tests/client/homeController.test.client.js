@@ -8,7 +8,6 @@ describe('HomeController', function () {
   var homeController;
 
   beforeEach(inject(function ($controller) {
-    // The injector unwraps the underscores (_) from around the parameter names when matching
     homeController = $controller('HomeController');
   }));
 
