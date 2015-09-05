@@ -8,11 +8,13 @@ function TabModel (sequelize, DataTypes) {
   var tabSchema = {
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     uisref: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   };
   var tabMethods = {

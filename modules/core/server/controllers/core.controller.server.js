@@ -172,11 +172,38 @@ function stripRoleNames (roles) {
  */
 
 function renderIndex (req, res) {
-  Promise.all([db.Page.findAll(), db.Tab.findAll()])
+  Promise.all([db.Page.findAll(), getTabs()])
     .then(render)
     .catch(send500);
 
   //////////
+
+  function getTabs () {
+    var tabQuery = {
+      include : [
+        {
+          model: db.Role
+        }
+      ]
+    };
+    return db.Tab.findAll(tabQuery)
+      .then(processTabs);
+  }
+
+  function processTabs (tabs) {
+    var response = [];
+    tabs.forEach(function (tab) {
+      var tempTab = {};
+      tempTab.title = tab.title;
+      tempTab.uisref = tab.uisref;
+      tempTab.visibleRoles = [];
+      tab.Roles.forEach(function (role) {
+        tempTab.visibleRoles.push(role.name);
+      });
+      response.push(tempTab);
+    });
+    return response;
+  }
 
   function render (results) {
     res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
