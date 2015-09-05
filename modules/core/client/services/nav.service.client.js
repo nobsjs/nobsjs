@@ -8,7 +8,6 @@ navService.$inject = ['$http', '$location', '$window'];
 function navService ($http, $location, $window) {
 
   var _tabs = $window.tabs;
-  console.log('Tabs loaded in index', _tabs);
 
   var nav = {
     getTabs: getTabs,
