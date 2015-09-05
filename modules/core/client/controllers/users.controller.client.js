@@ -55,6 +55,6 @@ function UsersController ($location, $window, authService, userService) {
     // 'signupForm' and the password field is named 'password', we are able to attach the 'reject'
     // property to the $error object when login fails. This allows us to put a 'ng-message="reject"'
     // directive in the login view, informing the user that their attempt was unsuccessful
-    vm.signupForm.password.$error.reject = true;
+    vm.signupForm.email.$error.reject = true;
   }
 }
