@@ -11,7 +11,7 @@ function navService ($http, $location, $window) {
 
   var nav = {
     getTabs: getTabs,
-    updateTabs: updateTabs
+    refreshTabs: refreshTabs
   };
 
   return nav;
@@ -22,7 +22,7 @@ function navService ($http, $location, $window) {
     return _tabs;
   }
 
-  function updateTabs () {
+  function refreshTabs () {
     var req = {
       method: 'GET',
       url: 'api/core/tabs'
