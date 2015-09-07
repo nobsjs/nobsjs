@@ -28,19 +28,19 @@ describe('PagesController', function () {
     expect(vm).toBeDefined();
   });
 
-  xit('should have a title', function () {
+  it('should have a title', function () {
     expect(vm.title).toBeDefined();
   });
 
-  xit('title should be a string', function () {
+  it('title should be a string', function () {
     expect(typeof vm.title).toEqual('string');
   });
 
-  xit('should have content', function () {
+  it('should have content', function () {
     expect(vm.content).toBeDefined();
   });
 
-  xit('content should be a string', function () {
+  it('content should be a string', function () {
     expect(typeof vm.content).toEqual('string');
   });
 
