@@ -1,6 +1,7 @@
 'use strict';
 
 describe('nav Service', function () {
+
   var $http, $location, $window, $httpBackend, navService, tabsObject;
 
   beforeEach(function () {
@@ -27,12 +28,15 @@ describe('nav Service', function () {
   });
 
   describe('Get Tabs', function () {
+
     it('should have a getTabs function', function () {
       expect(typeof navService.getTabs).toEqual('function');
     });
+
   });
 
   describe('Refresh Tabs', function () {
+
     it('should have a refreshTabs function', function () {
       expect(typeof navService.refreshTabs).toEqual('function');
     });
@@ -43,5 +47,6 @@ describe('nav Service', function () {
         expect(res).toEqual(tabsObject);
       });
     });
+
   });
 });
