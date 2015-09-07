@@ -10,7 +10,9 @@
     "angular-messages": "~1.4.5",
     "angular-mocks": "1.4.4",
     "angular-ui-router": "0.2.15",
-    "lodash": "~3.10.1"
+    "bootstrap": "~3.3.5",
+    "lodash": "~3.10.1",
+    "textAngular": "~1.4.3"
   },
   "resolutions": {
     "angular": "1.4.5"

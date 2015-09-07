@@ -6,7 +6,7 @@ angular.module('tropicalbs')
 $pageStateManager.$inject =  ['$stateProvider'];
 
 function $pageStateManager ($stateProvider) {
-  this.$get = function ($state) {
+  this.$get = function () {
     return {
       addState: addState
     };
