@@ -30,15 +30,7 @@ function NavigationController ($state, authService, navService, userService) {
    * Initial set-up of navigation tabs
    */
   function activate () {
-    filterTabs();
-  }
-
-  function filterTabs () {
-    vm.tabs = _.filter(navService.getTabs(), function (tab) {
-    // intersection returns empty array when no intersection is found
-    // thus we can use this to determine whether or not a tab should be visible
-    return _.intersection(tab.visibleRoles, vm.user.roles).length > 0;
-    });
+    vm.tabs = navService.getUserTabs();
   }
 
   /**

@@ -3,14 +3,15 @@
 angular.module('tropicalbs')
   .factory('navService', navService);
 
-navService.$inject = ['$http', '$location', '$window'];
+navService.$inject = ['$http', '$location', '$window', 'userService'];
 
-function navService ($http, $location, $window) {
+function navService ($http, $location, $window, userService) {
 
   var _tabs = $window.tabs;
 
   var nav = {
-    getTabs: getTabs,
+    getAllTabs: getAllTabs,
+    getUserTabs: getUserTabs,
     refreshTabs: refreshTabs
   };
 
@@ -18,8 +19,16 @@ function navService ($http, $location, $window) {
 
   //////////
 
-  function getTabs () {
+  function getAllTabs () {
     return _tabs;
+  }
+
+  function getUserTabs () {
+    return _.filter(_tabs, function (tab) {
+      // intersection returns empty array when no intersection is found
+      // thus we can use this to determine whether or not a tab should be visible
+      return _.intersection(tab.visibleRoles, userService.currentUser.roles).length > 0;
+    });
   }
 
   function refreshTabs () {

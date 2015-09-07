@@ -26,13 +26,24 @@ describe('nav Service', function () {
       }];
   });
 
-  describe('Get Tabs', function () {
-    it('should have a getTabs function', function () {
-      expect(typeof navService.getTabs).toEqual('function');
+  describe('Get User Tabs', function () {
+
+    it('should have a getUserTabs function', function () {
+      expect(typeof navService.getUserTabs).toEqual('function');
     });
+
+  });
+
+  describe('Get All Tabs', function () {
+
+    it('should have a getAllTabs function', function () {
+      expect(typeof navService.getAllTabs).toEqual('function');
+    });
+
   });
 
   describe('Refresh Tabs', function () {
+
     it('should have a refreshTabs function', function () {
       expect(typeof navService.refreshTabs).toEqual('function');
     });
@@ -43,5 +54,6 @@ describe('nav Service', function () {
         expect(res).toEqual(tabsObject);
       });
     });
+
   });
 });
