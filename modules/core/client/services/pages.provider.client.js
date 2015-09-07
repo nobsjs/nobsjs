@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .provider('$pageStateManager', $pageStateManager);
+  .provider('pageStateManager', pageStateManager);
 
-$pageStateManager.$inject =  ['$stateProvider'];
+pageStateManager.$inject =  ['$stateProvider'];
 
-function $pageStateManager ($stateProvider) {
+function pageStateManager ($stateProvider) {
+  /* jshint validthis:true */
   this.$get = function () {
     return {
       addState: addState
@@ -19,7 +20,8 @@ function $pageStateManager ($stateProvider) {
           // loads nested view at the Nav - grandparent level
           'nav-child-content@nav': {
             templateUrl: '../../../../modules/core/client/views/page.view.client.html',
-            controller: 'PagesController'
+            controller: 'PagesController',
+            controllerAs: 'vm'
           }
         }
       });

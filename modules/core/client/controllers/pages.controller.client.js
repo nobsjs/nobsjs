@@ -13,6 +13,8 @@ PagesController.$inject = ['$state', 'pagesService'];
  */
 function PagesController ($state, pagesService) {
   var vm = this;
+  vm.title = '';
+  vm.content = '';
 
   activate();
 

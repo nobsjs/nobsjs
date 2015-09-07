@@ -3,7 +3,7 @@
 angular.module('tropicalbs')
   .controller('PagesAdminController', PagesAdminController);
 
-PagesAdminController.$inject = ['$pageStateManager', '$state', '$stateParams', '$window', 'pagesService'];
+PagesAdminController.$inject = ['$state', '$stateParams', '$window', 'pagesService'];
 
 /**
  * Manages the view of an individual Page Admin. This is an admin view that enables create/edit/delete operations on a Page
@@ -14,7 +14,7 @@ PagesAdminController.$inject = ['$pageStateManager', '$state', '$stateParams', '
  * @param {CustomService} Service than manages custom pages
  * @param {AngularService} $window Angular service that references the browser window
  */
-function PagesAdminController ($pageStateManager, $state, $stateParams, $window, pagesService) {
+function PagesAdminController ($state, $stateParams, $window, pagesService) {
   var vm = this;
 
   vm.createPage = createPage;
@@ -58,25 +58,17 @@ function PagesAdminController ($pageStateManager, $state, $stateParams, $window,
   }
 
   /**
-   * Requests the page Service to perform a page creation action then requests the $pageStateManager provider to add a new state
+   * Requests the page Service to perform a page creation action
    */
   function createPage () {
-    pagesService.createPage(vm.page)
-      .then(addState);
-  }
-
-  function addState (res) {
-    // TODO: add success/error message
-    $pageStateManager.addState(res);
-    $state.go('pages.' + res.id);
+    pagesService.createPage(vm.page);
   }
 
   /**
-   * Requests the page Service to perform a delete page action, then reloads the app and transition to the pages List
+   * Requests the page Service to perform a delete page action
    */
   function deletePage () {
-    pagesService.deletePage(vm.page.id)
-      .then(reloadRedirect);
+    pagesService.deletePage(vm.page.id);
   }
 
   /**
@@ -87,31 +79,11 @@ function PagesAdminController ($pageStateManager, $state, $stateParams, $window,
     if($stateParams.pageId) {
       vm.page.id = $stateParams.pageId;
       // get page info and update vm.page if successful
-      pagesService.getPageById(vm.page.id)
+      pagesService.getPage(vm.page.id)
         .then(setPageContent);
     } else {
       // TODO: show the user an error message or create a redirect handler.
     }
-  }
-
-  function reload () {
-    // TODO: update state so that you don't need to refresh the page
-    // TODO: add success/error message
-    // $state.go('pages.' + resp.id);
-
-    // reloads the app
-    $window.location.reload();
-  }
-
-  function reloadRedirect () {
-    // TODO: update state so that you don't need to refresh the page
-    // TODO: add success/error message
-    // $state.go('pages.' + resp.id);
-
-    // reloads the app
-    // TODO: find a way to handle this more gracefully
-    $window.location.reload();
-    $state.go('pagesList');
   }
 
   function setPageContent (res) {
@@ -121,10 +93,9 @@ function PagesAdminController ($pageStateManager, $state, $stateParams, $window,
   }
 
   /**
-   * Requests the page Service to update the content of a specific page then reloads the app
+   * Requests the page Service to update the content of a specific page
    */
   function updatePage () {
-    pagesService.updatePage(vm.page, vm.page.id)
-      .then(reload);
+    pagesService.updatePage(vm.page, vm.page.id);
   }
 }
