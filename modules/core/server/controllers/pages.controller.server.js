@@ -61,7 +61,7 @@ function sendPage (req, res) {
 
 function createPage (req, res) {
   var page = {};
-  page.slug = req.body.slug;
+  page.slug = checkSlug(req.body.slug);
   page.title = req.body.title;
   page.content = req.body.content;
 
@@ -70,6 +70,14 @@ function createPage (req, res) {
     .catch(send500);
 
   //////////
+
+  function checkSlug (slug) {
+    if (slug[0] === '/') {
+      return slug;
+    } else {
+      return '/' + slug;
+    }
+  }
 
   function sendCreatedPage (page) {
     res.status(200).send(page);
