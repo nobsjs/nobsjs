@@ -46,12 +46,24 @@ describe('NavigationController', function () {
       expect(vm.user).toBeDefined();
     });
 
+    it('vm should have a users property', function () {
+      expect(vm.users).toBeDefined();
+    });
+
     it('vm should have a login property', function () {
       expect(vm.login).toBeDefined();
     });
 
     it('vm should have a signup property', function () {
       expect(vm.signup).toBeDefined();
+    });
+
+    it('vm should have a openAdminSidenav property', function () {
+      expect(vm.openAdminSidenav).toBeDefined();
+    });
+
+    it('vm should have a userIsAdmin property', function () {
+      expect(vm.userIsAdmin).toBeDefined();
     });
 
   });
@@ -116,6 +128,16 @@ describe('NavigationController', function () {
 
     it('roles should be an array', function () {
       expect(Array.isArray(vm.user.roles)).toBe(true);
+    });
+
+  });
+
+  describe('side nav', function () {
+
+    it('users function should change state to users', function () {
+      spyOn($state, 'go');
+      vm.users();
+      expect($state.go).toHaveBeenCalledWith('users');
     });
 
   });

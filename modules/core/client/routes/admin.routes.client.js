@@ -17,5 +17,16 @@ function adminConfig ($stateProvider) {
           controllerAs: 'vm'
         }
       }
-  });
+    })
+    .state('users', {
+      parent: 'admin',
+      url: '/users',
+      views: {
+        'admin-content': {
+          templateUrl: '../../../../modules/core/client/views/admin-users.view.client.html',
+          controller: 'AdminUsersController',
+          controllerAs: 'vm'
+        }
+      }
+    });
 }

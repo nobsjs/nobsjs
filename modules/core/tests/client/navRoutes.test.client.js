@@ -41,6 +41,18 @@ describe('Nav Routes', function () {
       expect(navState.views['navigation-menu'].controllerAs).toEqual('vm');
     });
 
+    it('should have a template url set', function () {
+      expect(navState.views['admin-sidenav'].templateUrl).toEqual('../../../../modules/core/client/views/admin-sidenav.view.client.html');
+    });
+
+    it('should have a controller set', function () {
+      expect(navState.views['admin-sidenav'].controller).toEqual('NavigationController');
+    });
+
+    it('should have a controllerAs set', function () {
+      expect(navState.views['admin-sidenav'].controllerAs).toEqual('vm');
+    });
+
     it('should have a template', function () {
       expect(navState.views['main-content'].template).toEqual('<div ui-view name="nav-child-content"></div>');
     });

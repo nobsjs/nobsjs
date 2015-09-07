@@ -16,6 +16,11 @@ function navRoutes($stateProvider){
           controller: 'NavigationController',
           controllerAs: 'vm'
         },
+        'admin-sidenav': {
+          templateUrl: '../../../../modules/core/client/views/admin-sidenav.view.client.html',
+          controller: 'NavigationController',
+          controllerAs: 'vm'
+        },
         'main-content': {
           template: '<div ui-view name="nav-child-content"></div>'
         }

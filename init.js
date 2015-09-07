@@ -98,23 +98,6 @@ db.sequelize.sync({force:true})
   });
 })
 .then(function () {
-  // Create Admin tab
-  return db.Tab.create({ title: 'Admin', uisref: 'admin' });
-})
-.then(function (tab) {
-  return db.Role.findAll({
-    where: {
-      $or: [
-        { name: 'owner' },
-        { name: 'admin' }
-      ]
-    }
-  })
-  .then(function (roles) {
-    return tab.setRoles(roles);
-  });
-})
-.then(function () {
   process.nextTick(function () {
     process.exit(0);
   });
