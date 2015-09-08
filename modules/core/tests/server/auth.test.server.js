@@ -8,7 +8,7 @@ var User = db.User;
 
 describe('login', function () {
 
-  beforeAll(function(done){
+  beforeAll(function (done){
 
     db.sequelize.sync({force: true})
       .then(function () {
@@ -51,14 +51,12 @@ describe('login', function () {
         }
       }
     })
-    .then(function () { //callback argument would be # of rows deleted
+    .then(function () { 
+      // callback argument would be # of rows deleted
       // console.log('Destroyed ', rows, ' entries (login)');
       // return sequelize.drop();
       done();
     });
-    // .then(function(){
-    //   done();
-    // });
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -69,7 +67,7 @@ describe('login', function () {
       .post('/api/core/users/login')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
       .expect(200)
-      .end(function(err){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -84,7 +82,7 @@ describe('login', function () {
       .post('/api/core/users/login')
       .send({email: 'Rob@rob.com', password: 'testpaasdfasdfssword'})
       .expect(400)
-      .end(function(err){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -99,7 +97,7 @@ describe('login', function () {
       .post('/api/core/users/login')
       .send({email: 'Rob@notrob.com', password: 'testpassword'})
       .expect(400)
-      .end(function(err){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -119,7 +117,7 @@ describe('login', function () {
           return 'token not found';
         }
       })
-      .end(function(err){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
@@ -212,7 +210,8 @@ describe('signup', function () {
         }
       }
     })
-    .then(function () { //callback argument would be # of rows deleted
+    .then(function () { 
+      //callback argument would be # of rows deleted
       done();
     });
   });
@@ -305,7 +304,8 @@ describe('signup', function () {
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function () { //call back arguments would be err, res
+      .end(function () { 
+        //call back arguments would be err, res
         request(app)
           .post('/api/core/users/signup')
           .send({email: 'Rob@rob.com', password: 'testpassword'})
@@ -325,7 +325,8 @@ describe('signup', function () {
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function () { //call back arguments would be err, res
+      .end(function () { 
+        //call back arguments would be err, res
         request(app)
           .post('/api/core/users/signup')
           .send({email: 'rob@rob.com', password: 'testpassword'})
@@ -378,7 +379,8 @@ describe('checkAuth', function () {
         }
       }
     })
-    .then(function () { //callback argument would be # of rows deleted
+    .then(function () { 
+      //callback argument would be # of rows deleted
       done();
     });
   });
@@ -400,7 +402,7 @@ describe('checkAuth', function () {
     request(app)
       .post('/api/core/users/signup')
       .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function (err, res) { //call back arguments would be err, res
+      .end(function (err, res) { 
         var token = res.body.token;
         request(app)
           .post('/api/core/users/checkauth')

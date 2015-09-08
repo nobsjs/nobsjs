@@ -8,20 +8,13 @@ var Page = db.Page;
 
 describe('/api/core/pages', function () {
 
-  var page;
+  var app, page;
 
   beforeAll(function (done){
+    app = require(path.resolve('./lib/express.js'));
+
     db.sequelize.sync({force: true})
-      // .then(function () {
-      //   return Page.create({
-      //     slug: '/test1',
-      //     title: 'Page Title Test1',
-      //     content: 'Content for the Test1 Page'
-      //   });
-      // })
-      .then(function(){
-        done();
-      });
+      .then(done);
   });
 
   beforeEach(function () {
@@ -35,8 +28,6 @@ describe('/api/core/pages', function () {
     Page.truncate()
       .then(done);
   });
-
-  var app = require(path.resolve('./lib/express.js'));
 
   it('should respond to a request to "/api/core/pages" with 200 status', function (done) {
     request(app)
@@ -228,7 +219,6 @@ describe('/api/core/pages', function () {
           if(err) {
             done.fail(err);
           } else {
-            // done();
             request(app)
               .get('/api/core/pages/' + savedPage.id)
               .expect(400)
