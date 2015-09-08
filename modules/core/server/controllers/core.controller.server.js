@@ -56,7 +56,7 @@ function checkAuth (req, res, next) {
       var resJson = {
         user: {
           email: foundUser.email,
-          roles: foundUser.Roles
+          roles: stripRoleNames(foundUser.Roles)
         }
       };
 
@@ -120,7 +120,7 @@ function logIn(req, res) {
         // Create a user object to send to the client
         var userResponse = {
           email: user.email,
-          roles: user.Roles
+          roles: stripRoleNames(user.Roles)
         };
 
         // Create a token, and encode the userResponse
@@ -151,6 +151,20 @@ function logIn(req, res) {
 }
 
 /**
+ * Strips an array of Roles returned from the Database to an array of role names
+ *
+ * @param {Array} roles An Array
+ * @returns {Array} roleNames An array of role names
+ */
+function stripRoleNames (roles) {
+  var roleNames = [];
+  for(var r = 0; r < roles.length; r++) {
+    roleNames.push(roles[r].name);
+  }
+  return roleNames;
+}
+
+/**
  * Render the index page for the angular application.
  *
  * @param {ExpressRequestObject} req
@@ -158,11 +172,38 @@ function logIn(req, res) {
  */
 
 function renderIndex (req, res) {
-  Promise.all([db.Page.findAll(), db.Tab.findAll()])
+  Promise.all([db.Page.findAll(), getTabs()])
     .then(render)
     .catch(send500);
 
   //////////
+
+  function getTabs () {
+    var tabQuery = {
+      include : [
+        {
+          model: db.Role
+        }
+      ]
+    };
+    return db.Tab.findAll(tabQuery)
+      .then(processTabs);
+  }
+
+  function processTabs (tabs) {
+    var response = [];
+    tabs.forEach(function (tab) {
+      var tempTab = {};
+      tempTab.title = tab.title;
+      tempTab.uisref = tab.uisref;
+      tempTab.visibleRoles = [];
+      tab.Roles.forEach(function (role) {
+        tempTab.visibleRoles.push(role.name);
+      });
+      response.push(tempTab);
+    });
+    return response;
+  }
 
   function render (results) {
     res.render(path.resolve('./modules/core/server/views/index.core.view.server.html'), {
@@ -214,7 +255,7 @@ function signUp (req, res) {
       .then(setRole);
 
     function setRole (role) {
-      return user.setRoles(role);
+      return user.addRole(role);
     }
   }
 
@@ -224,7 +265,7 @@ function signUp (req, res) {
       token: token,
       user: {
         email: user.email,
-        roles: user.Roles
+        roles: stripRoleNames(user.Roles)
       }
     };
 

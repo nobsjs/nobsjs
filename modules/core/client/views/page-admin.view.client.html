@@ -10,10 +10,8 @@
         <label>Slug</label>
         <input name='slug' ng-model="vm.page.slug" type="text" required>
       </md-input-container>
-      <md-input-container>
-        <label>Content</label>
-        <textarea name='content' ng-model="vm.page.content"></textarea>
-      </md-input-container>
+      <label>Content</label>
+      <text-angular name='content' ng-model="vm.page.content"></text-angular>
     </md-content>
     <md-button class="md-raised md-primary" ng-if="vm.mode === 'create'" ng-click='vm.createPage()' type='submit'>Create Page</md-button>
     <md-button class="md-raised md-primary" ng-if="vm.mode === 'edit'" ng-click='vm.updatePage()'>Update Page</md-button>

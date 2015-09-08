@@ -3,9 +3,9 @@
 angular.module('tropicalbs')
   .factory('pagesService', pagesService);
 
-pagesService.$inject = ['$http', '$state'];
+pagesService.$inject = ['$http', '$state', 'pageStateManager'];
 
-function pagesService ($http, $state) {
+function pagesService ($http, $state, pageStateManager) {
   var pages = {
     createPage: createPage,
     currentState: $state.current.name,
@@ -19,6 +19,12 @@ function pagesService ($http, $state) {
 
   //////////
 
+  // dynamically adds state to $stateProvider, then redirects
+  function addState (page) {
+    pageStateManager.addState(page);
+    $state.go('pages.' + page.id);
+  }
+
   function createPage (page) {
     var req = {
       method: 'POST',
@@ -28,7 +34,9 @@ function pagesService ($http, $state) {
 
     return $http(req)
       .then(returnData)
-      .catch(handleError);
+      .then(addState);
+      // no catch block allows the controller to receive the error and provide feedback to the user
+
   }
 
   function deletePage (pageId) {
@@ -38,8 +46,8 @@ function pagesService ($http, $state) {
     };
 
     return $http(req)
-      .then(returnData)
-      .catch(handleError);
+      .then(redirectHome);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
   function getAllPages () {
@@ -49,8 +57,8 @@ function pagesService ($http, $state) {
     };
 
     return $http(req)
-      .then(returnData)
-      .catch(handleError);
+      .then(returnData);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
   function getPage (pageId) {
@@ -61,12 +69,16 @@ function pagesService ($http, $state) {
     };
 
     return $http (req)
-      .then(returnData)
-      .catch(handleError);
+      .then(returnData);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
-  function handleError (err) {
-    return err;
+  function redirectHome () {
+    $state.go('home');
+  }
+
+  function redirectToPage (page) {
+    $state.go('pages.' + page.id);
   }
 
   function returnData (res) {
@@ -82,6 +94,7 @@ function pagesService ($http, $state) {
 
     return $http(req)
       .then(returnData)
-      .catch(handleError);
+      .then(redirectToPage);
+      // no catch block allows the controller to receive the error and provide feedback to the user
   }
 }

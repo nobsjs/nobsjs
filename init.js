@@ -37,6 +37,67 @@ db.sequelize.sync({force:true})
   });
 })
 .then(function () {
+  // Create a Public Role
+  return db.Role.create({ name: 'public' });
+})
+.then(function () {
+  // Create Home tab
+  return db.Tab.create({ title: 'Home', uisref: 'home'});
+})
+.then(function (tab) {
+    return db.Role.findAll({
+      where: {
+        $or: [
+          { name: 'public' },
+          { name: 'user' },
+          { name: 'owner' },
+          { name: 'admin' }
+        ]
+      }
+    })
+    .then(function (roles) {
+      return tab.setRoles(roles);
+    });
+})
+.then(function () {
+  // Create Blog tab
+  return db.Tab.create({ title: 'Blog', uisref: 'blog' });
+})
+.then(function (tab) {
+  return db.Role.findAll({
+    where: {
+      $or: [
+        { name: 'public' },
+        { name: 'user' },
+        { name: 'owner' },
+        { name: 'admin' }
+      ]
+    }
+  })
+  .then(function (roles) {
+    return tab.setRoles(roles);
+  });
+})
+.then(function () {
+  // Create About tab
+  return db.Tab.create({ title: 'About', uisref: 'about' });
+})
+.then(function (tab) {
+  return db.Role.findAll({
+    where: {
+      $or: [
+        { name: 'public' },
+        { name: 'user' },
+        { name: 'owner' },
+        { name: 'admin' }
+      ]
+    }
+  })
+  .then(function (roles) {
+    tab.setRoles(roles);
+  });
+})
+.then(function () {
   process.nextTick(function () {
     process.exit(0);
   });
