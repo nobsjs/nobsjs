@@ -12,6 +12,7 @@ function userService() {
   var isLoggedIn = false;
   var user = {
       currentUser: defaultUser,
+      hasRole: hasRole,
       isLoggedIn: isLoggedIn,
       login: login,
       setDefault: setDefault
@@ -29,5 +30,13 @@ function userService() {
   function setDefault () {
     user.currentUser = defaultUser;
     user.isLoggedIn = false;
+  }
+
+  function hasRole (roles) {
+    if (Array.isArray(roles)) {
+      return _.intersection(user.currentUser.roles, roles).length > 0;
+    } else {
+      return _.contains(user.roles, roles);
+    }
   }
 }
