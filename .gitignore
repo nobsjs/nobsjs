@@ -13,6 +13,9 @@ lib-cov
 # bower components
 public/lib
 
+# uglified code
+public/dist
+
 # Coverage directory used by tools like istanbul
 coverage
 
