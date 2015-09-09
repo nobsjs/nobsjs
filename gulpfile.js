@@ -2,17 +2,24 @@
 
 var gulp = require('gulp');
 
+var concat = require('gulp-concat');
 var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
 var karmaServer = require('karma').Server;
+var ngAnnotate = require('gulp-ng-annotate');
 var nodemon = require('gulp-nodemon');
 var runSequence = require('run-sequence');
+var uglify = require('gulp-uglify');
 
 var isWatching = false;
 
 var config = {};
 
 gulp.task('default', ['nodemon']);
+
+gulp.task('prod', function (done) {
+  runSequence('env:prod', 'loadConfig', 'uglify', 'nodemon');
+});
 
 gulp.task('test', function (done) {
   runSequence('env:test', 'loadConfig', 'jshint','karma', 'jasmine', done);
@@ -26,6 +33,10 @@ gulp.task('test:server', function (done) {
 
 gulp.task('loadConfig', function () {
   config = require('./lib/config');
+});
+
+gulp.task('env:prod', function () {
+  process.env.NODE_ENV = 'production';
 });
 
 gulp.task('env:test', function () {
@@ -64,6 +75,17 @@ gulp.task('nodemon', function () {
       console.log('restarted!');
     });
 
+});
+
+// JS minifying task
+gulp.task('uglify', function () {
+  return gulp.src(config.files.client.js)
+    .pipe(ngAnnotate())
+    .pipe(uglify({
+      mangle: true
+    }))
+    .pipe(concat('application.min.js'))
+    .pipe(gulp.dest('public/dist'));
 });
 
 // THIS SECTION IS A WORK AROUND FOR GULP HANGING AT THE END OF TESTS
