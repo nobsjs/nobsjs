@@ -174,6 +174,7 @@ function getTabs (req, res) {
     tabs.forEach(function (tab) {
       var tempTab = {};
       tempTab.title = tab.title;
+      tempTab.id = tab.id;
       tempTab.uisref = tab.uisref;
       tempTab.visibleRoles = [];
       tab.Roles.forEach(function (role) {
