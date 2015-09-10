@@ -55,17 +55,13 @@ function EditUserController ($scope, $mdDialog, allUsersService, user) {
   function save () {
     // TODO: start a spinner here
     allUsersService.updateUser(vm.user)
-      .then(showSuccess)
+      .then(hide)
       .catch(displayError);
 
     //////////
 
     function displayError (err) {
       // TODO: display so sort of error
-    }
-
-    function showSuccess () {
-      $mdDialog.hide();
     }
   }
 
