@@ -64,11 +64,11 @@ describe('Admin Routes', function () {
     });
 
     it('should have a template url set', function () {
-      expect(usersState.views['admin-content'].templateUrl).toEqual('../../../../modules/core/client/views/admin-users.view.client.html');
+      expect(usersState.views['admin-content'].templateUrl).toEqual('../../../../modules/core/client/views/adminUsers.view.client.html');
     });
 
     it('should have a controller set', function () {
-      expect(usersState.views['admin-content'].controller).toEqual('AdminUsersController');
+      expect(usersState.views['admin-content'].controller).toEqual('AllUsersController');
     });
 
     it('should have a controllerAs set', function () {

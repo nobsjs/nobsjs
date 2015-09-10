@@ -42,7 +42,7 @@ describe('Nav Routes', function () {
     });
 
     it('should have a template url set', function () {
-      expect(navState.views['admin-sidenav'].templateUrl).toEqual('../../../../modules/core/client/views/admin-sidenav.view.client.html');
+      expect(navState.views['admin-sidenav'].templateUrl).toEqual('../../../../modules/core/client/views/adminSidenav.view.client.html');
     });
 
     it('should have a controller set', function () {

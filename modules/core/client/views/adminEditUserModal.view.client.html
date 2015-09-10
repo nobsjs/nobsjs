@@ -1,0 +1,47 @@
+<md-dialog>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Edit User</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.cancel()">
+        <md-icon md-font-set="material-icons"> close </md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <form name="editUserForm">
+      <md-input-container>
+        <label>Email</label>
+        <input required name="email" ng-model="vm.user.email">
+        <div ng-messages="editUserForm.email.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <h2 class="md-title">Roles</h2>
+      <md-chips ng-model="vm.user.roles" md-autocomplete-snap md-require-match="true">
+        <md-autocomplete
+            md-selected-item="vm.selectedRole"
+            md-selected-item-change="vm.selectedRoleChange(role)"
+            md-search-text="vm.searchText"
+            md-search-text-change="vm.searchTextChange(vm.searchText)"
+            md-items="item in vm.querySearch(vm.searchText)"
+            md-item-text="item"
+            placeholder="type to add a role">
+          <span md-highlight-text="user.searchText">{{item}}</span>
+          <md-not-found>
+            No roles found for "{{user.searchText}}".
+          </md-not-found>
+        </md-autocomplete>
+      </md-chips>
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="vm.save()">
+     Save
+    </md-button>
+    <md-button ng-click="vm.cancel()" style="margin-right:20px;" >
+      Cancel
+    </md-button>
+  </div>
+</md-dialog>
