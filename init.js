@@ -11,7 +11,35 @@ db.sequelize.sync({force:true})
   // Create an Admin User
   return db.User.create({ email: 'admin@example.com', password: 'testPassword' })
   .then(function (user) {
-    user.addRole(role);
+    return user.addRole(role)
+      .then(function (){
+        return db.Post.create({
+          title: 'Title of Blog Post 1',
+          UserId: user.id,
+          content: '<div>This is some content.</div>'
+        });
+      })
+      .then(function (){
+        return db.Post.create({
+          title: 'Title of Blog Post 2',
+          UserId: user.id,
+          content: '<div>This is some content.</div>'
+        });
+      })
+      .then(function (){
+        return db.Post.create({
+          title: 'Title of Blog Post 3',
+          UserId: user.id,
+          content: '<div>This is some content.</div>'
+        });
+      })
+      .then(function (){
+        return db.Post.create({
+          title: 'Title of Blog Post 4',
+          UserId: user.id,
+          content: '<div>This is some content.</div>'
+        });
+      });
   });
 })
 .then(function () {
