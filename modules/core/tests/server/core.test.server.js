@@ -12,7 +12,7 @@ describe('basic request', function () {
     request(app)
       .get('/')
       .expect(200)
-      .end(function(err){
+      .end(function (err){
         if (err) {
           done.fail(err);
         } else {
