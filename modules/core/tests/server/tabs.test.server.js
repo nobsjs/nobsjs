@@ -89,6 +89,7 @@ describe('/api/core/tabs', function () {
         } else {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.id).toEqual(1);
           done();
         }
       });
@@ -142,6 +143,7 @@ describe('/api/core/tabs', function () {
           } else {
             expect(res.body.title).toEqual(tab.title);
             expect(res.body.uisref).toEqual(tab.uisref);
+            expect(res.body.id).toEqual(savedTab.id);
             done();
           }
         });
@@ -155,6 +157,7 @@ describe('/api/core/tabs', function () {
         .end(function (err, res) {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.id).toEqual(savedTab.id);
           if(err) {
             done.fail(err);
           } else {
@@ -182,6 +185,7 @@ describe('/api/core/tabs', function () {
                 } else {
                   expect(res.body.title).toEqual('Some New Tab Title');
                   expect(res.body.uisref).toEqual(tab.uisref);
+                  expect(res.body.id).toEqual(savedTab.id);
                   done();
                 }
               });
