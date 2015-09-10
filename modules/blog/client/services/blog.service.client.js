@@ -26,7 +26,8 @@ function blogService ($http, $state) {
     };
 
     return $http(req)
-      .then(returnData);
+      .then(returnData)
+      .then(redirectHome);
       // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
@@ -64,7 +65,7 @@ function blogService ($http, $state) {
   }
 
   function redirectHome () {
-    $state.go('home');
+    $state.go('blog.list');
   }
 
   function returnData (res) {
