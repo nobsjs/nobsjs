@@ -1,0 +1,36 @@
+<md-content>
+  <md-card>
+    <md-card-content>
+      <h1 class="md-title">Tabs Admin</h1>
+      <md-list>
+        <md-list-item>
+          <div flex="10">
+            <span class="md-body-2">Tab Title</span>
+          </div>
+          <div flex="10">
+            <span class="md-body-2">Ui-sref</span>
+          </div>
+          <div flex="60">
+            <span class="md-body-2">Visible to roles</span>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ng-repeat="tab in vm.tabs">
+          <div flex="10">
+            {{ tab.title }}
+          </div>
+          <div flex="10">
+            {{ tab.uisref }}
+          </div>
+          <div flex="60" layout="row" layout-align="start center">
+            <md-chips flex="100" readonly="true" ng-model="tab.visibleRoles"></md-chips>
+          </div>
+          <!-- <div flex="20">
+          <a class="md-button md-hue-2 md-primary">Edit</a>
+          <a class="md-button md-warn md-hue-2">Remove</a>
+          </div> -->
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</md-content>
