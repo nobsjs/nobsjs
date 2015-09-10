@@ -62,18 +62,21 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
 
   function deleteUser (ev, user) {
     openConfirmDialog(user)
-      .then(callDelete, hideModal)
+      .then(deleteUserFromDatabase)
       .then(showSuccess)
       .catch(showError);
 
     //////////
 
-    function callDelete (result, user) {
+    function deleteUserFromDatabase (user) {
+      deleteUserFromScope(user);
       return allUsersService.deleteUser(user);
     }
 
-    function hideModal () {
-      $mdDialog.hide();
+    function deleteUserFromScope (user) {
+      var index = vm.users.indexOf(user);
+      vm.users.splice(index, 1);
+      return allUsersService.deleteUser(user);
     }
 
     function showSuccess () {
@@ -90,14 +93,30 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
    */
 
   function openConfirmDialog (user) {
-    var confirm = $mdDialog.confirm()
-      .title('Are you sure you want to delete ' + user.email + '?')
-      .content('This will delete all the user information and they will not be able to log in.')
-      .ariaLabel('Delete User')
-      .ok('Delete')
-      .cancel('Cancel');
+    // var confirm = $mdDialog.confirm()
+    //   .title('Are you sure you want to delete ' + user.email + '?')
+    //   .content('This will delete all the user information and they will not be able to log in.')
+    //   .ariaLabel('Delete User')
+    //   .ok('Delete')
+    //   .cancel('Cancel');
 
-    return $mdDialog.show(confirm);
+    return $mdDialog.show({
+      template:
+        '<md-dialog>' +
+        '  <md-dialog-content>Are you sure you want to delete {{ vm.user.email }}!</md-dialog-content>' +
+        '  <div class="md-actions">' +
+        '    <md-button ng-click="vm.hide(vm.user)" class="md-primary">' +
+        '      Yes' +
+        '    </md-button>' +
+        '    <md-button ng-click="vm.cancel()" class="md-primary">' +
+        '      No' +
+        '    </md-button>' +
+        '  </div>' +
+        '</md-dialog>',
+      controller: 'EditUserController',
+      controllerAs: 'vm',
+      locals: { user: user }
+    });
   }
 
   /**
@@ -110,9 +129,7 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
       controllerAs: 'vm',
       templateUrl: '../modules/core/client/views/adminEditUserModal.view.client.html',
       parent: angular.element(document.body),
-      locals: {
-        user: user,
-      },
+      locals: { user: user },
       clickOutsideToClose: true
     });
   }

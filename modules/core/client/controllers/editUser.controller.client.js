@@ -18,6 +18,7 @@ function EditUserController ($scope, $mdDialog, allUsersService, user) {
   var vm = this;
 
   vm.cancel = cancel;
+  vm.hide = hide;
   vm.save = save;
   vm.user = user;
 
@@ -45,6 +46,10 @@ function EditUserController ($scope, $mdDialog, allUsersService, user) {
 
   function cancel () {
     $mdDialog.cancel();
+  }
+
+  function hide (user) {
+    $mdDialog.hide(user);
   }
 
   function save () {
