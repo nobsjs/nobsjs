@@ -101,18 +101,7 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
     //   .cancel('Cancel');
 
     return $mdDialog.show({
-      template:
-        '<md-dialog>' +
-        '  <md-dialog-content>Are you sure you want to delete {{ vm.user.email }}!</md-dialog-content>' +
-        '  <div class="md-actions">' +
-        '    <md-button ng-click="vm.hide(vm.user)" class="md-primary">' +
-        '      Yes' +
-        '    </md-button>' +
-        '    <md-button ng-click="vm.cancel()" class="md-primary">' +
-        '      No' +
-        '    </md-button>' +
-        '  </div>' +
-        '</md-dialog>',
+      templateUrl: '../modules/core/client/views/modals/adminDeleteUserModal.view.client.html',
       controller: 'EditUserController',
       controllerAs: 'vm',
       locals: { user: user }
@@ -129,7 +118,7 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
     $mdDialog.show({
       controller: 'EditUserController',
       controllerAs: 'vm',
-      templateUrl: '../modules/core/client/views/adminEditUserModal.view.client.html',
+      templateUrl: '../modules/core/client/views/modals/adminEditUserModal.view.client.html',
       parent: angular.element(document.body),
       locals: { user: userCopy },
       clickOutsideToClose: true

@@ -33,7 +33,7 @@ function AdminTabsController ($mdDialog, tabsService) {
     $mdDialog.show({
       controller: 'AddTabDialogueController',
       controllerAs: 'vm',
-      templateUrl: '../../../../modules/core/client/views/adminTabsDialogue.view.client.html',
+      templateUrl: '../../../../modules/core/client/views/modals/adminTabsDialogue.view.client.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose: true
@@ -46,7 +46,7 @@ function AdminTabsController ($mdDialog, tabsService) {
     $mdDialog.show({
       controller: 'DeleteTabDialogueController',
       controllerAs: 'vm',
-      templateUrl: '../../../../modules/core/client/views/removeTabsDialogue.view.client.html',
+      templateUrl: '../../../../modules/core/client/views/modals/removeTabsDialogue.view.client.html',
       parent: angular.element(document.body),
       locals: {
              tab: tab,
@@ -62,7 +62,7 @@ function AdminTabsController ($mdDialog, tabsService) {
     $mdDialog.show({
       controller: 'EditTabDialogueController',
       controllerAs: 'vm',
-      templateUrl: '../../../../modules/core/client/views/adminTabsDialogue.view.client.html',
+      templateUrl: '../../../../modules/core/client/views/modals/adminTabsDialogue.view.client.html',
       parent: angular.element(document.body),
       locals: {
              tab: tab,
