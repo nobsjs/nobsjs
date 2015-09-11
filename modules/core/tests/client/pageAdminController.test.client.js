@@ -4,7 +4,7 @@ describe('PagesAdminController', function () {
 
   var pagesAdminController;
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($controller) {
     pagesAdminController = $controller('PagesAdminController');

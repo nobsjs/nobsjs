@@ -1,8 +1,8 @@
 {
-  "name": "tropicalbs",
+  "name": "nobsjs",
   "main": "index.js",
   "version": "0.0.1",
-  "homepage": "https://github.com/tropicalsubmarine/tropicalbs",
+  "homepage": "https://github.com/nobsjs/nobsjs",
   "dependencies": {
     "angular": "1.4.4",
     "angular-cookies": "~1.4.5",

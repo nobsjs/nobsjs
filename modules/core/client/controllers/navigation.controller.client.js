@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
 	.controller('NavigationController', NavigationController);
 
 NavigationController.$inject = ['$state', '$mdSidenav', 'authService', 'navService', 'userService'];

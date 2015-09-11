@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .factory('allUsersService', allUsersService);
 
 allUsersService.$inject = ['$http'];

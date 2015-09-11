@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .factory('pagesService', pagesService);
 
 pagesService.$inject = ['$http', '$state', 'pageStateManager'];

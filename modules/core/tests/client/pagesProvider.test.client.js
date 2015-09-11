@@ -5,7 +5,7 @@ describe('provider pageStateManager', function () {
 
   beforeEach(function () {
 
-    module('tropicalbs');
+    module('nobsjs');
 
     inject(function ($injector) {
       pageStateManager = $injector.get('pageStateManager');

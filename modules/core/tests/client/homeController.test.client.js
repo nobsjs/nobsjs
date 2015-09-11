@@ -3,7 +3,7 @@
 // tests the Home controller
 describe('HomeController', function () {
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   var homeController;
 

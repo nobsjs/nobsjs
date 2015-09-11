@@ -7,7 +7,7 @@ describe('Posts Routes', function () {
 
   beforeEach(function () {
 
-    module('tropicalbs');
+    module('nobsjs');
 
     inject(function ($injector) {
       $state = $injector.get('$state');

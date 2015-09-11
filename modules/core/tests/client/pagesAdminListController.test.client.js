@@ -5,7 +5,7 @@ describe('Pages Admin Controller', function () {
 
   var $controller, $state, createController, vm, pagesService;
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($injector) {
     $controller = $injector.get('$controller');

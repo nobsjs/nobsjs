@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .controller('EditTabDialogueController', EditTabDialogueController);
 
 EditTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService'];

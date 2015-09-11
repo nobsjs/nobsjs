@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .factory('attachTokens', attachTokens);
 
 attachTokens.$inject = ['$cookies', '$window'];

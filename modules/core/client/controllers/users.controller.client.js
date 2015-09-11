@@ -1,5 +1,6 @@
 'use strict';
-angular.module('tropicalbs')
+
+angular.module('nobsjs')
   .controller('UsersController', UsersController);
 
 UsersController.$inject = ['$location', '$window', 'authService', 'userService'];
