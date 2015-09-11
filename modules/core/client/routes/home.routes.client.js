@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(homeConfig);
 
 homeConfig.$inject = ['$stateProvider'];

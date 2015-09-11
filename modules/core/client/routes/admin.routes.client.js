@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(adminConfig);
 
 adminConfig.$inject = ['$stateProvider'];

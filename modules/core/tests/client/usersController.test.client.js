@@ -4,7 +4,7 @@
 describe('Users Controller & Auth Service', function () {
   var $rootScope, $location, $window, $httpBackend, authService, $controller, createController, $cookies;
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($injector) {
     $rootScope = $injector.get('$rootScope');

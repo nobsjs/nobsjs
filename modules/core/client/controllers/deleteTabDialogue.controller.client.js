@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .controller('DeleteTabDialogueController', DeleteTabDialogueController);
 
 DeleteTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService'];

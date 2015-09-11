@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .controller('AllUsersController', AllUsersController);
 
 AllUsersController.$inject = ['$scope', '$state', '$mdSidenav', '$mdDialog', 'authService', 'navService', 'userService', 'allUsersService'];

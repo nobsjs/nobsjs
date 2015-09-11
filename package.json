@@ -1,5 +1,5 @@
 {
-  "name": "tropicalbs",
+  "name": "nobsjs",
   "version": "0.0.1",
   "description": "> Pithy project description",
   "main": "index.js",
@@ -10,13 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tropicalsubmarine/tropicalbs.git"
+    "url": "git+https://github.com/nobsjs/nobsjs.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tropicalsubmarine/tropicalbs/issues"
+    "url": "https://github.com/nobsjs/nobsjs/issues"
   },
-  "homepage": "https://github.com/tropicalsubmarine/tropicalbs#readme",
+  "homepage": "http://nobsjs.com",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.9.34",

@@ -3,7 +3,7 @@
 // tests the admin controller
 describe('AdminController', function () {
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   var adminController;
 

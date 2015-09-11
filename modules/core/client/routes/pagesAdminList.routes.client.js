@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(pagesAdminListRoutes);
 
 pagesAdminListRoutes.$inject = ['$stateProvider'];

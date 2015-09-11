@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
 	.controller('PagesController', PagesController);
 
 PagesController.$inject = ['$state', 'pagesService'];

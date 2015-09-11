@@ -3,7 +3,7 @@
 describe('Pages Routes', function () {
   var $state, $window;
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($injector) {
     $state = $injector.get('$state');
