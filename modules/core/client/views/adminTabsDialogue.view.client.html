@@ -1,0 +1,64 @@
+<md-dialog aria-label="Tab">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{ vm.title }}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.cancel()">
+        <md-icon aria-label="Close dialog" md-font-set="material-icons"> close </md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <form name="createTabForm">
+      <md-input-container>
+        <label>Title</label>
+        <input required name="title" ng-model="vm.tab.title">
+        <!-- <div ng-messages="editUserForm.email.$error">
+          <div ng-message="required">This is required.</div>
+        </div> -->
+      </md-input-container>
+      <md-input-container>
+        <label>Ui-sref</label>
+        <input required name="Ui-sref" ng-model="vm.tab.uisref">
+        <!-- <div ng-messages="editUserForm.email.$error">
+          <div ng-message="required">This is required.</div>
+        </div> -->
+      </md-input-container>
+      <!-- <h4>Visible to roles</h4> -->
+      <!-- <md-chips ng-model="vm.tab.roles" md-autocomplete-snap md-require-match="true">
+        <md-autocomplete
+            placeholder="Add a role">
+          <span md-highlight-text="user.searchText">{{item}}</span>
+          <md-not-found>
+            No roles found for "{{user.searchText}}".
+          </md-not-found>
+        </md-autocomplete>
+      </md-chips> -->
+    </form>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="vm.saveTab()" >
+      Save
+    </md-button>
+    <md-button ng-click="vm.cancel()" style="margin-right:20px;" >
+      Cancel
+    </md-button>
+  </div>
+  </form>
+</md-dialog>
+
+<!-- <md-autocomplete
+    md-selected-item="vm.selectedRole"
+    md-selected-item-change="vm.selectedRoleChange(role)"
+    md-search-text="vm.searchText"
+    md-search-text-change="vm.searchTextChange(vm.searchText)"
+    md-items="item in vm.querySearch(vm.searchText)"
+    md-item-text="item"
+    placeholder="Add a role to the user">
+  <span md-highlight-text="user.searchText">{{item}}</span>
+  <md-not-found>
+    No roles found for "{{user.searchText}}".
+  </md-not-found>
+</md-autocomplete> -->

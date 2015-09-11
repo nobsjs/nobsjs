@@ -37,3 +37,6 @@ lib/env/local.js
 
 # Certificates
 certs
+
+# MAC OSx
+.DS_Store

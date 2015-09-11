@@ -1,34 +1,38 @@
 <md-content>
   <md-card>
+    <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.createTabDialogue($event)">
+      <md-icon md-font-set="material-icons"> add </md-icon>
+    </md-button>
     <md-card-content>
       <h1 class="md-title">Tabs Admin</h1>
       <md-list>
         <md-list-item>
-          <div flex="10">
+          <div flex="20">
             <span class="md-body-2">Tab Title</span>
           </div>
-          <div flex="10">
+          <div flex="20">
             <span class="md-body-2">Ui-sref</span>
           </div>
-          <div flex="60">
+          <div flex="30">
             <span class="md-body-2">Visible to roles</span>
           </div>
         </md-list-item>
         <md-divider></md-divider>
-        <md-list-item ng-repeat="tab in vm.tabs">
-          <div flex="10">
+        <md-list-item ng-repeat="tab in vm.tabs" class="user-item">
+          <div flex="20">
             {{ tab.title }}
           </div>
-          <div flex="10">
+          <div flex="20">
             {{ tab.uisref }}
           </div>
-          <div flex="60" layout="row" layout-align="start center">
-            <md-chips flex="100" readonly="true" ng-model="tab.visibleRoles"></md-chips>
+          <div flex="30" layout="row" layout-align="start center">
+            <md-chips flex="100" readonly="true" class="roles-chips" ng-model="tab.visibleRoles">
+            </md-chips>
           </div>
-          <!-- <div flex="20">
-          <a class="md-button md-hue-2 md-primary">Edit</a>
-          <a class="md-button md-warn md-hue-2">Remove</a>
-          </div> -->
+          <div flex="30">
+            <a class="md-button md-hue-2 md-primary" ng-click="vm.editTabDialogue($event, tab)">Edit</a>
+            <!-- <a class="md-button md-warn md-hue-2">Remove</a> -->
+          </div>
         </md-list-item>
       </md-list>
     </md-card-content>
