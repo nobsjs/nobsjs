@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var path = require('path');
 
 var db = require(path.resolve('./lib/db.js'));
@@ -138,7 +139,13 @@ function getPages (req, res) {
 
 function sendPage (req, res) {
   if(req.page) {
-    db.Tab.findOne({where: {uisref:'pages,'+req.page.id}})
+    var tabQuery = {
+      where: {
+        uisref: 'pages.'+req.page.id
+      }
+    };
+    
+    db.Tab.findOne(tabQuery)
       .then(attatchTab)
       .then(send200)
       .catch(send500);
@@ -149,11 +156,17 @@ function sendPage (req, res) {
   //////////
   
   function attatchTab(tab) {
-    return req.page.tab = tab;
+    req.page.tabId = tab.id;
+    //req.page.tab.id = tab.id;
+    return;
   }
   
   function send200() {
-    res.status(200).send(req.page);
+    console.log('TABID', req.page.tabId);
+    var page = {};
+    page.tabId = req.page.tabId;
+    _.extend(page, req.page);
+    res.status(200).json(page);
   }
   
   function send500() {

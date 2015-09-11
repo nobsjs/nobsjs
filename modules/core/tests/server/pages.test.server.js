@@ -166,6 +166,27 @@ describe('/api/core/pages', function () {
           }
         });
     });
+    
+    it('should be able to retrieve the new page with a tab', function (done) {
+      db.Tab.create({ title: 'Test1', uisref: 'pages.' + savedPage.id })
+        .then(function (tab) {
+          request(app)
+            .get('/api/core/pages/' + savedPage.id)
+            .expect(200)
+            .end(function (err, res) {
+              if(err) {
+                done.fail(err);
+              } else {
+                console.log('Hello?: ', res.body);
+                expect(res.body.slug).toEqual(page.slug);
+                expect(res.body.title).toEqual(page.title);
+                expect(res.body.content).toEqual(page.content);
+                expect(res.body.tab.uisref).toEqual('pages.' + savedPage.id);
+                done();
+              }
+            });
+        });
+    });
 
     it('should be able to update a page', function (done) {
       request(app)
