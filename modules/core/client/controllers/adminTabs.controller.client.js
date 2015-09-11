@@ -3,16 +3,17 @@
 angular.module('tropicalbs')
   .controller('AdminTabsController', AdminTabsController);
 
-AdminTabsController.$inject =  ['tabsService', '$mdDialog'];
+AdminTabsController.$inject =  ['$mdDialog', 'tabsService'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
  */
-function AdminTabsController (tabsService, $mdDialog) {
+function AdminTabsController ($mdDialog, tabsService) {
   var vm = this;
   vm.tabs = [];
   vm.readonly = true;
   vm.createTabDialogue = createTabDialogue;
+  vm.deleteTabDialogue = deleteTabDialogue;
   vm.editTabDialogue = editTabDialogue;
 
   activate();
@@ -28,16 +29,28 @@ function AdminTabsController (tabsService, $mdDialog) {
       .then(setAllTabs);
   }
 
-  // function removeTabDialogue () {
-  //   //remove a tab
-  // }
-
   function createTabDialogue (ev, tab) {
     $mdDialog.show({
       controller: 'AddTabDialogueController',
       controllerAs: 'vm',
       templateUrl: '../../../../modules/core/client/views/adminTabsDialogue.view.client.html',
       parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    })
+    .then(handleSuccess)
+    .catch(handleCancel);
+  }
+
+  function deleteTabDialogue (ev, tab) {
+    $mdDialog.show({
+      controller: 'DeleteTabDialogueController',
+      controllerAs: 'vm',
+      templateUrl: '../../../../modules/core/client/views/removeTabsDialogue.view.client.html',
+      parent: angular.element(document.body),
+      locals: {
+             tab: tab,
+           },
       targetEvent: ev,
       clickOutsideToClose: true
     })
