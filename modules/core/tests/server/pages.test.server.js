@@ -39,7 +39,7 @@ describe('/api/core/pages', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should respond to a request to "/api/core/pages" with an array', function (done) {
@@ -80,7 +80,7 @@ describe('/api/core/pages', function () {
         } else {
           done();
         }
-      });  
+      });
   });
 
   it('should create a new page without an error', function (done) {
@@ -166,7 +166,7 @@ describe('/api/core/pages', function () {
           }
         });
     });
-    
+
     it('should be able to retrieve the new page with a tab', function (done) {
       db.Tab.create({ title: 'Test1', uisref: 'pages.' + savedPage.id })
         .then(function (tab) {
@@ -177,7 +177,6 @@ describe('/api/core/pages', function () {
               if(err) {
                 done.fail(err);
               } else {
-                console.log('Hello?: ', res.body);
                 expect(res.body.slug).toEqual(page.slug);
                 expect(res.body.title).toEqual(page.title);
                 expect(res.body.content).toEqual(page.content);
