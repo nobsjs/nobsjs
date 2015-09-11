@@ -124,13 +124,24 @@ function AllUsersController ($scope, $state, $mdSidenav, $mdDialog, authService,
    */
 
   function openModal (ev, user) {
+    var userCopy = {};
+    _.extend(userCopy, user);
     $mdDialog.show({
       controller: 'EditUserController',
       controllerAs: 'vm',
       templateUrl: '../modules/core/client/views/adminEditUserModal.view.client.html',
       parent: angular.element(document.body),
-      locals: { user: user },
+      locals: { user: userCopy },
       clickOutsideToClose: true
+    })
+    .then(updateLocalUser);
+  }
+
+  function updateLocalUser (respData) {
+    var updatedUser = respData.config.data;
+    var i = _.findIndex(vm.users, function (user) {
+      return user.id === updatedUser.id;
     });
+    vm.users[i] = updatedUser;
   }
 }
