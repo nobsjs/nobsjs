@@ -1,5 +1,6 @@
 'use strict';
 
+// var _ = require('lodash');
 var path = require('path');
 
 var db = require(path.resolve('./lib/db.js'));
@@ -47,7 +48,7 @@ function createPage (req, res) {
   function sendCreatedPage (page) {
     res.status(200).send(page);
   }
-  
+
 }
 
 /**
@@ -69,7 +70,7 @@ function deletePage (req, res) {
   function sendDeletedPage (page) {
     res.sendStatus(200);
   }
-  
+
 }
 
 /**
@@ -125,7 +126,7 @@ function getPages (req, res) {
   function sendPage (pages) {
     res.status(200).send(pages);
   }
-  
+
 }
 
 /**
@@ -138,9 +139,44 @@ function getPages (req, res) {
 
 function sendPage (req, res) {
   if(req.page) {
-    res.status(200).send(req.page);
+    var tabQuery = {
+      where: {
+        uisref: 'pages.'+req.page.id
+      }
+    };
+
+    db.Tab.findOne(tabQuery)
+      .then(composePage)
+      .then(send200)
+      .catch(send500);
   } else {
     res.status(400).send('Page does not exist');
+  }
+
+  //////////
+
+  function composePage(tab) {
+    var page = {};
+    page.id = req.page.id;
+    page.content = req.page.content;
+    page.slug = req.page.slug;
+    page.title = req.page.title;
+    page.createdAt = req.page.createdAt;
+    page.updatedAt = req.page.updatedAt;
+
+    if (tab) {
+      page.tab = tab;
+    }
+
+    return page;
+  }
+
+  function send200(page) {
+    res.status(200).send(page);
+  }
+
+  function send500() {
+    res.status(500).send('Database Error Occured');
   }
 }
 
@@ -156,7 +192,7 @@ function updatePage (req, res) {
   page.content = req.body.content || req.page.content;
   page.slug = req.body.slug || req.page.slug;
   page.title = req.body.title || req.page.title;
-  
+
   var pageQuery = {
     where: {
       id: req.page.id
@@ -187,5 +223,5 @@ function updatePage (req, res) {
   function sendUpdatedPage (page) {
     res.status(200).send(page);
   }
-  
+
 }
