@@ -9,9 +9,9 @@ function tabsService ($http) {
   var tabs = {
     createTab: createTab,
     deleteTab: deleteTab,
-    updateTab: updateTab,
+    getAllTabs: getAllTabs,
     getTab: getTab,
-    getAllTabs: getAllTabs
+    updateTab: updateTab
   };
 
   return tabs;
@@ -39,10 +39,10 @@ function tabsService ($http) {
     return $http(req);
   }
 
-  function getTab (tabId) {
+  function getAllTabs () {
     var req = {
       method: 'GET',
-      url: '/api/core/tabs/' + tabId
+      url: '/api/core/tabs'
     };
 
     return $http(req)
@@ -50,10 +50,10 @@ function tabsService ($http) {
       // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
-  function getAllTabs () {
+  function getTab (tabId) {
     var req = {
       method: 'GET',
-      url: '/api/core/tabs'
+      url: '/api/core/tabs/' + tabId
     };
 
     return $http(req)

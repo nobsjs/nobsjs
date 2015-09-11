@@ -3,7 +3,7 @@
 angular.module('tropicalbs')
   .controller('AdminTabsController', AdminTabsController);
 
-  AdminTabsController.$inject =  ['tabsService', '$mdDialog'];
+AdminTabsController.$inject =  ['tabsService', '$mdDialog'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
@@ -32,10 +32,6 @@ function AdminTabsController (tabsService, $mdDialog) {
   //   //remove a tab
   // }
 
-  function setAllTabs (res) {
-    vm.tabs = res;
-  }
-
   function createTabDialogue (ev, tab) {
     $mdDialog.show({
       controller: 'AddTabDialogueController',
@@ -45,11 +41,8 @@ function AdminTabsController (tabsService, $mdDialog) {
       targetEvent: ev,
       clickOutsideToClose: true
     })
-    .then(function(answer) {
-      //success TODO
-    }, function() {
-      //cancel TODO
-    });
+    .then(handleSuccess)
+    .catch(handleCancel);
   }
 
   function editTabDialogue (ev, tab) {
@@ -64,10 +57,19 @@ function AdminTabsController (tabsService, $mdDialog) {
       targetEvent: ev,
       clickOutsideToClose: true
     })
-    .then(function(answer) {
-      //success TODO
-    }, function() {
-      //cancel
-    });
+    .then(handleSuccess)
+    .catch(handleCancel);
+  }
+
+  function handleCancel () {
+    //TODO - Cancel button handler
+  }
+
+  function handleSuccess () {
+    //TODO - save button handler
+  }
+
+  function setAllTabs (res) {
+    vm.tabs = res;
   }
 }

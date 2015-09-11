@@ -3,7 +3,7 @@
 angular.module('tropicalbs')
   .controller('EditTabDialogueController', EditTabDialogueController);
 
-  EditTabDialogueController.$inject =  ['$mdDialog', 'tabsService', 'tab'];
+EditTabDialogueController.$inject =  ['$mdDialog', 'tabsService', 'tab'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
@@ -26,20 +26,20 @@ function EditTabDialogueController ($mdDialog, tabsService, tab) {
     vm.title = 'Edit Tab';
   }
 
-  function hide () {
-    $mdDialog.hide();
+  function answer (answ) {
+    $mdDialog.hide(answ);
   }
 
   function cancel () {
     $mdDialog.cancel();
   }
 
-  function answer (answ) {
-    $mdDialog.hide(answ);
-  }
-
   function displayError() {
     //TODO
+  }
+
+  function hide () {
+    $mdDialog.hide();
   }
 
   function saveTab () {
