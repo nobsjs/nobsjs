@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('tropicalbs')
-  .controller('EditTabDialogueController', EditTabDialogueController);
+  .controller('DeleteTabDialogueController', DeleteTabDialogueController);
 
-EditTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService'];
+DeleteTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
  */
-function EditTabDialogueController ($mdDialog, tab, tabsService ) {
+function DeleteTabDialogueController ($mdDialog, tab, tabsService) {
   var vm = this;
   vm.cancel = cancel;
   vm.hide = hide;
@@ -22,7 +22,7 @@ function EditTabDialogueController ($mdDialog, tab, tabsService ) {
 
   function activate () {
     _.assign(vm.tab, tab);
-    vm.title = 'Edit Tab';
+    vm.title = 'Delete Tab';
   }
 
   function cancel () {
@@ -38,7 +38,7 @@ function EditTabDialogueController ($mdDialog, tab, tabsService ) {
   }
 
   function saveAction () {
-    tabsService.updateTab(vm.tab, tab.id)
+    tabsService.deleteTab(tab.id)
       .then(showSuccess)
       .catch(displayError);
   }

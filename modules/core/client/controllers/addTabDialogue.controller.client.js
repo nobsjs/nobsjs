@@ -12,7 +12,7 @@ function AddTabDialogueController ($mdDialog, tabsService) {
   var vm = this;
   vm.cancel = cancel;
   vm.hide = hide;
-  vm.saveTab = saveTab;
+  vm.saveAction = saveAction;
   vm.tab = {};
   vm.title = 'Create Tab';
 
@@ -31,7 +31,7 @@ function AddTabDialogueController ($mdDialog, tabsService) {
     $mdDialog.hide();
   }
 
-  function saveTab () {
+  function saveAction () {
     // TODO tabsService
     tabsService.createTab(vm.tab)
       .then(showSuccess)
