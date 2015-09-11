@@ -138,9 +138,26 @@ function getPages (req, res) {
 
 function sendPage (req, res) {
   if(req.page) {
-    res.status(200).send(req.page);
+    db.Tab.findOne({where: {uisref:'pages,'+req.page.id}})
+      .then(attatchTab)
+      .then(send200)
+      .catch(send500);
   } else {
     res.status(400).send('Page does not exist');
+  }
+  
+  //////////
+  
+  function attatchTab(tab) {
+    return req.page.tab = tab;
+  }
+  
+  function send200() {
+    res.status(200).send(req.page);
+  }
+  
+  function send500() {
+    res.status(500).send('Database Error Occured');
   }
 }
 
