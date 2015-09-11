@@ -1,8 +1,8 @@
-# TropicalBS
+# NoBS.js
 
 Modular content management and business administration platform for small businesses and organizations.
-Core product enables management of public content, customers, scheduling, and billing.
-Incremental modules will allow TropicalBS to be customized for specific use cases, such as dance/karate/yoga studios, recreational sports leagues, etc.
+The core solution is a boilerplate for adding custom modules and customizing existing features to fit
+your needs.
 
 ## Team
 
@@ -12,26 +12,18 @@ Incremental modules will allow TropicalBS to be customized for specific use case
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
+1. [Installing Dependencies](#installing-dependencies)
 1. [Team](#team)
+1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
-
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
 - Node 0.12.x
 - Postgresql 9.1.x (or other SQL database - configured locally)
 
-## Development
-
-### Installing Dependencies
+## Installing Dependencies
 
 From within the root directory:
 
@@ -45,10 +37,9 @@ If you need to modify some of the configs:
   * Anything in local will override the default
   * Anything not defined in local will default to the default config
 
-### Roadmap
+## Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+View the project roadmap on [GitHub Issues](https://github.com/nobsjs/nobsjs/issues).
 
 ## Contributing
 
