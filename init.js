@@ -89,7 +89,7 @@ db.sequelize.sync({force:true})
 })
 .then(function () {
   // Create Blog tab
-  return db.Tab.create({ title: 'Blog', uisref: 'blog' });
+  return db.Tab.create({ title: 'Blog', uisref: 'blog.list' });
 })
 .then(function (tab) {
   return db.Role.findAll({

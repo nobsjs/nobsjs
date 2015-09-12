@@ -50,7 +50,7 @@ describe('Posts Routes', function () {
     });
 
     it('should have a controller', function () {
-      expect($state.get('blog.list').views['nav-child-content@nav'].controller).toEqual('PostsController');
+      expect($state.get('blog.list').views['nav-child-content@nav'].controller).toEqual('BlogListController');
     });
 
     it('should have a controllerAs', function () {

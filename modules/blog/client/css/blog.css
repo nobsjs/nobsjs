@@ -1,0 +1,9 @@
+.blog_title {
+  text-align: center;
+}
+
+.post_preview {
+  display: block;
+  max-height: 100px;
+  overflow: hidden;
+}
