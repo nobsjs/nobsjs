@@ -107,7 +107,7 @@ function getPostById (req, res, next, id) {
 
   db.Post.findOne(postQuery)
     .then(goToNextOrRespond)
-    .catch(send500);
+    .catch(send404);
 
   //////////
 
@@ -115,12 +115,13 @@ function getPostById (req, res, next, id) {
     req.post = post;
     if(!next){
       res.send(post);
+    } else {
+      next();
     }
-    next();
   }
 
-  function send500 () {
-    res.status(500).send('Database Error: Could not retrieve Page');
+  function send404 () {
+    res.status(404).send('No Post Found');
   }
 }
 
