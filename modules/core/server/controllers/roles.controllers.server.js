@@ -161,7 +161,7 @@ function updateRole (req, res) {
 function getRoleById (req, res, next, id) {
   db.Role.findOne({ where: { id: id } })
     .then(goToNext)
-    .catch(send500);
+    .catch(send404);
 
   //////////
 
@@ -170,7 +170,7 @@ function getRoleById (req, res, next, id) {
     next();
   }
 
-  function send500 () {
-    res.status(500).send('A Database Error Occured');
+  function send404 () {
+    res.status(404).send('No Role Found.');
   }
 }

@@ -73,6 +73,49 @@ describe('Posts API', function () {
       });
   });
 
+  it('should return 404 when trying to get a non existant post', function (done) {
+    request(app)
+      .get('/api/blog/posts/754307589432')
+      .set('x-access-token', token)
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
+  it('should return 404 when trying to update a non existant post', function (done) {
+    request(app)
+      .put('/api/blog/posts/754307589432')
+      .set('x-access-token', token)
+      .send(post)
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
+  it('should return 404 when trying to delete a non existant post', function (done) {
+    request(app)
+      .delete('/api/blog/posts/754307589432')
+      .set('x-access-token', token)
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
   describe('modifying existing posts', function () {
 
     var dbPost;
