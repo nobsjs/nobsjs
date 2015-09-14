@@ -27,6 +27,8 @@ describe('Roles Controllers', function () {
       .then(function (role) {
         role2 = role;
         return User.create({
+          firstName: 'Test',
+          lastName: 'Example',
           email: 'test@example.com',
           password: 'testPassword'
         });
@@ -34,6 +36,8 @@ describe('Roles Controllers', function () {
       .then(function (user) {
         user1 = user;
         return User.create({
+          firstName: 'Test2',
+          lastName: 'Example',
           email: 'test2@example.com',
           password: 'testPassword2'
         });

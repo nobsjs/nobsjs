@@ -21,7 +21,7 @@ db.sequelize.sync({ force: true })
   })
   .then(function (role) {
     // Create an Owner User
-    return db.User.create({ email: 'owner@example.com', password: 'testPassword' })
+    return db.User.create({ displayName: 'OwnerExample', firstName: 'owner', lastName: 'Example', email: 'owner@example.com', password: 'testPassword' })
     .then(function (user) {
       user.addRole(role);
     });
@@ -32,7 +32,7 @@ db.sequelize.sync({ force: true })
   })
   .then(function (role) {
     // Create a User User
-    return db.User.create({ email: 'user@example.com', password: 'testPassword' })
+    return db.User.create({ displayName: 'UserExample', firstName: 'User', lastName: 'Example', email: 'user@example.com', password: 'testPassword' })
     .then(function (user) {
       user.addRole(role);
     });

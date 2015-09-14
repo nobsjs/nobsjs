@@ -19,12 +19,22 @@ function UserModel (sequelize, DataTypes) {
         isEmail: true
       }
     },
+    displayName: DataTypes.STRING,
+    firstName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
     password: DataTypes.STRING
   };
 
   var userMethods = {
     instanceMethods: {
-      comparePassword: comparePassword
+      comparePassword: comparePassword,
+      getFullName: getFullName
     },
     classMethods: {
       associate: associate
@@ -63,7 +73,7 @@ function UserModel (sequelize, DataTypes) {
     }
   }
 
-  function comparePassword(candidatePassword) {
+  function comparePassword (candidatePassword) {
     /* jshint validthis:true */
     return bcrypt.compareAsync(candidatePassword, this.getDataValue('password'))
       .then(checkMatch);
@@ -77,5 +87,10 @@ function UserModel (sequelize, DataTypes) {
         return false;
       }
     }
+  }
+
+  function getFullName () {
+    /* jshint validthis:true */
+    return this.getDataValue('firstName') + ' ' + this.getDataValue('lastName');
   }
 }

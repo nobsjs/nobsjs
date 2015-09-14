@@ -12,6 +12,8 @@ describe('Post Model', function () {
     db.sequelize.sync({force: true})
       .then(function () {
         return db.User.create({
+          firstName: 'Blog',
+          lastName: 'Test',
           email: 'blog@example.com',
           password: 'somePasswordForTheBlog'
         });
