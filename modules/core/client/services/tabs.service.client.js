@@ -66,6 +66,7 @@ function tabsService ($http) {
   }
 
   function updateTab (tab, tabId) {
+    console.log('logging the tab', tab, tabId);
     var req = {
       method: 'PUT',
       url: '/api/core/tabs/' + tabId,
