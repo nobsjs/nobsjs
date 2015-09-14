@@ -14,7 +14,9 @@
           <h3>{{ page.title }}</h3>
           <md-divider md-inset></md-divider>
       </div>
-      <md-icon md-font-set="material-icons" ng-click="vm.gotoEditPage(page.id)"> mode_edit </md-icon>
+      <md-button ng-click="vm.gotoEditPage(page.id)">
+        <md-icon md-font-set="material-icons"> mode_edit </md-icon>
+      </md-button>
     </md-list-item>
   </md-list>
 </md-content>
