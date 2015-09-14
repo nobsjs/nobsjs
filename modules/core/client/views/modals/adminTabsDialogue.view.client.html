@@ -10,18 +10,18 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <form name="createTabForm">
+    <form name="vm.tabDialogueForm">
       <md-input-container>
         <label>Title</label>
         <input required name="title" ng-model="vm.tab.title">
-        <!-- <div ng-messages="editUserForm.email.$error">
+        <!-- <div ng-messages="tabDialogueForm.title.$error" ng-show="vm.tabDialogueForm.title.$touched">
           <div ng-message="required">This is required.</div>
         </div> -->
       </md-input-container>
       <md-input-container>
         <label>Ui-sref</label>
         <input required name="Ui-sref" ng-model="vm.tab.uisref">
-        <!-- <div ng-messages="editUserForm.email.$error">
+        <!-- <div ng-messages="tabDialogueForm.email.$error">
           <div ng-message="required">This is required.</div>
         </div> -->
       </md-input-container>

@@ -131,7 +131,8 @@ function getTabById (req, res, next, id) {
   var tabQuery = {
     where: {
       id: id
-    }
+    },
+    include: [{model: db.Role}]
   };
 
   db.Tab.findOne(tabQuery)
@@ -143,6 +144,10 @@ function getTabById (req, res, next, id) {
   function setTab (tab) {
     req.tab = tab;
     next();
+
+    function processRoles (role) {
+      return role.name;
+    }
   }
 
   function sendError () {
@@ -224,10 +229,11 @@ function updateTab (req, res) {
   };
 
   db.Tab.update(tab, tabQuery)
+    .then(setRoles)
     .then(findTab)
     .then(sendUpdatedTab);
 
-  //////////
+  ////////
 
   function findTab () {
     return db.Tab.findOne({ where: { id: req.tab.id }});
@@ -235,5 +241,26 @@ function updateTab (req, res) {
 
   function sendUpdatedTab (updatedTab) {
     res.send(updatedTab);
+  }
+
+  function setRoles () {
+    if(req.body.visibleRoles) {
+
+      //if it's empty, set it to null
+      if(req.body.visibleRoles.length === 0) {
+        req.body.visibleRoles.push(null);
+      }
+      return updateOneTab();
+    } else {
+      return;
+    }
+
+    function updateOneTab () {
+      return db.Tab.findOne({
+        where: {id: req.tab.id}
+      }).then(function (tab) {
+        return addRoles(tab, req.body.visibleRoles);
+      });
+    }
   }
 }
