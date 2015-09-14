@@ -6,6 +6,7 @@
   "scripts": {
     "start": "gulp prod",
     "test": "gulp test",
+    "test-travis": "gulp test",
     "postinstall": "bower install --config.interactive=false"
   },
   "repository": {
@@ -27,6 +28,8 @@
     "glob": "^5.0.14",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^0.10.0",
     "gulp-jasmine": "^2.0.1",
     "gulp-jshint": "^1.11.2",
     "gulp-ng-annotate": "^1.1.0",
@@ -37,6 +40,7 @@
     "jwt-simple": "^0.3.0",
     "karma": "^0.13.9",
     "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.2",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "lodash": "^3.10.1",

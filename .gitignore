@@ -40,3 +40,8 @@ certs
 
 # MAC OSx
 .DS_Store
+
+# Visual Studio Files
+*.suo
+*.njsproj
+

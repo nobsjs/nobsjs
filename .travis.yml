@@ -3,4 +3,4 @@ node_js:
   - '0.12'
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-script: "npm run-script test"
+script: "npm run-script test-travis"

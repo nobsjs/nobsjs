@@ -3,6 +3,9 @@
 var gulp = require('gulp');
 
 var concat = require('gulp-concat');
+var coveralls = require('gulp-coveralls');
+var exec = require('child_process').exec;
+var istanbul = require('gulp-istanbul');
 var jasmine = require('gulp-jasmine');
 var jshint = require('gulp-jshint');
 var karmaServer = require('karma').Server;
@@ -24,9 +27,15 @@ gulp.task('prod', function (done) {
 gulp.task('test', function (done) {
   runSequence('env:test', 'loadConfig', 'jshint','karma', 'jasmine', done);
 });
+
+gulp.task('test:ci', function (done) {
+  runSequence('env:test', 'loadConfig', 'jshint','karma', 'jasmine', 'mv', 'coveralls', done);
+});
+
 gulp.task('test:client', function (done) {
   runSequence('env:test', 'loadConfig', 'jshint', 'karma', done);
 });
+
 gulp.task('test:server', function (done) {
   runSequence('env:test', 'loadConfig', 'jshint', 'jasmine', done);
 });
@@ -43,11 +52,31 @@ gulp.task('env:test', function () {
   process.env.NODE_ENV = 'test';
 });
 
-gulp.task('jasmine', function () {
-  return gulp.src(config.files.server.tests)
-    .pipe(jasmine({
-      includeStackTrace: true
-    }));
+gulp.task('mv', function (done) {
+  exec('mv coverage/PhantomJS\ 1.9.8\ \(Mac\ OS\ X\ 0.0.0\)/ coverage/phantom/', function () {
+    done();
+  });
+});
+
+gulp.task('coveralls', function () {
+  return gulp.src(['coverage/**/lcov.info'])
+    .pipe(coveralls());
+});
+
+gulp.task('jasmine', function (done) {
+  gulp.src(['modules/**/server/**/*.js', 'lib/**/*.js'])
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+    .on('finish', function () {
+      gulp.src(config.files.server.tests)
+        .pipe(jasmine({
+          includeStackTrace: true
+        }))
+        .pipe(istanbul.writeReports({
+          reporters: ['html']
+        }))
+        .on('end', done);
+      });
 });
 
 gulp.task('jshint', function () {
