@@ -103,6 +103,7 @@ db.sequelize.sync({ force: true })
       process.exit(0);
     });
   })
-  .catch(function () {
+  .catch(function (error) {
+    console.error(error);
     process.exit(1);
   });
