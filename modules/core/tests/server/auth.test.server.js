@@ -13,6 +13,8 @@ describe('login', function () {
     db.sequelize.sync({force: true})
       .then(function () {
         return User.create({
+          firstName: 'Rob',
+          lastName: 'TESTO',
           email: 'Rob@rob.com',
           password: 'testpassword'
         });
@@ -51,12 +53,7 @@ describe('login', function () {
         }
       }
     })
-    .then(function () { 
-      // callback argument would be # of rows deleted
-      // console.log('Destroyed ', rows, ' entries (login)');
-      // return sequelize.drop();
-      done();
-    });
+    .then(done);
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -210,7 +207,7 @@ describe('signup', function () {
         }
       }
     })
-    .then(function () { 
+    .then(function () {
       //callback argument would be # of rows deleted
       done();
     });
@@ -222,7 +219,7 @@ describe('signup', function () {
 
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'Rob@rob.com', password: 'testpassword'})
+      .send({firstName: 'Rob', lastName: 'test', email: 'Rob@rob.com', password: 'testpassword'})
       .expect(function (res) {
         if (!res.body.hasOwnProperty('token')){
           return 'token not found';
@@ -240,7 +237,7 @@ describe('signup', function () {
   it('shoudl return a user on new user signup', function (done) {
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'cody@cody.com', password: 'testPassword'})
+      .send({firstName: 'Cody', lastName: 'test', email: 'cody@cody.com', password: 'testPassword'})
       .expect(200)
       .end(function (err, res) {
         if(err) {
@@ -255,7 +252,7 @@ describe('signup', function () {
   it('should return a user with their email on signup', function (done) {
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'cody2@cody.com', password: 'testPassword'})
+      .send({firstName :'Cody', lastName: 'TWO', email: 'cody2@cody.com', password: 'testPassword'})
       .expect(200)
       .end(function (err, res) {
         if(err) {
@@ -271,7 +268,7 @@ describe('signup', function () {
   it('should return a user with a default user role', function (done) {
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'cody2@cody.com', password: 'testPassword'})
+      .send({firstName: 'Cody', lastName: 'test', email: 'cody@cody.com', password: 'testPassword'})
       .expect(200)
       .end(function (err, res) {
         if(err) {
@@ -288,7 +285,7 @@ describe('signup', function () {
 
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'THISISNOTANEMAILADDRESS', password: 'testpassword'})
+      .send({firstName: 'TEST', lastName: 'WOOO', email: 'THISISNOTANEMAILADDRESS', password: 'testpassword'})
       .expect(400)
       .end(function (err){
         if (err) {
@@ -303,12 +300,12 @@ describe('signup', function () {
 
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function () { 
+      .send({firstName: 'Rob', lastName: 'Test', email: 'Rob@rob.com', password: 'testpassword'})
+      .end(function () {
         //call back arguments would be err, res
         request(app)
           .post('/api/core/users/signup')
-          .send({email: 'Rob@rob.com', password: 'testpassword'})
+          .send({firstName: 'Rob', lastName: 'Test', email: 'Rob@rob.com', password: 'testpassword'})
           .expect(400)
           .end(function (err) {
             if (err) {
@@ -324,12 +321,12 @@ describe('signup', function () {
 
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function () { 
+      .send({firstName: 'Rob', lastName: 'Test', email: 'Rob@rob.com', password: 'testpassword'})
+      .end(function () {
         //call back arguments would be err, res
         request(app)
           .post('/api/core/users/signup')
-          .send({email: 'rob@rob.com', password: 'testpassword'})
+          .send({firstName: 'Rob', lastName: 'Test', email: 'rob@rob.com', password: 'testpassword'})
           .expect(400)
           .end(function (err) {
             if (err) {
@@ -379,7 +376,7 @@ describe('checkAuth', function () {
         }
       }
     })
-    .then(function () { 
+    .then(function () {
       //callback argument would be # of rows deleted
       done();
     });
@@ -401,8 +398,8 @@ describe('checkAuth', function () {
   it('should respond with 200 if user is valid', function(done){
     request(app)
       .post('/api/core/users/signup')
-      .send({email: 'Rob@rob.com', password: 'testpassword'})
-      .end(function (err, res) { 
+      .send({firstName: 'Rob', lastName: 'Test', email: 'Rob@rob.com', password: 'testpassword'})
+      .end(function (err, res) {
         var token = res.body.token;
         request(app)
           .post('/api/core/users/checkauth')

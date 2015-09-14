@@ -26,6 +26,24 @@
                 <div ng-message="minlength">Password must be at least 8 characters long.</div>
               </div>
             </md-input-container>
+            <md-input-container>
+              <label>First Name</label>
+              <input ng-model="vm.user.firstName" type="name" name="firstName" required>
+              <div ng-messages="vm.signupForm.firstName.$error" ng-show="vm.signupForm.firstName.$touched">
+                <div ng-message="required" >This is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>Last Name</label>
+              <input ng-model="vm.user.lastName" type="name" name="lastName" required>
+              <div ng-messages="vm.signupForm.lastName.$error" ng-show="vm.signupForm.lastName.$touched">
+                <div ng-message="required" >This is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container>
+              <label>Display Name</label>
+              <input ng-model="vm.user.displayName" type="name" name="displayName">
+            </md-input-container>
           </md-content>
           <md-button class="md-raised md-primary" type="submit">Sign Up</md-button>
         </form>

@@ -8,11 +8,14 @@ var User = db.User;
 describe('User functionality', function () {
 
   beforeAll(function(done){
-    
+
     db.sequelize.sync({force: true})
       .then(function () {
         return User.create({
+          displayName: 'Testacular',
           email: 'test@test.com',
+          firstName: 'Test',
+          lastName: 'User',
           password: 'testPassword'
         });
       })
@@ -29,19 +32,14 @@ describe('User functionality', function () {
         }
       }
     })
-    .then(function (  ) { //argument to callback would be # of rows deleted
-      // console.log('Destroyed ', rows, ' entries');
-      // return sequelize.drop();
-      done();
-    });
-    // .then(function(){
-    //   done();
-    // });
+    .then(done);
   });
-  
+
 
   it('should create a user', function (done) {
     User.create({
+      firstName: 'Test',
+      lastName: 'Create',
       email: 'testcreate@test.com',
       password: 'testpassword'
     })
@@ -51,11 +49,13 @@ describe('User functionality', function () {
     })
     .catch(function (err) {
       done.fail(err);
-    });   
+    });
   });
 
   it('should fail if email is invalid', function (done) {
     User.create({
+      firstName: 'Test',
+      lastName: 'Create',
       email: 'THIS IS NOT AN EMAIL',
       password: 'testpassword'
     })
@@ -65,7 +65,7 @@ describe('User functionality', function () {
     .catch(function (err) {
       expect(err.name).toBe('SequelizeValidationError');
       done();
-    });  
+    });
   });
 
   it('Compare password should return true for matching PW', function (done) {
@@ -85,7 +85,7 @@ describe('User functionality', function () {
     });
 
   });
-  
+
   it('Compare password should return false for non-matching PW', function (done) {
       User.find({
         where: {

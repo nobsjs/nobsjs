@@ -12,7 +12,7 @@ function blogInit() {
   return db.Role.create({ name: 'admin' })
     .then(function (role) {
       // Create an Admin User
-      return db.User.create({ email: 'admin@example.com', password: 'testPassword' })
+      return db.User.create({ displayName: 'Admin Example', firstName: 'Admin', lastName: 'test', email: 'admin@example.com', password: 'testPassword' })
         .then(function (user) {
           return user.addRole(role)
             .then(function () {

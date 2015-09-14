@@ -14,7 +14,7 @@ describe('Posts API', function () {
       .then(function () {
         request(app)
           .post('/api/core/users/signup')
-          .send({email: 'test@test.com', password: 'testpassword'})
+          .send({firstName: 'Test', lastName: 'Test', email: 'test@test.com', password: 'testpassword'})
           .end(function (err, res) {
             token = res.body.token;
             done();
