@@ -1,22 +1,31 @@
-<md-content layout-padding>
-  <h1 >Page Admin List</h1>
-<md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.gotoCreatePage()">
-  <md-icon md-font-set="material-icons"> add </md-icon>
-</md-button>
-<!-- <md-subheader class="md-primary">These are your pages</md-subheader> -->
-  <md-list>
-    <md-subheader>These are your pages</md-subheader>
-    <md-list-item class="md-3-line" ng-repeat="page in vm.allPages" ng-click="vm.gotoPage(page.id)">
-      <md-button>
-        <md-icon md-font-set="material-icons"> pageview </md-icon>
-      </md-button>
-      <div class="md-list-item-text">
-          <h3>{{ page.title }}</h3>
-          <md-divider md-inset></md-divider>
-      </div>
-      <md-button ng-click="vm.gotoEditPage(page.id)">
-        <md-icon md-font-set="material-icons"> mode_edit </md-icon>
-      </md-button>
-    </md-list-item>
-  </md-list>
-</md-content>
+<md-card style="position: relative">
+  <md-card-content>
+    <h1 class="md-title">Pages</h1>
+    <md-button class="md-fab md-fab-top-right" aria-label="Add" ng-click="vm.gotoCreatePage()">
+      <md-icon md-font-set="material-icons">add</md-icon>
+    </md-button>
+    <md-list>
+      <md-list-item>
+        <div flex="45">
+          <span class="md-body-2">Title</span>
+        </div>
+        <div flex="25">
+          <span class="md-body-2">Slug</span>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ng-repeat="page in vm.allPages" >
+        <div flex="45">
+          {{ page.title }}
+        </div>
+        <div flex="25">
+          {{ page.slug }}
+        </div>
+        <div flex="30">
+          <a class="md-button md-hue-2 md-primary" ng-click="vm.gotoPage(page.id)">VIEW</a>
+          <a class="md-button md-hue-2 md-primary" ng-click="vm.gotoEditPage(page.id)">EDIT</a>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
