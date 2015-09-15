@@ -44,4 +44,5 @@ certs
 # Visual Studio Files
 *.suo
 *.njsproj
+.idea
 
