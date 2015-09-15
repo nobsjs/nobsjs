@@ -113,7 +113,9 @@ function getPostById (req, res, next, id) {
 
   function goToNextOrRespond (post) {
     req.post = post;
-    if(!next){
+    if(post === null){
+      send404();
+    } else if(!next) {
       res.send(post);
     } else {
       next();
