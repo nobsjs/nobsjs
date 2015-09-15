@@ -1,0 +1,29 @@
+<div layout="row" layout-align="center center" md-theme>
+  <div flex="33" layout-padding layout-margin>
+    <div layout="column" layout-fill>
+      <md-toolbar class="md-primary">
+        <h1 class="md-toolbar-tools" layout-fill>
+          Log in
+        </h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        <form name="vm.sendResetTokenForm" ng-submit="vm.sendResetTokenForm.$valid && vm.sendResetToken() " >
+          <md-content layout-padding layout="column">
+            <md-input-container>
+              <label>Email</label>
+              <input name="email" ng-model="vm.user.email" type="email" required>
+              <div ng-messages="vm.sendResetTokenForm.email.$error" ng-show="vm.sendResetTokenForm.email.$touched">
+                <div ng-message="required" >This is required.</div>
+                <div ng-message="email" >Please use a valid email.</div>
+              </div>
+            </md-input-container>
+          </md-content>
+          <md-button class="md-raised md-primary" type="submit">Reset</md-button>
+        </form>
+      </md-content>
+      <md-content layout-padding>
+        Don't have an account yet? <a href="#/signup">Sign up!</a>
+      </md-content>
+    </div>
+  </div>
+</div>
