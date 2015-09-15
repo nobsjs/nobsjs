@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .factory('navService', navService);
 
 navService.$inject = ['$http', '$location', '$window', 'userService'];

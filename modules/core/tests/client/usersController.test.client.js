@@ -4,7 +4,7 @@
 describe('Users Controller & Auth Service', function () {
   var $rootScope, $location, $window, $httpBackend, authService, $controller, createController, $cookies;
 
-  beforeEach(module('tropicalbs'));
+  beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($injector) {
     $rootScope = $injector.get('$rootScope');
@@ -86,24 +86,5 @@ describe('Users Controller & Auth Service', function () {
       expect(authService.login).toBeDefined();
     });
 
-    // These tests are not working. there is a promise issue with $httpBackend
-    // Auth functionality is tested under the users controller tests
-    xit('should store token in localStorage after successful login', function () {
-      // create a fake JWT for auth
-      var token = 'sjj232hwjhr3urw90rof';
-      $httpBackend.expectPOST('api/core/users/login').respond({token: token});
-      authService.login({email: 'email@gmail.com', password: 'derp1234'});
-      $httpBackend.flush();
-    });
-
-    // These tests are not working. there is a promise issue with $httpBackend
-    // Auth functionality is tested under the users controller tests
-    xit('should not set token in localStorage on unsuccessful request', function () {
-
-      $httpBackend.expectPOST('api/core/users/login').respond({status: 400});
-      authService.login({email: 'email@gmail.com', password: 'derp1234'});
-      $httpBackend.flush();
-      expect($window.localStorage.getItem('userToken')).toBeUndefined();
-    });
   });
 });

@@ -1,0 +1,11 @@
+<md-dialog>
+  <md-dialog-content>Are you sure you want to delete {{ vm.user.email }}!</md-dialog-content>
+  <div class="md-actions">
+    <md-button ng-click="vm.hide(vm.user)" class="md-primary">
+      Yes
+    </md-button>
+    <md-button ng-click="vm.cancel()" class="md-primary">
+      No
+    </md-button>
+  </div>
+</md-dialog>

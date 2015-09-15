@@ -2,7 +2,7 @@
 
 // defines main app and inject dependencies
 angular
-  .module('tropicalbs', [
+  .module('nobsjs', [
     'ui.router',
     'ngMaterial',
     'ngMessages',

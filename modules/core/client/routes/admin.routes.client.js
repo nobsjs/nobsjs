@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(adminConfig);
 
 adminConfig.$inject = ['$stateProvider'];
@@ -23,8 +23,8 @@ function adminConfig ($stateProvider) {
       url: '/users',
       views: {
         'admin-content': {
-          templateUrl: '../../../../modules/core/client/views/admin-users.view.client.html',
-          controller: 'AdminUsersController',
+          templateUrl: '../../../../modules/core/client/views/adminUsers.view.client.html',
+          controller: 'AllUsersController',
           controllerAs: 'vm'
         }
       }

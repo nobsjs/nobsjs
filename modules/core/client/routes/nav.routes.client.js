@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(navRoutes);
 
 navRoutes.$inject = ['$stateProvider'];
@@ -17,7 +17,7 @@ function navRoutes($stateProvider){
           controllerAs: 'vm'
         },
         'admin-sidenav': {
-          templateUrl: '../../../../modules/core/client/views/admin-sidenav.view.client.html',
+          templateUrl: '../../../../modules/core/client/views/adminSidenav.view.client.html',
           controller: 'NavigationController',
           controllerAs: 'vm'
         },

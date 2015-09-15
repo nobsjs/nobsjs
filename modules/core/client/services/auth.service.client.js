@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .factory('authService', authService);
 
 authService.$inject =  ['$cookies', '$http', '$location', '$window', 'userService'];

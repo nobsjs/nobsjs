@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('tropicalbs')
+angular.module('nobsjs')
 	.controller('NavigationController', NavigationController);
 
 NavigationController.$inject = ['$state', '$mdSidenav', 'authService', 'navService', 'userService'];
@@ -15,15 +15,17 @@ NavigationController.$inject = ['$state', '$mdSidenav', 'authService', 'navServi
  */
 function NavigationController ($state, $mdSidenav, authService, navService, userService) {
   var vm = this;
+  vm.goToTabs = goToTabs;
+  vm.login = login;
   vm.logout = authService.logout;
+  vm.openAdminSidenav = openAdminSidenav;
+  vm.pages = goToPages;
+  vm.signup = signup;
   vm.state = $state;
   vm.tabs = [];
   vm.user = userService.currentUser;
-  vm.login = login;
-  vm.openAdminSidenav = openAdminSidenav;
-  vm.signup = signup;
-  vm.userIsAdmin = userIsAdmin;
   vm.users = users;
+  vm.userIsAdmin = userIsAdmin;
 
   activate();
 
@@ -36,6 +38,16 @@ function NavigationController ($state, $mdSidenav, authService, navService, user
     vm.tabs = navService.getUserTabs();
   }
 
+  function goToPages () {
+    $mdSidenav('admin').toggle();
+    $state.go('pagesList');
+  }
+
+  function goToTabs () {
+    $mdSidenav('admin').toggle();
+    $state.go('adminTabs');
+  }
+
   /**
    * Redirects state to login page
    */
@@ -43,15 +55,16 @@ function NavigationController ($state, $mdSidenav, authService, navService, user
     $state.go('login');
   }
 
+  function openAdminSidenav () {
+    $mdSidenav('admin').toggle();
+  }
+
   /**
    * Redirects state to signup page
    */
+
   function signup () {
     $state.go('signup');
-  }
-
-  function openAdminSidenav () {
-    $mdSidenav('admin').toggle();
   }
 
   function users () {

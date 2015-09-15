@@ -1,0 +1,5 @@
+<md-content layout-padding layout='column' layout-align='center'>
+  <h3 class="blog_title"> {{ vm.post.title }} </h3>
+  <div layout-padding ng-bind-html="vm.post.content"></div>
+</md-content>
+<md-button ng-click="vm.goToList()">Back to Blog</md-button>

@@ -13,6 +13,9 @@ lib-cov
 # bower components
 public/lib
 
+# uglified code
+public/dist
+
 # Coverage directory used by tools like istanbul
 coverage
 
@@ -34,3 +37,12 @@ lib/env/local.js
 
 # Certificates
 certs
+
+# MAC OSx
+.DS_Store
+
+# Visual Studio Files
+*.suo
+*.njsproj
+.idea
+

@@ -5,7 +5,7 @@ describe('pagesService', function () {
 
   beforeEach(function () {
 
-    module('tropicalbs');
+    module('nobsjs');
 
     inject(function ($injector) {
       $http = $injector.get('$http');

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('tropicalbs')
+angular.module('nobsjs')
   .config(aboutRoutes);
 
 aboutRoutes.$inject = ['$stateProvider'];

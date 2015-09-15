@@ -129,6 +129,7 @@ function deleteTab (req, res) {
 function getTabById (req, res, next, id) {
 
   var tabQuery = {
+    include: [{model: db.Role}],
     where: {
       id: id
     }
@@ -174,6 +175,7 @@ function getTabs (req, res) {
     tabs.forEach(function (tab) {
       var tempTab = {};
       tempTab.title = tab.title;
+      tempTab.id = tab.id;
       tempTab.uisref = tab.uisref;
       tempTab.visibleRoles = [];
       tab.Roles.forEach(function (role) {
@@ -223,6 +225,7 @@ function updateTab (req, res) {
   };
 
   db.Tab.update(tab, tabQuery)
+    .then(setRoles)
     .then(findTab)
     .then(sendUpdatedTab);
 
@@ -234,5 +237,32 @@ function updateTab (req, res) {
 
   function sendUpdatedTab (updatedTab) {
     res.send(updatedTab);
+  }
+
+  function setRoles () {
+    if(req.body.visibleRoles) {
+      //if it's empty, set it to null
+      if(req.body.visibleRoles.length === 0) {
+        req.body.visibleRoles.push(null);
+      }
+      return updateOneTab();
+    } else {
+      return;
+    }
+
+    //////////
+
+    function updateOneTab () {
+      var tabQuery = {
+        where: {id: req.tab.id}
+      };
+
+      return db.Tab.findOne(tabQuery)
+        .then(addRolesToTab);
+
+      function addRolesToTab (tab) {
+        return addRoles(tab, req.body.visibleRoles);
+      }
+    }
   }
 }

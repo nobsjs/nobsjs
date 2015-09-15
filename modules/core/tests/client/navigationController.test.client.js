@@ -7,7 +7,7 @@ describe('NavigationController', function () {
 
   beforeEach(function () {
 
-    module('tropicalbs');
+    module('nobsjs');
 
     inject(function ($injector) {
       $controller = $injector.get('$controller');

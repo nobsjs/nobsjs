@@ -27,6 +27,8 @@ describe('Roles Controllers', function () {
       .then(function (role) {
         role2 = role;
         return User.create({
+          firstName: 'Test',
+          lastName: 'Example',
           email: 'test@example.com',
           password: 'testPassword'
         });
@@ -34,6 +36,8 @@ describe('Roles Controllers', function () {
       .then(function (user) {
         user1 = user;
         return User.create({
+          firstName: 'Test2',
+          lastName: 'Example',
           email: 'test2@example.com',
           password: 'testPassword2'
         });
@@ -99,6 +103,19 @@ describe('Roles Controllers', function () {
       });
   });
 
+  it('should return 404 on requesting a non existant role', function (done) {
+    request(app)
+      .get('/api/core/roles/6785656757')
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
   it('should return a requested role with a list of users', function (done) {
     request(app)
       .get('/api/core/roles/' + role1.id)
@@ -159,6 +176,20 @@ describe('Roles Controllers', function () {
       });
   });
 
+  it('should return 404 on trying to update a requested role', function (done) {
+    request(app)
+      .put('/api/core/roles/6783457432')
+      .send({name: 'update'})
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
+          done();
+        }
+      });
+  });
+
   it('should return the updated role', function (done) {
     request(app)
       .put('/api/core/roles/' + role1.id)
@@ -183,6 +214,19 @@ describe('Roles Controllers', function () {
           done.fail(err);
         } else {
           expect(res.body.name).toEqual(role1.name);
+          done();
+        }
+      });
+  });
+
+  it('should return 404 when trying to delete a non existant role', function (done) {
+    request(app)
+      .delete('/api/core/roles/' + 5743825437252)
+      .expect(404)
+      .end(function (err, res) {
+        if(err) {
+          done.fail(err);
+        } else {
           done();
         }
       });

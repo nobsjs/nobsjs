@@ -1,0 +1,11 @@
+/**************************/
+/* CSS FOR ANGULAR MATERIAL
+/**************************/
+
+.roles-chips md-chips-wrap {
+  box-shadow: 0 0 #FFF;
+}
+
+.user-item:hover {
+  background-color: #EEE;
+}

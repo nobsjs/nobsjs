@@ -1,37 +1,23 @@
 {
-  "name": "tropicalbs",
+  "name": "nobsjs",
   "version": "0.0.1",
   "description": "> Pithy project description",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
+    "start": "gulp prod",
     "test": "gulp test",
+    "test-travis": "gulp test",
     "postinstall": "bower install --config.interactive=false"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tropicalsubmarine/tropicalbs.git"
+    "url": "git+https://github.com/nobsjs/nobsjs.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tropicalsubmarine/tropicalbs/issues"
+    "url": "https://github.com/nobsjs/nobsjs/issues"
   },
-  "homepage": "https://github.com/tropicalsubmarine/tropicalbs#readme",
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-jasmine": "^2.0.1",
-    "gulp-jshint": "^1.11.2",
-    "gulp-nodemon": "^2.0.4",
-    "jasmine": "^2.3.2",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.9",
-    "karma-chrome-launcher": "^0.2.0",
-    "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "phantomjs": "^1.9.18",
-    "run-sequence": "^1.1.2",
-    "supertest": "^1.1.0"
-  },
+  "homepage": "http://nobsjs.com",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.9.34",
@@ -40,12 +26,31 @@
     "c.log": "0.0.3",
     "express": "^4.13.3",
     "glob": "^5.0.14",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-jshint": "^1.11.2",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-uglify": "^1.4.0",
+    "jasmine": "^2.3.2",
+    "jasmine-core": "^2.3.4",
     "jwt-simple": "^0.3.0",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
     "lodash": "^3.10.1",
     "mysql": "^2.9.0",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
+    "phantomjs": "^1.9.18",
+    "run-sequence": "^1.1.2",
     "sequelize": "^3.6.0",
+    "supertest": "^1.1.0",
     "swig": "^1.4.2"
   }
 }

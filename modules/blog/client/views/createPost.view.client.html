@@ -1,0 +1,16 @@
+<h1>{{ vm.viewTitle }}</h1>
+<md-content layout-padding>
+  <form name='vm.createPostForm'>
+    <md-content layout-padding layout="column">
+      <md-input-container>
+        <label>Title</label>
+        <input name="post_title" ng-model="vm.post.title" type="text" required>
+      </md-input-container>
+      <label>Content</label>
+      <text-angular name='content' ng-model="vm.post.content"></text-angular>
+    </md-content>
+    <md-button class="md-raised md-primary" ng-if="vm.mode === 'create'" ng-click='vm.createPost()' type='submit'>Create Post</md-button>
+    <md-button class="md-raised md-primary" ng-if="vm.mode === 'edit'" ng-click='vm.updatePost()'>Update Post</md-button>
+    <md-button class="md-warn md-hue-2" ng-if="vm.mode === 'edit'" ng-click='vm.deletePost()'>Delete Post</md-button>
+  </form>
+</md-content>
