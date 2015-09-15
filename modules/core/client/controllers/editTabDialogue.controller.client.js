@@ -3,12 +3,12 @@
 angular.module('nobsjs')
   .controller('EditTabDialogueController', EditTabDialogueController);
 
-EditTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService', 'allUsersService'];
+EditTabDialogueController.$inject =  ['$mdDialog', 'allUsersService', 'tab', 'tabsService'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
  */
-function EditTabDialogueController ($mdDialog, tab, tabsService, allUsersService) {
+function EditTabDialogueController ($mdDialog, allUsersService, tab, tabsService) {
   var vm = this;
   vm.cancel = cancel;
   vm.hide = hide;
