@@ -3,12 +3,12 @@
 angular.module('nobsjs')
   .controller('EditTabDialogueController', EditTabDialogueController);
 
-EditTabDialogueController.$inject =  ['$mdDialog', 'allUsersService', 'tab', 'tabsService'];
+EditTabDialogueController.$inject =  ['$mdDialog', 'allUsersService', 'rolesService', 'tab', 'tabsService'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
  */
-function EditTabDialogueController ($mdDialog, allUsersService, tab, tabsService) {
+function EditTabDialogueController ($mdDialog, allUsersService, rolesService, tab, tabsService) {
   var vm = this;
   vm.cancel = cancel;
   vm.hide = hide;
@@ -17,8 +17,7 @@ function EditTabDialogueController ($mdDialog, allUsersService, tab, tabsService
   vm.title = '';
 
   // Add role autocomplete variables below
-  vm.availableRoles = [];
-  vm.querySearch = querySearch;
+  vm.querySearch = rolesService.queryAvailableRoles;
   vm.searchText = null;
 
   activate();
@@ -31,22 +30,10 @@ function EditTabDialogueController ($mdDialog, allUsersService, tab, tabsService
   function activate () {
     _.assign(vm.tab, tab);
     vm.title = 'Edit Tab';
-    allUsersService.getStrippedRoles()
-      .then(setAvailableRoles);
   }
 
   function cancel () {
     $mdDialog.cancel();
-  }
-
-  /**
-   * Create filter function for a query string
-   */
-  function createFilterFor (query) {
-    var lowercaseQuery = angular.lowercase(query);
-    return function filterFn (role) {
-      return (role.indexOf(lowercaseQuery) === 0);
-    };
   }
 
   function displayError(err) {
@@ -58,24 +45,12 @@ function EditTabDialogueController ($mdDialog, allUsersService, tab, tabsService
   }
 
   /**
-   * Search for roles.
-   */
-  function querySearch (query) {
-    var results = query ? vm.availableRoles.filter( createFilterFor(query) ) : vm.availableRoles;
-    return results;
-  }
-
-  /**
    * Saves the user submitted information
    */
   function saveAction () {
     tabsService.updateTab(vm.tab, tab.id)
       .then(showSuccess)
       .catch(displayError);
-  }
-
-  function setAvailableRoles (roles) {
-    vm.availableRoles = roles;
   }
 
   function showSuccess () {
