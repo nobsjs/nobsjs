@@ -20,18 +20,17 @@ function EditTabDialogueController ($mdDialog, tab, tabsService, allUsersService
   vm.availableRoles = [];
   vm.querySearch = querySearch;
   vm.searchText = null;
-  vm.selectedRole = null;
-  vm.selectedRoleChange = selectedRoleChange;
 
   activate();
 
   //////////
 
+  /**
+   * Initiates the values of the view
+   */
   function activate () {
     _.assign(vm.tab, tab);
     vm.title = 'Edit Tab';
-    console.log(vm.tab);
-    // console.log('activated');
     allUsersService.getStrippedRoles()
       .then(setAvailableRoles);
   }
@@ -52,7 +51,6 @@ function EditTabDialogueController ($mdDialog, tab, tabsService, allUsersService
 
   function displayError(err) {
     //TODO
-    console.log(err);
   }
 
   function hide () {
@@ -64,7 +62,6 @@ function EditTabDialogueController ($mdDialog, tab, tabsService, allUsersService
    */
   function querySearch (query) {
     var results = query ? vm.availableRoles.filter( createFilterFor(query) ) : vm.availableRoles;
-    // console.log('available', vm.availableRoles, 'querysearch', results);
     return results;
   }
 
@@ -77,21 +74,11 @@ function EditTabDialogueController ($mdDialog, tab, tabsService, allUsersService
       .catch(displayError);
   }
 
-  function selectedRoleChange (role) {
-    // TODO: Do stuff with the selected role
-  }
-
   function setAvailableRoles (roles) {
-    // console.log('before', vm.availableRoles);
     vm.availableRoles = roles;
-    // console.log('after', vm.availableRoles);
   }
 
-  function showSuccess (stuff) {
-    console.log('success');
-    if(stuff) {
-      console.log(stuff);
-    }
+  function showSuccess () {
     $mdDialog.hide();
   }
 }
