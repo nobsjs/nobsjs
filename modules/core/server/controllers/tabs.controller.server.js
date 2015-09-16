@@ -62,6 +62,9 @@ function createTab (req, res) {
   newTab.title = req.body.title;
   newTab.uisref = req.body.uisref;
   newTab.visibleRoles = req.body.visibleRoles || ['owner', 'admin'];
+  if(newTab.visibleRoles.length === 0) {
+    newTab.visibleRoles.push(null);
+  }
 
   // Create the tab
   db.Tab.create(newTab)
