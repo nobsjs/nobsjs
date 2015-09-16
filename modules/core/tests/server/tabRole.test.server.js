@@ -77,7 +77,7 @@ describe('/api/core/tabs', function () {
     var homeTab = {};
     homeTab.title = 'Cowabunga';
     homeTab.uisref = 'cowabunga';
-    homeTab.roles = ['owner', 'admin', 'user'];
+    homeTab.visibleRoles = ['owner', 'admin', 'user'];
 
     request(app)
       .post('/api/core/tabs')
@@ -88,8 +88,56 @@ describe('/api/core/tabs', function () {
         } else {
           expect(res.body.title).toEqual(homeTab.title);
           expect(res.body.uisref).toEqual(homeTab.uisref);
-          expect(res.body.visibleRoles).toEqual(homeTab.roles);
+          expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
           done();
+        }
+      });
+  });
+
+  it('should update the roles', function (done) {
+    var homeTab = {};
+    homeTab.title = 'Cowabunga2';
+    homeTab.uisref = 'cowabunga2';
+    homeTab.visibleRoles = ['owner', 'admin', 'user'];
+
+    request(app)
+      .post('/api/core/tabs')
+      .send(homeTab)
+      .end(function (err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          var id = res.body.id;
+          expect(res.body.title).toEqual(homeTab.title);
+          expect(res.body.uisref).toEqual(homeTab.uisref);
+          expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
+          homeTab.visibleRoles = ['owner', 'admin'];
+          request(app)
+            .put('/api/core/tabs/' + id)
+            .send(homeTab)
+            .end(function (err, res) {
+              if (err) {
+                done.fail(err);
+              } else {
+                expect(res.body.title).toEqual(homeTab.title);
+                expect(res.body.uisref).toEqual(homeTab.uisref);
+                expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
+                request(app)
+                  .get('/api/core/tabs/' + id)
+                  .expect(200)
+                  .end(function (err, res) {
+                    if (err) {
+                      done.fail(err);
+                    } else {
+                      expect(res.body.title).toEqual(homeTab.title);
+                      expect(res.body.uisref).toEqual(homeTab.uisref);
+                      expect(res.body.visibleRoles).toContain(homeTab.visibleRoles[0]);
+                      expect(res.body.visibleRoles).toContain(homeTab.visibleRoles[1]);
+                      done();
+                    }
+                  });
+              }
+            });
         }
       });
   });

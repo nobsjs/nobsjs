@@ -66,10 +66,10 @@ describe('/api/core/tabs', function () {
       });
   });
 
-  it('should respond to a request to "/api/core/tabs/1" with 400 status', function (done) {
+  it('should respond to a request to "/api/core/tabs/1" (non-existant tab) with 404 status', function (done) {
     request(app)
       .get('/api/core/tabs/1')
-      .expect(400)
+      .expect(404)
       .end(function (err){
         if (err) {
           done.fail(err);
@@ -114,7 +114,7 @@ describe('/api/core/tabs', function () {
     afterEach(function (done) {
       Tab.destroy({
         where: {
-          title: 'Derp2'
+          id: savedTab.id
         }
       })
       .then(done);
@@ -193,7 +193,7 @@ describe('/api/core/tabs', function () {
         });
     });
 
-    xit('should be able to delete a tab', function (done) {
+    it('should be able to delete a tab', function (done) {
       request(app)
         .delete('/api/core/tabs/' + savedTab.id)
         .expect(200)
@@ -204,7 +204,7 @@ describe('/api/core/tabs', function () {
             // done();
             request(app)
               .get('/api/core/tabs/' + savedTab.id)
-              .expect(400)
+              .expect(404)
               .end(function (err) {
                 if(err) {
                   done.fail(err);
