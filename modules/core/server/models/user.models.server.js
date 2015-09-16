@@ -45,9 +45,9 @@ function UserModel (sequelize, DataTypes) {
   var User = sequelize.define('User', userSchema, userMethods);
 
 
-  User.hook('beforeCreate', beforeCreate);
   User.hook('beforeBulkUpdate', beforeBulkUpdate);
-  User.hook('beforeUpdate', beforeUpdate);
+  User.hook('beforeCreate', beforeCreateUpdate);
+  User.hook('beforeUpdate', beforeCreateUpdate);
 
   return User;
 
@@ -61,37 +61,11 @@ function UserModel (sequelize, DataTypes) {
     options.individualHooks = true;
   }
 
-  function beforeCreate (user) {
-    //users are not admin upon creation. Must use web interface to make admins
-    user.admin = false;
+  function beforeCreateUpdate (user) {
     user.email = user.email.toLowerCase();
     return bcrypt.hashAsync(user.password, 10)
       .then(setHash)
       .catch(returnError);
-
-    //////////
-
-    function setHash (hash) {
-      user.password = hash;
-    }
-
-    function returnError (e) {
-      return e;
-    }
-  }
-
-  function beforeUpdate (user, fields, callback) {
-    if(user.email) {
-      user.email = user.email.toLowerCase();
-    }
-    if(user.password) {
-      bcrypt.hashAsync(user.password, 10)
-        .then(setHash)
-        .then(callback)
-        .catch(returnError);
-    } else {
-      callback();
-    }
 
     //////////
 

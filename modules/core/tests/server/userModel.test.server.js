@@ -7,7 +7,7 @@ var User = db.User;
 
 describe('User functionality', function () {
 
-  var savedUser;
+  var savedUser, savedPassword;
 
   beforeAll(function(done){
 
@@ -23,6 +23,7 @@ describe('User functionality', function () {
       })
       .then(function (user) {
         savedUser = user;
+        savedPassword = user.password.toString();
         done();
       });
   });
@@ -90,13 +91,15 @@ describe('User functionality', function () {
   });
 
   it('should not update the password when not updating the password field of the User model', function (done) {
-    User.update({ passwordResetToken: '1234567890' }, { where : { email: 'test@test.com' }})
-      .then(function () {
-        return User.findOne({ where : { email: 'test@test.com' }});
+    User.update({ passwordResetToken: '1234567890' }, {
+      where : { email: 'test@test.com' },
       })
-      .then(function (user) {
-        expect(user.password).toEqual(savedUser.password);
-        done();
+      .then(function (userOut) {
+        return User.findOne({ where : { email: 'test@test.com' }})
+          .then(function (user) {
+            expect(user.password).toEqual(savedPassword);
+            done();
+          });
       })
       .catch(done.fail);
 
