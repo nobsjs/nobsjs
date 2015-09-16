@@ -3,7 +3,7 @@
 angular.module('nobsjs')
   .controller('EditUserController', EditUserController);
 
-EditUserController.$inject = ['$scope', '$mdDialog', 'allUsersService', 'user'];
+EditUserController.$inject = ['$scope', '$mdDialog', 'allUsersService', 'rolesService', 'user'];
 
 /**
  * Manages the view of navigation tabs
@@ -14,7 +14,7 @@ EditUserController.$inject = ['$scope', '$mdDialog', 'allUsersService', 'user'];
  * @param {CustomService} Service that manages user sessions
  */
 
-function EditUserController ($scope, $mdDialog, allUsersService, user) {
+function EditUserController ($scope, $mdDialog, allUsersService, rolesService, user) {
   var vm = this;
 
   vm.cancel = cancel;
@@ -23,26 +23,12 @@ function EditUserController ($scope, $mdDialog, allUsersService, user) {
   vm.user = user;
 
   // Add role autocomplete variables below
-  vm.querySearch = querySearch;
-  vm.roles = [];
-  vm.selectedRole = null;
+  vm.querySearch = rolesService.queryAvailableRoles;
   vm.searchText = null;
+  vm.selectedRole = null;
   vm.selectedRoleChange = selectedRoleChange;
 
-  activate();
-
   ///////////
-
-  function activate () {
-    allUsersService.getStrippedRoles()
-      .then(setRoles);
-
-    //////////
-
-    function setRoles (roles) {
-      vm.roles = roles;
-    }
-  }
 
   function cancel () {
     $mdDialog.cancel();
@@ -63,26 +49,6 @@ function EditUserController ($scope, $mdDialog, allUsersService, user) {
     function displayError (err) {
       // TODO: display so sort of error
     }
-  }
-
-  /**
-   * Create filter function for a query string
-   */
-
-  function createFilterFor(query) {
-    var lowercaseQuery = angular.lowercase(query);
-    return function filterFn(role) {
-      return (role.indexOf(lowercaseQuery) === 0);
-    };
-  }
-
-  /**
-   * Search for roles.
-   */
-
-  function querySearch (query) {
-    var results = query ? vm.roles.filter( createFilterFor(query) ) : vm.roles;
-    return results;
   }
 
   function selectedRoleChange (role) {
