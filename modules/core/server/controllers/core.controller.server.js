@@ -340,20 +340,6 @@ function sendResetToken (req, res) {
 }
 
 /**
- * Strips an array of Roles returned from the Database to an array of role names
- *
- * @param {Array} roles An Array
- * @returns {Array} roleNames An array of role names
- */
-function stripRoleNames (roles) {
-  var roleNames = [];
-  for(var r = 0; r < roles.length; r++) {
-    roleNames.push(roles[r].name);
-  }
-  return roleNames;
-}
-
-/**
  * Render the index page for the angular application.
  *
  * @param {ExpressRequestObject} req
@@ -361,11 +347,16 @@ function stripRoleNames (roles) {
  */
 
 function renderIndex (req, res) {
-  Promise.all([db.Page.findAll(), getTabs()])
+  Promise.all([getPages(), getTabs()])
     .then(render)
     .catch(send500);
 
   //////////
+
+  function getPages () {
+    return db.Page.findAll()
+      .then(processPages);
+  }
 
   function getTabs () {
     var tabQuery = {
@@ -379,12 +370,21 @@ function renderIndex (req, res) {
       .then(processTabs);
   }
 
+  function processPages (pages) {
+    var response = [];
+    pages.forEach(function (page) {
+      var tempPage = page.get({plain:true});
+      delete tempPage.content;
+      response.push(tempPage);
+    });
+    return response;
+  }
+
   function processTabs (tabs) {
     var response = [];
     tabs.forEach(function (tab) {
-      var tempTab = {};
-      tempTab.title = tab.title;
-      tempTab.uisref = tab.uisref;
+      var tempTab = tab.get({plain:true});
+      delete tempTab.Roles;
       tempTab.visibleRoles = [];
       tab.Roles.forEach(function (role) {
         tempTab.visibleRoles.push(role.name);
@@ -484,6 +484,21 @@ function signUp (req, res) {
     // Invalid Password
     res.status(400).send('Database Error');
   }
+}
+
+/**
+ * Strips an array of Roles returned from the Database to an array of role names
+ *
+ * @param {Array} roles An Array
+ * @returns {Array} roleNames An array of role names
+ */
+
+function stripRoleNames (roles) {
+  var roleNames = [];
+  for(var r = 0; r < roles.length; r++) {
+    roleNames.push(roles[r].name);
+  }
+  return roleNames;
 }
 
 /**
