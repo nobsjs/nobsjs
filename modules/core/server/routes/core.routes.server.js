@@ -13,6 +13,8 @@ function coreRoutes(app) {
   app.route('/api/core/users/login').post(core.logIn);
   app.route('/api/core/users/signup').post(core.signUp);
   app.route('/api/core/users/checkauth').post(core.checkAuth);
+  app.route('/api/core/users/resetpassword').post(core.resetPassword);
+  app.route('/api/core/users/sendresettoken').post(core.sendResetToken);
 
   app.route('/api/core/users')
     .get(core.getUsers);

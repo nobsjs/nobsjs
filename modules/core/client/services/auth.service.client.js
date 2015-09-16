@@ -11,6 +11,8 @@ function authService ($cookies, $http, $location, $window, userService) {
     checkAuth: checkAuth,
     login: login,
     logout: logout,
+    resetPassword: resetPassword,
+    sendResetToken: sendResetToken,
     signup: signup
   };
 
@@ -52,6 +54,31 @@ function authService ($cookies, $http, $location, $window, userService) {
     $cookies.remove('userToken');
     userService.setDefault();
     $window.location.reload();
+  }
+
+  function sendResetToken (user) {
+    var req = {
+      method: 'POST',
+      url: 'api/core/users/sendresettoken',
+      data: user
+    };
+
+    return $http(req)
+      .then(returnData);
+  }
+
+  function resetPassword (user) {
+    var req = {
+      method: 'POST',
+      url: 'api/core/users/resetpassword',
+      data: user
+    };
+
+    return $http(req);
+  }
+
+  function returnData (res) {
+    return res.data;
   }
 
   function signup (user) {
