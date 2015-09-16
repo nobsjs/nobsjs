@@ -35,6 +35,6 @@ function SendResetTokenController ($state, $window, authService) {
   }
 
   function sendToReset () {
-    $state.go('resetpassword');
+    $state.go('resetPassword');
   }
 }
