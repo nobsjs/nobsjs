@@ -46,7 +46,7 @@ function pagesService ($http, $state, pageStateManager) {
     };
 
     return $http(req)
-      .then(redirectHome);
+      .then(returnData);
       // no catch block allows the controller to receive the error and provide feedback to the user
   }
 
@@ -71,10 +71,6 @@ function pagesService ($http, $state, pageStateManager) {
     return $http (req)
       .then(returnData);
       // no catch block allows the controller to receive the error and provide feedback to the user
-  }
-
-  function redirectHome () {
-    $state.go('home');
   }
 
   function redirectToPage (page) {
