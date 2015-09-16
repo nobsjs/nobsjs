@@ -24,9 +24,7 @@ function AdminTabsController ($mdDialog, tabsService) {
    * Queries the database to get all Tabs
    */
   function activate () {
-    //do stuff
-    tabsService.getAllTabs()
-      .then(setAllTabs);
+    refreshTabs();
   }
 
   function createTabDialogue (ev, tab) {
@@ -79,7 +77,12 @@ function AdminTabsController ($mdDialog, tabsService) {
   }
 
   function handleSuccess () {
-    //TODO - save button handler
+    refreshTabs();
+  }
+
+  function refreshTabs () {
+    tabsService.getAllTabs()
+      .then(setAllTabs);
   }
 
   function setAllTabs (res) {
