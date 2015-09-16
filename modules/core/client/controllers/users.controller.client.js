@@ -3,7 +3,7 @@
 angular.module('nobsjs')
   .controller('UsersController', UsersController);
 
-UsersController.$inject = ['$location', '$window', 'authService', 'userService'];
+UsersController.$inject = ['$state', '$window', 'authService', 'userService'];
 
 /**
  * Manages the login and signup views
@@ -13,7 +13,7 @@ UsersController.$inject = ['$location', '$window', 'authService', 'userService']
  * @param {CustomService} Service that manages authentication
  * @param {CustomService} Service that manages user sessions
  */
-function UsersController ($location, $window, authService, userService) {
+function UsersController ($state, $window, authService, userService) {
   var vm = this;
   vm.login = login;
   vm.signup = signup;
@@ -39,7 +39,7 @@ function UsersController ($location, $window, authService, userService) {
   }
 
   function sendHome () {
-    $location.path('/home');
+    $state.go('home');
   }
 
   /**
