@@ -1,56 +1,60 @@
 <div layout="row" layout-align="center center">
-  <div flex="33" layout-padding layout-margin>
-    <div layout="column" layout-fill>
-      <md-toolbar class="md-primary">
-        <h1 class="md-toolbar-tools" layout-fill>
-          Sign Up
-        </h1>
-      </md-toolbar>
-      <md-content layout-padding>
-        <form name="vm.signupForm" novalidate ng-submit="vm.signupForm.$valid && vm.signup()">
-          <md-content layout-padding layout="column">
-            <md-input-container>
-              <label>Email</label>
-              <input ng-model="vm.user.email" type="email" name="email" required>
-              <div ng-messages="vm.signupForm.email.$error" ng-show="vm.signupForm.email.$touched">
-                <div ng-message="reject">Email address already in use.</div>
-                <div ng-message="required" >This is required.</div>
-                <div ng-message="email" >Please use a valid email.</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>Password</label>
-              <input ng-model="vm.user.password" type="password" name="password" ng-minlength="8" required>
-              <div ng-messages="vm.signupForm.password.$error" ng-show="vm.signupForm.password.$touched">
-                <div ng-message="required">This is required.</div>
-                <div ng-message="minlength">Password must be at least 8 characters long.</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>First Name</label>
-              <input ng-model="vm.user.firstName" type="name" name="firstName" required>
-              <div ng-messages="vm.signupForm.firstName.$error" ng-show="vm.signupForm.firstName.$touched">
-                <div ng-message="required" >This is required.</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>Last Name</label>
-              <input ng-model="vm.user.lastName" type="name" name="lastName" required>
-              <div ng-messages="vm.signupForm.lastName.$error" ng-show="vm.signupForm.lastName.$touched">
-                <div ng-message="required" >This is required.</div>
-              </div>
-            </md-input-container>
-            <md-input-container>
-              <label>Display Name</label>
-              <input ng-model="vm.user.displayName" type="name" name="displayName">
-            </md-input-container>
+  <div flex-sm="85" flex-md="65" flex-lg="50" flex-gt-lg="35" layout-padding layout-margin>
+    <md-card>
+      <md-card-content>
+        <div layout="column" layout-fill>
+          <md-toolbar class="md-primary">
+            <h1 class="md-toolbar-tools" layout-fill>
+              Sign Up
+            </h1>
+          </md-toolbar>
+          <md-content layout-padding>
+            <form name="vm.signupForm" novalidate ng-submit="vm.signupForm.$valid && vm.signup()">
+              <md-content layout-padding layout="column">
+                <md-input-container>
+                  <label>Email</label>
+                  <input ng-model="vm.user.email" type="email" name="email" required>
+                  <div ng-messages="vm.signupForm.email.$error" ng-show="vm.signupForm.email.$touched">
+                    <div ng-message="reject">Email address already in use.</div>
+                    <div ng-message="required" >This is required.</div>
+                    <div ng-message="email" >Please use a valid email.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>Password</label>
+                  <input ng-model="vm.user.password" type="password" name="password" ng-minlength="8" required>
+                  <div ng-messages="vm.signupForm.password.$error" ng-show="vm.signupForm.password.$touched">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="minlength">Password must be at least 8 characters long.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>First Name</label>
+                  <input ng-model="vm.user.firstName" type="name" name="firstName" required>
+                  <div ng-messages="vm.signupForm.firstName.$error" ng-show="vm.signupForm.firstName.$touched">
+                    <div ng-message="required" >This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>Last Name</label>
+                  <input ng-model="vm.user.lastName" type="name" name="lastName" required>
+                  <div ng-messages="vm.signupForm.lastName.$error" ng-show="vm.signupForm.lastName.$touched">
+                    <div ng-message="required" >This is required.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>Display Name</label>
+                  <input ng-model="vm.user.displayName" type="name" name="displayName">
+                </md-input-container>
+              </md-content>
+              <md-button class="md-raised md-primary" type="submit">Sign Up</md-button>
+            </form>
           </md-content>
-          <md-button class="md-raised md-primary" type="submit">Sign Up</md-button>
-        </form>
-      </md-content>
-      <md-content layout-padding>
-        Already have an account? <a href="#/login">Log in!</a>
-      </md-content>
-    </div>
+          <md-content layout-padding>
+            Already have an account? <a href="#/login">Log in!</a>
+          </md-content>
+        </div>
+      </md-card-content>
+    </md-card>
   </div>
 </div>
