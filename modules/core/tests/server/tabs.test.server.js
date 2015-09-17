@@ -146,8 +146,6 @@ describe('/api/core/tabs', function () {
           } else {
             expect(res.body.title).toEqual(tab.title);
             expect(res.body.uisref).toEqual(tab.uisref);
-            console.log('-----RES BODY---1',res.body);
-            expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
             expect(res.body.id).toEqual(savedTab.id);
             done();
           }
@@ -162,7 +160,6 @@ describe('/api/core/tabs', function () {
         .end(function (err, res) {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
-          console.log('-----RES BODY---2',res.body);
           expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
           expect(res.body.id).toEqual(savedTab.id);
           if(err) {
@@ -192,7 +189,6 @@ describe('/api/core/tabs', function () {
                 } else {
                   expect(res.body.title).toEqual('Some New Tab Title');
                   expect(res.body.uisref).toEqual(tab.uisref);
-                  expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
                   expect(res.body.id).toEqual(savedTab.id);
                   done();
                 }

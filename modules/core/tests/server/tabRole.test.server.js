@@ -6,11 +6,6 @@ var request = require('supertest');
 
 describe('/api/core/tabs', function () {
 
-  var homeTab = {};
-  homeTab.title = 'Home';
-  homeTab.uisref = 'home';
-  homeTab.roles = ['owner', 'admin', 'user', 'public'];
-
   var noRolesTab = {};
   noRolesTab.title = 'No Roles';
   noRolesTab.uisref = 'noRoles';
@@ -68,6 +63,27 @@ describe('/api/core/tabs', function () {
         if (err) {
           done.fail(err);
         } else {
+          done();
+        }
+      });
+  });
+
+  it('should set NULL roles for a new tab if roles is empty array', function (done) {
+    var emptyRolesTab = {};
+    emptyRolesTab.title = 'Empty Roles';
+    emptyRolesTab.uisref = 'emptyRoles';
+    emptyRolesTab.visibleRoles = [];
+
+    request(app)
+      .post('/api/core/tabs')
+      .send(emptyRolesTab)
+      .end(function (err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          expect(res.body.title).toEqual(emptyRolesTab.title);
+          expect(res.body.uisref).toEqual(emptyRolesTab.uisref);
+          expect(res.body.visibleRoles).toEqual([null]);
           done();
         }
       });
@@ -141,5 +157,4 @@ describe('/api/core/tabs', function () {
         }
       });
   });
-
 });
