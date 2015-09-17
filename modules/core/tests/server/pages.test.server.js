@@ -138,6 +138,20 @@ describe('/api/core/pages', function () {
         });
     });
 
+    it('get all pages should not include page content', function (done) {
+      request(app)
+        .get('/api/core/pages')
+        .expect(200)
+        .end(function (err, res) {
+          if(err) {
+            done.fail(err);
+          } else {
+            expect(res.body[0].content).toBeUndefined();
+            done();
+          }
+        });
+    });
+
     it('should be able to retrieve the new page', function (done) {
       request(app)
         .get('/api/core/pages/' + savedPage.id)
