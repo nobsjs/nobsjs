@@ -2,14 +2,14 @@
 
 // tests the User controller
 describe('Users Controller & Auth Service', function () {
-  var $rootScope, $state, $window, $httpBackend, authService, $controller, createController, $cookies;
+  var $rootScope, $location, $window, $httpBackend, authService, $controller, createController, $cookies;
 
   beforeEach(module('nobsjs'));
 
   beforeEach(inject(function ($injector) {
     $rootScope = $injector.get('$rootScope');
     $window = $injector.get('$window');
-    $state = $injector.get('$state');
+    $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
     authService = $injector.get('authService');
     $cookies = $injector.get('$cookies');
@@ -58,7 +58,7 @@ describe('Users Controller & Auth Service', function () {
     });
 
     // this test needs to be moved to the Auth Service and refactored to accept $state.go
-    xit('should store token in a secure userToken cookie after signup', function () {
+    it('should store token in a secure userToken cookie after signup', function () {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
       $httpBackend.expectPOST('api/core/users/signup').respond({token: token});

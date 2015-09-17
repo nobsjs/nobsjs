@@ -42,8 +42,11 @@ db.sequelize.sync({ force: true })
     return db.Role.create({ name: 'public' });
   })
   .then(function () {
+    return db.Page.create({title: 'Welcome!', content: 'Welcome to NoBS.js!', slug:'/'})
+  })
+  .then(function (page) {
     // Create Home tab
-    return db.Tab.create({ title: 'Home', uisref: 'home'});
+    return db.Tab.create({ title: 'Home', uisref: 'pages.'+page.id});
   })
   .then(function (tab) {
       return db.Role.findAll({
@@ -77,25 +80,6 @@ db.sequelize.sync({ force: true })
     })
     .then(function (roles) {
       return tab.setRoles(roles);
-    });
-  })
-  .then(function () {
-    // Create About tab
-    return db.Tab.create({ title: 'About', uisref: 'about' });
-  })
-  .then(function (tab) {
-    return db.Role.findAll({
-      where: {
-        $or: [
-          { name: 'public' },
-          { name: 'user' },
-          { name: 'owner' },
-          { name: 'admin' }
-        ]
-      }
-    })
-    .then(function (roles) {
-      tab.setRoles(roles);
     });
   })
   .then(function () {
