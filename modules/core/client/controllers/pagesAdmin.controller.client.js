@@ -3,7 +3,7 @@
 angular.module('nobsjs')
   .controller('PagesAdminController', PagesAdminController);
 
-PagesAdminController.$inject = ['$state', '$stateParams', '$window', 'pagesService'];
+PagesAdminController.$inject = ['$mdDialog', '$state', '$stateParams', '$window', 'pagesService'];
 
 /**
  * Manages the view of an individual Page Admin. This is an admin view that enables create/edit/delete operations on a Page
@@ -14,7 +14,7 @@ PagesAdminController.$inject = ['$state', '$stateParams', '$window', 'pagesServi
  * @param {CustomService} Service than manages custom pages
  * @param {AngularService} $window Angular service that references the browser window
  */
-function PagesAdminController ($state, $stateParams, $window, pagesService) {
+function PagesAdminController ($mdDialog, $state, $stateParams, $window, pagesService) {
   var vm = this;
 
   vm.createPage = createPage;
@@ -65,10 +65,31 @@ function PagesAdminController ($state, $stateParams, $window, pagesService) {
   }
 
   /**
+   * Opens a confirm modal and calls deletePageFromDatabase on confirmation.
+   */
+
+  function deletePage (ev, user) {
+    openConfirmDialog()
+      .then(deletePageFromDatabase)
+      .then(redirectToPages)
+      .catch(showError);
+
+    //////////
+
+    function redirectToPages () {
+      $state.go('pagesList');
+    }
+
+    function showError (error) {
+      // TODO: show an error message
+    }
+  }
+
+  /**
    * Requests the page Service to perform a delete page action
    */
-  function deletePage () {
-    pagesService.deletePage(vm.page.id);
+  function deletePageFromDatabase () {
+    return pagesService.deletePage(vm.page.id);
   }
 
   /**
@@ -84,6 +105,21 @@ function PagesAdminController ($state, $stateParams, $window, pagesService) {
     } else {
       // TODO: show the user an error message or create a redirect handler.
     }
+  }
+
+  /**
+   * Open a dialog to confirm a deletion
+   */
+
+  function openConfirmDialog () {
+    var confirm = $mdDialog.confirm()
+      .title('Are you sure you want to delete this page?')
+      .content('This will delete the page and you will not be able to undo.')
+      .ariaLabel('Are you sure you want to delete Page')
+      .ok('Delete')
+      .cancel('Cancel');
+
+    return $mdDialog.show(confirm);
   }
 
   function setPageContent (res) {

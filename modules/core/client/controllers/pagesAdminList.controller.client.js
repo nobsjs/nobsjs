@@ -42,7 +42,7 @@ function PagesAdminListController ($state, pagesService) {
    * Transitions state to page EDIT view with that page Id
    */
   function gotoEditPage(pageId) {
-    $state.go('pagesEdit',{pageId: pageId});
+    $state.go('pagesEdit', {pageId: pageId});
   }
 
   /**
