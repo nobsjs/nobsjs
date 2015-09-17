@@ -21,6 +21,7 @@ describe('/api/core/tabs', function () {
     tab = {};
     tab.title = 'Derp';
     tab.uisref = 'derp';
+    tab.visibleRoles = ['owner', 'admin'];
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -89,6 +90,7 @@ describe('/api/core/tabs', function () {
         } else {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
           expect(res.body.id).toEqual(1);
           done();
         }
@@ -100,6 +102,7 @@ describe('/api/core/tabs', function () {
     var tab = {};
     tab.title = 'Derp2';
     tab.uisref = 'derp2';
+    tab.visibleRoles = ['owner', 'admin'];
 
     var savedTab;
 
@@ -157,6 +160,7 @@ describe('/api/core/tabs', function () {
         .end(function (err, res) {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
           expect(res.body.id).toEqual(savedTab.id);
           if(err) {
             done.fail(err);
