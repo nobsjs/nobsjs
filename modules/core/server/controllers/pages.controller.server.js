@@ -29,7 +29,7 @@ function createPage (req, res) {
 
   db.Page.create(page)
     .then(send200(req, res))
-    .catch(send500(req, res));
+    .catch(send500(req, res, 'Database Error: Page could not be Created'));
 
   //////////
 
@@ -49,13 +49,13 @@ function createPage (req, res) {
 
 function send200(req, res) {
   return function (data) {
-    res.statis(200).send(data);
+    res.status(200).send(data);
   }
 }
 
-function send500(req, res) {
+function send500(req, res, msg) {
   return function () {
-    res.status(500).send('Database Error: Page could not be Created');
+    res.status(500).send(msg);
   }
 }
 
