@@ -28,8 +28,8 @@ function createPage (req, res) {
   page.title = req.body.title;
 
   db.Page.create(page)
-    .then(sendCreatedPage)
-    .catch(send500);
+    .then(send200(req, res))
+    .catch(send500(req, res, 'Database Error: Page could not be Created'));
 
   //////////
 
@@ -41,15 +41,24 @@ function createPage (req, res) {
     }
   }
 
-  function send500 () {
-    res.status(500).send('Database Error: Page could not be Created');
-  }
+  // The send500 doesn't need to live inside of the createpage function
 
-  function sendCreatedPage (page) {
-    res.status(200).send(page);
-  }
+  // The sending of the Data can be globalized!!!! WooHoo!!!!!!!!!! :-D
 
 }
+
+function send200(req, res) {
+  return function (data) {
+    res.status(200).send(data);
+  }
+}
+
+function send500(req, res, msg) {
+  return function () {
+    res.status(500).send(msg);
+  }
+}
+
 
 /**
  * Deletes a page from the database
