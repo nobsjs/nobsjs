@@ -10,31 +10,34 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <form name="createTabForm">
+    <form name="vm.tabDialogueForm">
       <md-input-container>
         <label>Title</label>
         <input required name="title" ng-model="vm.tab.title">
-        <!-- <div ng-messages="editUserForm.email.$error">
+        <!-- <div ng-messages="tabDialogueForm.title.$error" ng-show="vm.tabDialogueForm.title.$touched">
           <div ng-message="required">This is required.</div>
         </div> -->
       </md-input-container>
       <md-input-container>
         <label>Ui-sref</label>
         <input required name="Ui-sref" ng-model="vm.tab.uisref">
-        <!-- <div ng-messages="editUserForm.email.$error">
+        <!-- <div ng-messages="tabDialogueForm.email.$error">
           <div ng-message="required">This is required.</div>
         </div> -->
       </md-input-container>
-      <!-- <h4>Visible to roles</h4> -->
-      <!-- <md-chips ng-model="vm.tab.roles" md-autocomplete-snap md-require-match="true">
+      <h4>Visible to roles</h4>
+      <md-chips ng-model="vm.tab.visibleRoles" md-autocomplete-snap md-require-match="true">
         <md-autocomplete
-            placeholder="Add a role">
-          <span md-highlight-text="user.searchText">{{item}}</span>
+            md-search-text="vm.searchText"
+            md-items="item in vm.querySearch(vm.searchText)"
+            md-item-text="item"
+            placeholder="Specify roles that can view this tab">
+          <span md-highlight-text="vm.searchText">{{item}}</span>
           <md-not-found>
-            No roles found for "{{user.searchText}}".
+            No roles found for "{{vm.searchText}}".
           </md-not-found>
         </md-autocomplete>
-      </md-chips> -->
+      </md-chips>
     </form>
   </md-dialog-content>
   <div class="md-actions" layout="row">

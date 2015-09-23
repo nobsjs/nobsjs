@@ -11,6 +11,7 @@ module.exports = UserModel;
 
 function UserModel (sequelize, DataTypes) {
   var userSchema = {
+    displayName: DataTypes.STRING,
     email: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -19,7 +20,6 @@ function UserModel (sequelize, DataTypes) {
         isEmail: true
       }
     },
-    displayName: DataTypes.STRING,
     firstName: {
       allowNull: false,
       type: DataTypes.STRING,
@@ -28,7 +28,8 @@ function UserModel (sequelize, DataTypes) {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    passwordResetToken: DataTypes.STRING
   };
 
   var userMethods = {
@@ -44,7 +45,9 @@ function UserModel (sequelize, DataTypes) {
   var User = sequelize.define('User', userSchema, userMethods);
 
 
-  User.hook('beforeCreate', beforeCreate);
+  User.hook('beforeBulkUpdate', beforeBulkUpdate);
+  User.hook('beforeCreate', beforeCreateUpdate);
+  User.hook('beforeUpdate', beforeCreateUpdate);
 
   return User;
 
@@ -54,9 +57,11 @@ function UserModel (sequelize, DataTypes) {
     User.belongsToMany(models.Role, {through: 'UserRole'});
   }
 
-  function beforeCreate (user){
-    //users are not admin upon creation. Must use web interface to make admins
-    user.admin = false;
+  function beforeBulkUpdate (options) {
+    options.individualHooks = true;
+  }
+
+  function beforeCreateUpdate (user) {
     user.email = user.email.toLowerCase();
     return bcrypt.hashAsync(user.password, 10)
       .then(setHash)

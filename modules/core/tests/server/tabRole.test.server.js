@@ -6,11 +6,6 @@ var request = require('supertest');
 
 describe('/api/core/tabs', function () {
 
-  var homeTab = {};
-  homeTab.title = 'Home';
-  homeTab.uisref = 'home';
-  homeTab.roles = ['owner', 'admin', 'user', 'public'];
-
   var noRolesTab = {};
   noRolesTab.title = 'No Roles';
   noRolesTab.uisref = 'noRoles';
@@ -73,11 +68,32 @@ describe('/api/core/tabs', function () {
       });
   });
 
+  it('should set NULL roles for a new tab if roles is empty array', function (done) {
+    var emptyRolesTab = {};
+    emptyRolesTab.title = 'Empty Roles';
+    emptyRolesTab.uisref = 'emptyRoles';
+    emptyRolesTab.visibleRoles = [];
+
+    request(app)
+      .post('/api/core/tabs')
+      .send(emptyRolesTab)
+      .end(function (err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          expect(res.body.title).toEqual(emptyRolesTab.title);
+          expect(res.body.uisref).toEqual(emptyRolesTab.uisref);
+          expect(res.body.visibleRoles).toEqual([null]);
+          done();
+        }
+      });
+  });
+
   it('should set the roles for a new tab to the given roles', function (done) {
     var homeTab = {};
     homeTab.title = 'Cowabunga';
     homeTab.uisref = 'cowabunga';
-    homeTab.roles = ['owner', 'admin', 'user'];
+    homeTab.visibleRoles = ['owner', 'admin', 'user'];
 
     request(app)
       .post('/api/core/tabs')
@@ -88,10 +104,57 @@ describe('/api/core/tabs', function () {
         } else {
           expect(res.body.title).toEqual(homeTab.title);
           expect(res.body.uisref).toEqual(homeTab.uisref);
-          expect(res.body.visibleRoles).toEqual(homeTab.roles);
+          expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
           done();
         }
       });
   });
 
+  it('should update the roles', function (done) {
+    var homeTab = {};
+    homeTab.title = 'Cowabunga2';
+    homeTab.uisref = 'cowabunga2';
+    homeTab.visibleRoles = ['owner', 'admin', 'user'];
+
+    request(app)
+      .post('/api/core/tabs')
+      .send(homeTab)
+      .end(function (err, res){
+        if (err) {
+          done.fail(err);
+        } else {
+          var id = res.body.id;
+          expect(res.body.title).toEqual(homeTab.title);
+          expect(res.body.uisref).toEqual(homeTab.uisref);
+          expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
+          homeTab.visibleRoles = ['owner', 'admin'];
+          request(app)
+            .put('/api/core/tabs/' + id)
+            .send(homeTab)
+            .end(function (err, res) {
+              if (err) {
+                done.fail(err);
+              } else {
+                expect(res.body.title).toEqual(homeTab.title);
+                expect(res.body.uisref).toEqual(homeTab.uisref);
+                expect(res.body.visibleRoles).toEqual(homeTab.visibleRoles);
+                request(app)
+                  .get('/api/core/tabs/' + id)
+                  .expect(200)
+                  .end(function (err, res) {
+                    if (err) {
+                      done.fail(err);
+                    } else {
+                      expect(res.body.title).toEqual(homeTab.title);
+                      expect(res.body.uisref).toEqual(homeTab.uisref);
+                      expect(res.body.visibleRoles).toContain(homeTab.visibleRoles[0]);
+                      expect(res.body.visibleRoles).toContain(homeTab.visibleRoles[1]);
+                      done();
+                    }
+                  });
+              }
+            });
+        }
+      });
+  });
 });

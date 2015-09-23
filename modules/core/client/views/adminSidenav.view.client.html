@@ -1,21 +1,26 @@
-<div layout="row">
-  <md-sidenav md-component-id="admin" class="md-sidenav-right">
+<div>
+  <md-sidenav md-component-id="admin" class="md-sidenav-right md-whiteframe-z2">
     <md-list>
-      <md-list-item>
-        <md-button aria-label="users" ng-click="vm.users()">
-          manage users
-        </md-button>
+      <md-subheader class="md-no-sticky">Manage</md-subheader>
+      <md-list-item aria-label="users" ng-click="vm.users()" class="md-2-line" role="link" md-ink-ripple>
+          <md-icon md-font-set="material-icons">person</md-icon>
+          <div class="md-list-item-text">
+            <span class="md-body-2">Users</span>
+          </div>
       </md-list-item>
-      <md-list-item>
-        <md-button aria-label="tabs" ng-click="vm.goToTabs()">
-          manage tabs
-        </md-button>
+      <md-list-item aria-label="tabs" ng-click="vm.goToTabs()" class="md-2-line" role="link" md-ink-ripple>
+          <md-icon md-font-set="material-icons">tab</md-icon>
+          <div class="md-list-item-text">
+            <span class="md-body-2">Tabs</span>
+          </div>
       </md-list-item>
-      <md-list-item>
-        <md-button aria-label="schedule" ng-click="vm.pages()">
-          manage pages
-        </md-button>
+      <md-list-item aria-label="schedule" ng-click="vm.pages()" class="md-2-line" role="link" md-ink-ripple>
+          <md-icon md-font-set="material-icons">description</md-icon>
+          <div class="md-list-item-text">
+            <span class="md-body-2">Pages</span>
+          </div>
       </md-list-item>
+      <md-divider></md-divider>
     </md-list>
   </md-sidenav>
 </div>

@@ -7,6 +7,8 @@ var User = db.User;
 
 describe('User functionality', function () {
 
+  var savedUser, savedPassword;
+
   beforeAll(function(done){
 
     db.sequelize.sync({force: true})
@@ -19,7 +21,9 @@ describe('User functionality', function () {
           password: 'testPassword'
         });
       })
-      .then(function(){
+      .then(function (user) {
+        savedUser = user;
+        savedPassword = user.password.toString();
         done();
       });
   });
@@ -83,6 +87,34 @@ describe('User functionality', function () {
     .catch(function (err) {
       done.fail(err);
     });
+
+  });
+
+  it('should not update the password when not updating the password field of the User model', function (done) {
+    User.update({ passwordResetToken: '1234567890' }, {
+      where : { email: 'test@test.com' },
+      })
+      .then(function (userOut) {
+        return User.findOne({ where : { email: 'test@test.com' }})
+          .then(function (user) {
+            expect(user.password).toEqual(savedPassword);
+            done();
+          });
+      })
+      .catch(done.fail);
+
+  });
+
+  it('should hash a new password when updating the password field of the User model', function (done) {
+    User.update({ password: 'mynewpassowrd' }, { where : { email: 'testcreate@test.com' }}, {individualHooks: true})
+      .then(function () {
+        return User.findOne({ where : { email: 'testcreate@test.com' }});
+      })
+      .then(function (user) {
+        expect(user.password).not.toEqual('mynewpassowrd');
+        done();
+      })
+      .catch(done.fail);
 
   });
 

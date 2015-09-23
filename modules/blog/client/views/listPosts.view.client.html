@@ -1,15 +1,19 @@
 <h1 class="blog_title md-display-3"> NO BS BLOG </h1>
 <md-content layout-padding>
-  <md-button ng-show="vm.canEdit()" ng-click="vm.gotoCreateEdit()"> Create Post </md-button>
+  <md-button class="md-primary" ng-show="vm.canEdit()" ng-click="vm.gotoCreateEdit()"> Create Post </md-button>
   <md-list>
     <md-list-item ng-repeat="post in vm.posts | orderBy:'-id'" layout="row" layout-align="center center">
-      <div ng-click="vm.gotoPost(post.id)" flex="60">
-        <h3 class="blog_title md-headline "> {{ post.title }} </h3>
-        <p class="post_preview md-body-1" ng-bind-html="post.content"></p>
-      </div>
-      <md-button ng-click="vm.gotoCreateEdit(post.id)" ng-show="vm.canEdit()" flex="10">
-        <md-icon md-font-set="material-icons"> mode_edit </md-icon>
-      </md-button>
+      <md-card flex="80">
+        <md-card-content>
+          <div ng-click="vm.gotoPost(post.id)" flex="60">
+            <h3 class="blog_title md-headline "> {{ post.title }} </h3>
+            <p class="post_preview md-body-1" ng-bind-html="post.content"></p>
+          </div>
+          <md-button ng-click="vm.gotoCreateEdit(post.id)" ng-show="vm.canEdit()" flex="10">
+            <md-icon md-font-set="material-icons"> mode_edit </md-icon>
+          </md-button>
+        </md-card-content>
+      </md-card>
     </md-list-item>
   </md-list>
 </md-content>

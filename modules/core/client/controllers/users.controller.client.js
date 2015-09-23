@@ -39,7 +39,7 @@ function UsersController ($location, $window, authService, userService) {
   }
 
   function sendHome () {
-    $location.path('/home');
+    $location.path('/');
   }
 
   /**

@@ -6,6 +6,6 @@
   box-shadow: 0 0 #FFF;
 }
 
-.user-item:hover {
+.admin-list-item-hover:hover {
   background-color: #EEE;
 }

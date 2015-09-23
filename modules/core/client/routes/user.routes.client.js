@@ -18,5 +18,17 @@ function userRoutes($stateProvider) {
       templateUrl: '../../../../modules/core/client/views/signup.view.client.html',
       controller: 'UsersController',
       controllerAs: 'vm'
+    })
+    .state('sendResetToken', {
+      url: '/sendresettoken',
+      templateUrl: '../../../../modules/core/client/views/sendResetToken.view.client.html',
+      controller: 'SendResetTokenController',
+      controllerAs: 'vm'
+    })
+    .state('resetPassword', {
+      url: '/resetpassword',
+      templateUrl: '../../../../modules/core/client/views/resetPassword.view.client.html',
+      controller: 'SendResetTokenController',
+      controllerAs: 'vm'
     });
 }

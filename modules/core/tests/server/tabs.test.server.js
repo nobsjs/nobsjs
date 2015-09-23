@@ -21,6 +21,7 @@ describe('/api/core/tabs', function () {
     tab = {};
     tab.title = 'Derp';
     tab.uisref = 'derp';
+    tab.visibleRoles = ['owner', 'admin'];
   });
 
   var app = require(path.resolve('./lib/express.js'));
@@ -66,10 +67,10 @@ describe('/api/core/tabs', function () {
       });
   });
 
-  it('should respond to a request to "/api/core/tabs/1" with 400 status', function (done) {
+  it('should respond to a request to "/api/core/tabs/1" (non-existant tab) with 404 status', function (done) {
     request(app)
       .get('/api/core/tabs/1')
-      .expect(400)
+      .expect(404)
       .end(function (err){
         if (err) {
           done.fail(err);
@@ -89,6 +90,7 @@ describe('/api/core/tabs', function () {
         } else {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
           expect(res.body.id).toEqual(1);
           done();
         }
@@ -100,6 +102,7 @@ describe('/api/core/tabs', function () {
     var tab = {};
     tab.title = 'Derp2';
     tab.uisref = 'derp2';
+    tab.visibleRoles = ['owner', 'admin'];
 
     var savedTab;
 
@@ -114,7 +117,7 @@ describe('/api/core/tabs', function () {
     afterEach(function (done) {
       Tab.destroy({
         where: {
-          title: 'Derp2'
+          id: savedTab.id
         }
       })
       .then(done);
@@ -157,6 +160,7 @@ describe('/api/core/tabs', function () {
         .end(function (err, res) {
           expect(res.body.title).toEqual(tab.title);
           expect(res.body.uisref).toEqual(tab.uisref);
+          expect(res.body.visibleRoles).toEqual(tab.visibleRoles);
           expect(res.body.id).toEqual(savedTab.id);
           if(err) {
             done.fail(err);
@@ -193,7 +197,7 @@ describe('/api/core/tabs', function () {
         });
     });
 
-    xit('should be able to delete a tab', function (done) {
+    it('should be able to delete a tab', function (done) {
       request(app)
         .delete('/api/core/tabs/' + savedTab.id)
         .expect(200)
@@ -204,7 +208,7 @@ describe('/api/core/tabs', function () {
             // done();
             request(app)
               .get('/api/core/tabs/' + savedTab.id)
-              .expect(400)
+              .expect(404)
               .end(function (err) {
                 if(err) {
                   done.fail(err);

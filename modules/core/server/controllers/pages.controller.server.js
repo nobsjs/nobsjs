@@ -114,7 +114,7 @@ function getPageById (req, res, next, id) {
 
 function getPages (req, res) {
   db.Page.findAll()
-    .then(sendPage)
+    .then(sendPageInfo)
     .catch(send500);
 
   //////////
@@ -123,8 +123,15 @@ function getPages (req, res) {
     res.status(500).send('Database Error: Could not retrieve Pages.');
   }
 
-  function sendPage (pages) {
-    res.status(200).send(pages);
+  function sendPageInfo (pages) {
+    var output = [];
+    var plainPage;
+    pages.forEach(function (page) {
+      plainPage = page.get({plain:true});
+      delete plainPage.content;
+      output.push(plainPage);
+    });
+    res.status(200).send(output);
   }
 
 }

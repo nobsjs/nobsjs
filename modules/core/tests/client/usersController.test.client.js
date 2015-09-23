@@ -57,6 +57,7 @@ describe('Users Controller & Auth Service', function () {
       expect(vm.user.password).toEqual('derp1234');
     });
 
+    // this test needs to be moved to the Auth Service and refactored to accept $state.go
     it('should store token in a secure userToken cookie after signup', function () {
       // create a fake JWT for auth
       var token = 'sjj232hwjhr3urw90rof';
@@ -77,8 +78,6 @@ describe('Users Controller & Auth Service', function () {
     });
 
     afterEach(function () {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
       $window.localStorage.removeItem('userToken');
     });
 

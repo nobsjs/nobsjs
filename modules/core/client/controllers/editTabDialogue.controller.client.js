@@ -3,12 +3,12 @@
 angular.module('nobsjs')
   .controller('EditTabDialogueController', EditTabDialogueController);
 
-EditTabDialogueController.$inject =  ['$mdDialog', 'tab', 'tabsService'];
+EditTabDialogueController.$inject =  ['$mdDialog', 'allUsersService', 'rolesService', 'tab', 'tabsService'];
 
 /**
  * Manages the view of the Tabs Admin view which displays a list of pages and an interface to perform operations on them
  */
-function EditTabDialogueController ($mdDialog, tab, tabsService ) {
+function EditTabDialogueController ($mdDialog, allUsersService, rolesService, tab, tabsService) {
   var vm = this;
   vm.cancel = cancel;
   vm.hide = hide;
@@ -16,10 +16,17 @@ function EditTabDialogueController ($mdDialog, tab, tabsService ) {
   vm.tab = {};
   vm.title = '';
 
+  // Add role autocomplete variables below
+  vm.querySearch = rolesService.queryAvailableRoles;
+  vm.searchText = null;
+
   activate();
 
   //////////
 
+  /**
+   * Initiates the values of the view
+   */
   function activate () {
     _.assign(vm.tab, tab);
     vm.title = 'Edit Tab';
@@ -29,7 +36,7 @@ function EditTabDialogueController ($mdDialog, tab, tabsService ) {
     $mdDialog.cancel();
   }
 
-  function displayError() {
+  function displayError(err) {
     //TODO
   }
 
@@ -37,6 +44,9 @@ function EditTabDialogueController ($mdDialog, tab, tabsService ) {
     $mdDialog.hide();
   }
 
+  /**
+   * Saves the user submitted information
+   */
   function saveAction () {
     tabsService.updateTab(vm.tab, tab.id)
       .then(showSuccess)
