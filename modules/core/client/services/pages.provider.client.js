@@ -13,8 +13,8 @@ function pageStateManager ($stateProvider) {
     };
 
     function addState (page) {
-      $stateProvider.state('pages.' + page.id, {
-        url: page.slug,
+      $stateProvider.state(page.slug.slice(1), {
+        url: '^' + page.slug,
         parent: 'pages',
         views: {
           // loads nested view at the Nav - grandparent level

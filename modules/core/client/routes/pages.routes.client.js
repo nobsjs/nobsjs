@@ -23,13 +23,13 @@ function pagesRoutes ($stateProvider) {
     //'pages' exists on global scope because it is sent over with intial index.html file
     for(var i = 0; i < pages.length; i++) {
       currPage = pages[i];
-      currPageState = 'pages.' + currPage.id;
+      currPageState = currPage.slug.slice(1);
 
       $stateProvider
         .state(currPageState, {
           // assigned as a child of the pages state
           parent: 'pages',
-          url: currPage.slug,
+          url: '^' + currPage.slug,
           views: {
             // loads nested view at the Nav - grandparent level
             'nav-child-content@nav': {
