@@ -42,11 +42,11 @@ db.sequelize.sync({ force: true })
     return db.Role.create({ name: 'public' });
   })
   .then(function () {
-    return db.Page.create({title: 'Welcome!', content: 'Welcome to NoBS.js!', slug:'/'})
+    return db.Page.create({title: 'Welcome!', content: 'Welcome to NoBS.js!', slug:'/index'});
   })
   .then(function (page) {
     // Create Home tab
-    return db.Tab.create({ title: 'Home', uisref: 'pages.'+page.id});
+    return db.Tab.create({ title: 'Home', uisref: page.slug.slice(1)});
   })
   .then(function (tab) {
       return db.Role.findAll({

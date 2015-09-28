@@ -23,7 +23,7 @@ function pagesRoutes ($stateProvider) {
     //'pages' exists on global scope because it is sent over with intial index.html file
     for(var i = 0; i < pages.length; i++) {
       currPage = pages[i];
-      currPageState = currPage.slug.slice(1);
+      currPageState = currPage.slug.slice(1) || 'index';
 
       $stateProvider
         .state(currPageState, {

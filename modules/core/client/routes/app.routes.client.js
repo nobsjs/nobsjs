@@ -6,7 +6,7 @@ angular.module('nobsjs')
 mainConfig.$inject = ['$httpProvider', '$stateProvider', '$urlRouterProvider'];
 
 function mainConfig ($httpProvider, $stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/index');
 
   $stateProvider
     // MAIN PARENT ROUTE
