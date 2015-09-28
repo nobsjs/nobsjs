@@ -52,8 +52,8 @@ describe('Pages Admin Controller', function () {
   });
 
   it('should change to the page view state', function () {
-    vm.gotoPage(1);
-    expect($state.go).toHaveBeenCalledWith('pages.1');
+    vm.gotoPage('/test');
+    expect($state.go).toHaveBeenCalledWith('test');
   });
 
 });
