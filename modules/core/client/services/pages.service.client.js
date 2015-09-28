@@ -22,7 +22,7 @@ function pagesService ($http, $state, pageStateManager) {
   // dynamically adds state to $stateProvider, then redirects
   function addState (page) {
     pageStateManager.addState(page);
-    $state.go('pages.' + page.id);
+    $state.go(page.slug.slice(1));
   }
 
   function createPage (page) {
@@ -62,7 +62,7 @@ function pagesService ($http, $state, pageStateManager) {
   }
 
   function getPage (pageId) {
-    pageId = pageId || $state.current.name.split('.')[1];
+    pageId = pageId || $state.current.name;
     var req = {
       method: 'GET',
       url: 'api/core/pages/' + pageId
@@ -74,7 +74,7 @@ function pagesService ($http, $state, pageStateManager) {
   }
 
   function redirectToPage (page) {
-    $state.go('pages.' + page.id);
+    $state.go(page.slug.slice(1));
   }
 
   function returnData (res) {

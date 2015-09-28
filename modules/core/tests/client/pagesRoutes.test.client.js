@@ -41,27 +41,27 @@ describe('Pages Routes', function () {
   describe('pages.1', function () {
 
     it('should have a state for page.1', function () {
-      expect($state.get('pages.1')).toBeDefined();
+      expect($state.get('page1')).toBeDefined();
     });
 
     it('should have a url set', function () {
-      expect($state.get('pages.1').url).toEqual('/page1');
+      expect($state.get('page1').url).toEqual('^/page1');
     });
 
     it('should have a views object', function () {
-      expect(typeof $state.get('pages.1').views).toEqual('object');
+      expect(typeof $state.get('page1').views).toEqual('object');
     });
 
     it('should have a templateUrl', function () {
-      expect($state.get('pages.1').views['nav-child-content@nav'].templateUrl).toEqual('../../../../modules/core/client/views/page.view.client.html');
+      expect($state.get('page1').views['nav-child-content@nav'].templateUrl).toEqual('../../../../modules/core/client/views/page.view.client.html');
     });
 
     it('should have a controller', function () {
-      expect($state.get('pages.1').views['nav-child-content@nav'].controller).toEqual('PagesController');
+      expect($state.get('page1').views['nav-child-content@nav'].controller).toEqual('PagesController');
     });
 
     it('should have a controllerAs', function () {
-      expect($state.get('pages.1').views['nav-child-content@nav'].controllerAs).toEqual('vm');
+      expect($state.get('page1').views['nav-child-content@nav'].controllerAs).toEqual('vm');
     });
 
   });
@@ -70,27 +70,27 @@ describe('Pages Routes', function () {
   describe('pages.2', function () {
 
     it('should have a state for page.2', function () {
-      expect($state.get('pages.2')).toBeDefined();
+      expect($state.get('page2')).toBeDefined();
     });
 
     it('should have a url set', function () {
-      expect($state.get('pages.2').url).toEqual('/page2');
+      expect($state.get('page2').url).toEqual('^/page2');
     });
 
     it('should have a views object', function () {
-      expect(typeof $state.get('pages.2').views).toEqual('object');
+      expect(typeof $state.get('page2').views).toEqual('object');
     });
 
     it('should have a templateUrl', function () {
-      expect($state.get('pages.2').views['nav-child-content@nav'].templateUrl).toEqual('../../../../modules/core/client/views/page.view.client.html');
+      expect($state.get('page2').views['nav-child-content@nav'].templateUrl).toEqual('../../../../modules/core/client/views/page.view.client.html');
     });
 
     it('should have a controller', function () {
-      expect($state.get('pages.2').views['nav-child-content@nav'].controller).toEqual('PagesController');
+      expect($state.get('page2').views['nav-child-content@nav'].controller).toEqual('PagesController');
     });
 
     it('should have a controllerAs', function () {
-      expect($state.get('pages.2').views['nav-child-content@nav'].controllerAs).toEqual('vm');
+      expect($state.get('page2').views['nav-child-content@nav'].controllerAs).toEqual('vm');
     });
 
   });

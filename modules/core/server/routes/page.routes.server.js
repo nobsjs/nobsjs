@@ -18,5 +18,5 @@ function pageRoutes (app) {
     .put(pages.updatePage)
     .delete(pages.deletePage);
 
-  app.param('pageId', pages.getPageById);
+  app.param('pageId', pages.getPageByIdOrSlug);
 }

@@ -48,8 +48,9 @@ function PagesAdminListController ($state, pagesService) {
   /**
    * Transitions state to page view with that page Id
    */
-  function gotoPage(pageId) {
-    $state.go('pages.' + pageId);
+  function gotoPage(slug) {
+    slug = slug.slice(1);
+    $state.go(slug);
   }
 
   function setAllPages (res) {
